@@ -26,7 +26,6 @@ class RecycleViewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mBinding.recyclerView.layoutManager = LinearLayoutManager(context)
         mBinding.recyclerView.adapter = mAdapter
-        mBinding.recyclerView.hasFixedSize()
     }
 
 }
