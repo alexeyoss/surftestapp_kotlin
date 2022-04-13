@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_filmName"
+        android:id="@+id/title"
         style="@style/rv_film_name"
         android:text="@string/text_example"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,13 +20,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_desc"
+        android:id="@+id/overview"
         style="@style/rv_item_desc"
         android:text="@string/text_example"
         app:layout_constraintBottom_toTopOf="@+id/ic_heart"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_filmName" />
+        app:layout_constraintTop_toBottomOf="@+id/title" />
 
 
     <ImageView
@@ -38,7 +38,7 @@
         tools:ignore="ImageContrastCheck" />
 
     <TextView
-        android:id="@+id/tv_date"
+        android:id="@+id/date"
         style="@style/rv_date"
         android:text="@string/date_example"
         app:layout_constraintBottom_toBottomOf="@+id/ic_calendar"
