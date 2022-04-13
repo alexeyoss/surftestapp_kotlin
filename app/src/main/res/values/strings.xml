@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SurfTestTask_KotlinVersion</string>
+    <string name="movie_poster_desc">Movie poster</string>
+    <string name="text_example">Text Example</string>
+    <string name="date_example">1 января 2017</string>
+    <string name="film_poster">film poster</string>
+    <string name="ic_calendar">ic_calendar</string>
+    <string name="search_hint">Поиск по названию фильма</string>
+    <string name="error_text">Нам не удалось обработать \n ваш запрос. Попробуйте еще раз</string>
+    <string name="refresh_button_desc">Refresh Button</string>
+    <string name="alert_image_desc">Alert Image</string>
+    <string name="ic_big_search">ic_big_search</string>
+    <string name="exp">Exp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

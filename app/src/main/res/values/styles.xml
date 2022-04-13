@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--RecycleView Item layout-->
+    <style name="rv_poster">
+        <item name="android:layout_width">@dimen/poster_width</item>
+        <item name="android:layout_height">@dimen/poster_height</item>
+        <item name="android:contentDescription">@string/movie_poster_desc</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
+    <style name="rv_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin</item>
+        <item name="android:layout_marginBottom">@dimen/layout_margin</item>
+        <item name="android:layout_marginEnd">@dimen/layout_margin</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="rv_film_name">
+        <item name="android:layout_width">@dimen/zero_layout_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
+        <item name="android:fontFamily">@font/roboto_medium</item>
+        <item name="android:textColor">@color/item_header</item>
+        <item name="android:textSize">@dimen/text_large</item>
+    </style>
+
+    <style name="rv_item_desc">
+        <item name="android:layout_width">@dimen/zero_layout_width</item>
+        <item name="android:layout_height">@dimen/zero_layout_height</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:maxLines">4</item>
+        <item name="android:textColor">@color/item_desc</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <style name="rv_ic_calendar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_small</item>
+        <item name="android:contentDescription">@string/ic_calendar</item>
+    </style>
+
+    <style name="rv_date">
+        <item name="android:layout_width">@dimen/zero_layout_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/rv_date_marginStart</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/item_desc</item>
+    </style>
+
+    <style name="rv_ic_heart">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin_small</item>
+        <item name="android:contentDescription">@string/film_poster</item>
+    </style>
+
+    <!--Main Activity-->
+    <style name="mainActivity_searchView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:drawablePadding">@dimen/search_drawablePadding</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:importantForAutofill">no</item>
+        <item name="android:inputType">text</item>
+        <item name="android:paddingHorizontal">@dimen/paddingHorizontal</item>
+        <item name="android:paddingVertical">@dimen/paddingVertical</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/item_desc</item>
+        <item name="android:textSize">@dimen/text_small</item>
+    </style>
+
+    <!--Empty Fragment-->
+    <style name="empty_fragment_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/additionalScreens_text_marginTop</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/emptySearchText</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="empty_fragment_ic_search">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:contentDescription">@string/ic_big_search</item>
+    </style>
+
+
+    <!--Error Fragment-->
+    <style name="error_fragment_ic_attention">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:contentDescription">@string/alert_image_desc</item>
+    </style>
+
+    <style name="error_fragment_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/additionalScreens_text_marginTop</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="error_fragment_btn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/vertical_margin</item>
+        <item name="android:contentDescription">@string/refresh_button_desc</item>
+    </style>
+
+    <style name="rv_fragment_roundProgressBar" parent="android:Widget.DeviceDefault.ProgressBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/appBlue</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <!--RecycleView Fragment-->
+
+</resources>
