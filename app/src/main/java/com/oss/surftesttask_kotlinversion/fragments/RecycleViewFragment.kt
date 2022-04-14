@@ -15,7 +15,6 @@ import com.oss.surftesttask_kotlinversion.viewmodels.RecycleViewFragmentViewMode
 class RecycleViewFragment : Fragment() {
     private lateinit var mBinding: FragmentRecycleViewBinding
     private var mAdapter = RecycleViewAdapter()
-    private var mViewModel: RecycleViewFragmentViewModel = RecycleViewFragmentViewModel()
 
 
     override fun onCreateView(
@@ -28,10 +27,6 @@ class RecycleViewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onStart() {
-        super.onStart()
         initRecycleView()
         initViewModel()
     }

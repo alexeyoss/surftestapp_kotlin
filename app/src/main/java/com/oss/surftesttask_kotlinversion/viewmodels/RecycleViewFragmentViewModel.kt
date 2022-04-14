@@ -1,6 +1,7 @@
 package com.oss.surftesttask_kotlinversion.viewmodels
 
 import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.oss.surftesttask_kotlinversion.models.Result
@@ -11,7 +12,6 @@ class RecycleViewFragmentViewModel : ViewModel(),
 
     private lateinit var mActualData: LiveData<MutableList<Result>>
     private var mRepository: PostModelRepository = PostModelRepository
-
 
     fun getData(): LiveData<MutableList<Result>> {
         mActualData = mRepository.getData()

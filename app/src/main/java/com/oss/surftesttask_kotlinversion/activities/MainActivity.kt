@@ -16,10 +16,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         initFields()
-        initFun()
+        initListeners()
     }
 
-    private fun initFun() {}
+    private fun initListeners() {}
 
     private fun initFields() {
         supportFragmentManager.beginTransaction().replace(R.id.dataContainer, RecycleViewFragment())
