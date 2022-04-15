@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.activities.MainActivity
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentRecycleViewBinding
-import com.oss.surftesttask_kotlinversion.viewmodels.RecycleViewFragmentViewModel
+import com.oss.surftesttask_kotlinversion.viewmodels.MainActitivyViewModel
 
 class RecycleViewFragment : Fragment() {
     private lateinit var mBinding: FragmentRecycleViewBinding
@@ -39,9 +39,9 @@ class RecycleViewFragment : Fragment() {
 
     private fun initViewModel() {
         val model =
-            ViewModelProvider(activity as MainActivity)[RecycleViewFragmentViewModel::class.java]
+            ViewModelProvider(activity as MainActivity)[MainActitivyViewModel::class.java]
 
-        model.getData().observe(
+        model.mActualData.observe(
             viewLifecycleOwner
         ) { mAdapter.setData(it) }
     }

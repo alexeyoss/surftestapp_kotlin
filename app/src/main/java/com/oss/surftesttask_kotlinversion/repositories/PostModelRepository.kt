@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object PostModelRepository {
-    private val api: ApiService = Client().getApiService()
+    private val api: ApiService = Client.getApiService()
     private val data = MutableLiveData<MutableList<Result>>()
 
     fun getData(): MutableLiveData<MutableList<Result>> {
@@ -24,13 +24,13 @@ object PostModelRepository {
             Constants.DEFAULT_INCLUDE_ADULT,
             Constants.DEFAULT_INCLUDE_VIDEO,
             Constants.WITH_WATCH_MONETIZATION_TYPES
-        ).enqueue(object : Callback<PostModel?> {
-            override fun onResponse(call: Call<PostModel?>, response: Response<PostModel?>) {
+        ).enqueue(object : Callback<PostModel> {
+            override fun onResponse(call: Call<PostModel>, response: Response<PostModel>) {
                 assert(response.body() != null)
                 data.value = response.body()?.results as MutableList<Result>
             }
 
-            override fun onFailure(call: Call<PostModel?>, t: Throwable) {
+            override fun onFailure(call: Call<PostModel>, t: Throwable) {
                 Log.i("onFailure", t.message.toString())
                 throw t
             }
@@ -45,13 +45,13 @@ object PostModelRepository {
             Constants.API_VERSION,
             Constants.API_KEY,
             query
-        ).enqueue(object : Callback<PostModel?> {
-            override fun onResponse(call: Call<PostModel?>, response: Response<PostModel?>) {
+        ).enqueue(object : Callback<PostModel> {
+            override fun onResponse(call: Call<PostModel>, response: Response<PostModel>) {
                 assert(response.body() != null)
                 data.value = response.body()?.results as MutableList<Result>
             }
 
-            override fun onFailure(call: Call<PostModel?>, t: Throwable) {
+            override fun onFailure(call: Call<PostModel>, t: Throwable) {
                 Log.i("onFailure", t.message.toString())
                 throw t
             }

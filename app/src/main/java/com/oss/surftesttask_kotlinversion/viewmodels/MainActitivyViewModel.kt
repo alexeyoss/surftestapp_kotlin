@@ -1,17 +1,21 @@
 package com.oss.surftesttask_kotlinversion.viewmodels
 
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.oss.surftesttask_kotlinversion.models.Result
 import com.oss.surftesttask_kotlinversion.repositories.PostModelRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class RecycleViewFragmentViewModel : ViewModel(),
+class MainActitivyViewModel : ViewModel(),
     DefaultLifecycleObserver {
 
-    private lateinit var mActualData: LiveData<MutableList<Result>>
+    var mActualData: LiveData<MutableList<Result>>
     private var mRepository: PostModelRepository = PostModelRepository
+
+    init {
+        mActualData = MutableLiveData()
+        getData()
+    }
 
     fun getData(): LiveData<MutableList<Result>> {
         mActualData = mRepository.getData()
@@ -23,8 +27,5 @@ class RecycleViewFragmentViewModel : ViewModel(),
         return mActualData
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        // TODO
-    }
+
 }
