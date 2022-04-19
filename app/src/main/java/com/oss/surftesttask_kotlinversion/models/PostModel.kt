@@ -3,7 +3,7 @@ package com.oss.surftesttask_kotlinversion.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-open class PostModel {
+class PostModel {
     @SerializedName("page")
     @Expose
     var page = 0

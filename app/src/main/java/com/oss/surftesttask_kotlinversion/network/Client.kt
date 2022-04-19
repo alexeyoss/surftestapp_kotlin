@@ -10,8 +10,7 @@ import java.util.concurrent.TimeUnit
 class Client : Application() {
 
     companion object {
-
-        private fun getHTTPClientInsatnce(): OkHttpClient {
+        private fun getHTTPClientInstance(): OkHttpClient {
             return OkHttpClient.Builder()
                 .callTimeout(15, TimeUnit.SECONDS)
                 .build()
@@ -20,7 +19,7 @@ class Client : Application() {
         private fun getRetrofitInstance(): Retrofit {
             return Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
-                .client(getHTTPClientInsatnce())
+                .client(getHTTPClientInstance())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

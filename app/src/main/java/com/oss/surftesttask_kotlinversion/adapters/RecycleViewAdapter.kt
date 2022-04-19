@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.RvItemLayoutBinding
 import com.oss.surftesttask_kotlinversion.models.Result
@@ -42,6 +43,18 @@ class RecycleViewAdapter() :
             overview.text = result.overview
             date.text = transformDate(result.releaseDate as String)
             icHeart.setBackgroundResource(R.drawable.ic_heart)
+
+            bindViewListener(title.text)
+        }
+
+        private fun bindViewListener(title: CharSequence) {
+            itemView.setOnClickListener {
+                Snackbar.make(
+                    itemView,
+                    title.toString(),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
 
         private fun transformDate(date: String): String {
@@ -50,7 +63,7 @@ class RecycleViewAdapter() :
                     "dd MMMM yyyy",
                     Locale("ru")
                 )
-            )
+            ) ?: date
         }
     }
 

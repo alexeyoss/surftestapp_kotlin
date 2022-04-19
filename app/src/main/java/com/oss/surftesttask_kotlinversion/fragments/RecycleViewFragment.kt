@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.activities.MainActivity
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentRecycleViewBinding
-import com.oss.surftesttask_kotlinversion.viewmodels.MainActitivyViewModel
+import com.oss.surftesttask_kotlinversion.viewmodels.RvFragmentViewModel
+import com.oss.surftesttask_kotlinversion.viewmodels.ViewModelFactory
 
 class RecycleViewFragment : Fragment() {
     private lateinit var mBinding: FragmentRecycleViewBinding
@@ -32,17 +33,17 @@ class RecycleViewFragment : Fragment() {
     }
 
     private fun initRecycleView() = with(mBinding) {
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = mAdapter
-        recyclerView.setHasFixedSize(true)
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = mAdapter
+        }
     }
 
     private fun initViewModel() {
-        val model =
-            ViewModelProvider(activity as MainActivity)[MainActitivyViewModel::class.java]
+        val viewModel =
+            ViewModelProvider(activity as MainActivity, ViewModelFactory(1))[RvFragmentViewModel::class.java]
 
-        model.mActualData.observe(
-            viewLifecycleOwner
-        ) { mAdapter.setData(it) }
+        viewModel.getLastData().observe(viewLifecycleOwner) { mAdapter.setData(it) }
     }
 }
