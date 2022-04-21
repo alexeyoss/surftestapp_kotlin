@@ -1,16 +1,17 @@
 package com.oss.surftesttask_kotlinversion.activities
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
-import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
+import com.oss.surftesttask_kotlinversion.fragments.EmptySearchFragment
+import com.oss.surftesttask_kotlinversion.fragments.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.fragments.RecycleViewFragment
+import com.oss.surftesttask_kotlinversion.support.Navigator
 import com.oss.surftesttask_kotlinversion.support.chooseCall
+import com.oss.surftesttask_kotlinversion.support.replaceFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var mBinding: ActivityMainBinding
 
@@ -19,30 +20,31 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        initFields()
+        if (savedInstanceState == null) {
+            replaceFragment(RecycleViewFragment())
+        }
         initListeners()
     }
 
     private fun initListeners() = with(mBinding) {
-        etSearch.addTextChangedListener(object:TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        swipeRefreshLayout.setOnRefreshListener {
+            // INVOKE GET request
+            swipeRefreshLayout.isRefreshing = false
+        }
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                chooseCall(s)
-            }
-        })
-//        etSearch.doAfterTextChanged { chooseCall(it) } // debounce and etc.
+        etSearch.doAfterTextChanged { chooseCall(it) }
     }
 
+    override fun showErrorFragment() {
+        replaceFragment(ErrorScreenFragment())
+    }
 
-    private fun initFields() {
-        supportFragmentManager.beginTransaction().replace(R.id.dataContainer, RecycleViewFragment())
-            .commit()
+    override fun showEmptySearch() {
+        replaceFragment(EmptySearchFragment.newInstance(mBinding.etSearch.text.toString()))
+    }
+
+    override fun showRecycleViewFragment() {
+        // INVOKE GET request depends on the TEXT in the Search Line
+        replaceFragment(RecycleViewFragment())
     }
 }

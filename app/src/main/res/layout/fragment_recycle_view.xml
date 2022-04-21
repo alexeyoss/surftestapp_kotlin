@@ -8,33 +8,28 @@
     tools:context=".fragments.RecycleViewFragment">
 
     <ProgressBar
-        android:id="@+id/contentNotExistProgressBar"
+        android:id="@+id/lineProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
+        android:indeterminate="false"
+        android:progressTint="@color/appBlue"
         android:indeterminateTint="@color/appBlue"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:progress="0"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefreshLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/rv_item_layout" />
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/rv_item_layout" />
 
         <ProgressBar
-            android:id="@+id/contentExistProgressBar"
+            android:id="@+id/roundProgressBar"
             style="@style/rv_fragment_roundProgressBar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.activities.MainActivity
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentRecycleViewBinding
+import com.oss.surftesttask_kotlinversion.support.navigator
 import com.oss.surftesttask_kotlinversion.viewmodels.RvFragmentViewModel
 import com.oss.surftesttask_kotlinversion.viewmodels.ViewModelFactory
 
@@ -40,10 +41,29 @@ class RecycleViewFragment : Fragment() {
         }
     }
 
-    private fun initViewModel() {
+    private fun initViewModel() = with(mBinding) {
         val viewModel =
-            ViewModelProvider(activity as MainActivity, ViewModelFactory(1))[RvFragmentViewModel::class.java]
+            ViewModelProvider(
+                activity as MainActivity,
+                ViewModelFactory(1)
+            )[RvFragmentViewModel::class.java]
 
-        viewModel.getLastData().observe(viewLifecycleOwner) { mAdapter.setData(it) }
+        viewModel.getLastData().observe(viewLifecycleOwner) {
+            mAdapter.setData(it)
+            roundProgressBar.visibility = View.GONE
+        }
+
+        viewModel.getErrorMessage().observe(viewLifecycleOwner) {
+            navigator().showErrorFragment()
+        }
+
+        viewModel.getLoading().observe(viewLifecycleOwner) {
+            if (it) roundProgressBar.visibility = View.VISIBLE else View.GONE
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(): RecycleViewFragment = RecycleViewFragment()
     }
 }
