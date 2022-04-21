@@ -1,9 +1,9 @@
 package com.oss.surftesttask_kotlinversion.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -67,12 +67,37 @@ class RecycleViewAdapter() :
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setData(newResult: MutableList<Result>) {
-        results.clear()
-        results.addAll(newResult)
-        notifyDataSetChanged()
+        val diffCallBack = MoviesDiffCallback(results, newResult)
+        val diffResult = DiffUtil.calculateDiff(diffCallBack, false)
+        results = newResult
+        diffResult.dispatchUpdatesTo(this)
+//        results.clear()
+//        results.addAll(newResult)
+//        notifyDataSetChanged()
+    }
+}
+
+class MoviesDiffCallback(
+    private val oldList: MutableList<Result>,
+    private val newList: MutableList<Result>
+) : DiffUtil.Callback() {
+    override fun getOldListSize(): Int = oldList.size
+
+    override fun getNewListSize(): Int = newList.size
+
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldMovie = oldList[oldItemPosition]
+        val newMovie = newList[newItemPosition]
+        return oldMovie.id == newMovie.id
     }
 
-
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+        val oldMovie = oldList[oldItemPosition]
+        val newMovie = newList[newItemPosition]
+        return oldMovie.title == newMovie.title
+                && oldMovie.overview == newMovie.overview
+                && oldMovie.releaseDate == newMovie.releaseDate
+                && oldMovie.posterPath == newMovie.posterPath
+    }
 }

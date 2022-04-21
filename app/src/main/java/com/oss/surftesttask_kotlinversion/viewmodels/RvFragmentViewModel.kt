@@ -26,7 +26,8 @@ class RvFragmentViewModel(modelID: Long) : ViewModel() {
     fun getMovies() {
         setLoading(true)
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = Repository.getMovies() // TODO handle the Exception without INTERNET connection
+            val response =
+                Repository.getMovies() // TODO handle the Exception without INTERNET connection
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     mActualData.postValue(response.body()?.results?.toMutableList())
@@ -35,14 +36,14 @@ class RvFragmentViewModel(modelID: Long) : ViewModel() {
                     onError(response.message())
                 }
             }
-
         }
     }
 
     fun getSearchMovies(query: String) {
         setLoading(true)
         job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
-            val response = Repository.getSearchMovies(query) // TODO handle the Exception without INTERNET connection
+            val response =
+                Repository.getSearchMovies(query) // TODO handle the Exception without INTERNET connection
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     mActualData.postValue(response.body()?.results?.toMutableList())
