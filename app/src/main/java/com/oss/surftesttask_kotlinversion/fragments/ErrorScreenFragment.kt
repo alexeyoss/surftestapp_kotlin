@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentErrorScreenBinding
-import com.oss.surftesttask_kotlinversion.support.navigator
-import com.oss.surftesttask_kotlinversion.support.replaceFragment
+import com.oss.surftesttask_kotlinversion.support.handleUI
 
 class ErrorScreenFragment : Fragment() {
 
@@ -21,7 +20,7 @@ class ErrorScreenFragment : Fragment() {
 
         if (!mBinding.refreshImageButton.hasOnClickListeners()) {
             mBinding.refreshImageButton.setOnClickListener {
-                navigator().showRecycleViewFragment()
+                handleUI().showRecycleViewFragment()
             }
         }
         return mBinding.root

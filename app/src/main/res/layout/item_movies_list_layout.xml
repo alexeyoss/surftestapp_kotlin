@@ -49,7 +49,7 @@
     <ImageView
         style="@style/rv_ic_heart"
         android:id="@+id/ic_heart"
-        android:src="@drawable/ic_heart"
+        android:src="@drawable/ic_heart_empty_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

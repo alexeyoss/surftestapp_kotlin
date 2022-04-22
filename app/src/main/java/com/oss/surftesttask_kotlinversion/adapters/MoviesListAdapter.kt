@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.oss.surftesttask_kotlinversion.R
-import com.oss.surftesttask_kotlinversion.databinding.RvItemLayoutBinding
+import com.oss.surftesttask_kotlinversion.databinding.ItemMoviesListLayoutBinding
 import com.oss.surftesttask_kotlinversion.models.Result
 import com.oss.surftesttask_kotlinversion.support.Constants
 import java.time.LocalDate
@@ -21,7 +21,8 @@ class RecycleViewAdapter() :
     private var results: MutableList<Result> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.rv_item_layout, parent, false)
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_movies_list_layout, parent, false)
         return mViewHolder(v)
     }
 
@@ -33,16 +34,18 @@ class RecycleViewAdapter() :
 
     class mViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        private val binding = RvItemLayoutBinding.bind(itemView)
+        private val binding = ItemMoviesListLayoutBinding.bind(itemView)
 
         fun bindData(result: Result) = with(binding) {
-            Glide.with(itemView.context).load(Constants.IMG_URL + result.posterPath)
+            Glide.with(itemView.context)
+                .load(Constants.IMG_URL + result.posterPath)
+                .placeholder(R.drawable.ic_default_poster)
                 .fitCenter()
                 .into(poster)
             title.text = result.title
             overview.text = result.overview
             date.text = transformDate(result.releaseDate as String)
-            icHeart.setBackgroundResource(R.drawable.ic_heart)
+            icHeart.setBackgroundResource(R.drawable.ic_heart_empty_small)
 
             bindViewListener(title.text)
         }

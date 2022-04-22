@@ -8,7 +8,7 @@ import com.oss.surftesttask_kotlinversion.models.Result
 import com.oss.surftesttask_kotlinversion.repositories.Repository
 import kotlinx.coroutines.*
 
-class RvFragmentViewModel(modelID: Long) : ViewModel() {
+class RvFragmentViewModel() : ViewModel() {
 
     private var mActualData: MutableLiveData<MutableList<Result>> = MutableLiveData()
     private var errorMessage = MutableLiveData<String>()
@@ -73,13 +73,13 @@ class RvFragmentViewModel(modelID: Long) : ViewModel() {
         job?.cancel()
     }
 
-    companion object {
-        private lateinit var instance: RvFragmentViewModel
-
-        @MainThread
-        fun getInstance(modelId: Long): RvFragmentViewModel {
-            instance = if (::instance.isInitialized) instance else RvFragmentViewModel(modelId)
-            return instance
-        }
-    }
+//    companion object {
+//        private lateinit var instance: RvFragmentViewModel
+//
+//        @MainThread
+//        fun getInstance(modelId: Long): RvFragmentViewModel {
+//            instance = if (::instance.isInitialized) instance else RvFragmentViewModel(modelId)
+//            return instance
+//        }
+//    }
 }

@@ -59,18 +59,8 @@ dependencies {
     //ViewModel lifecycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    // Hilt
-//    implementation 'com.google.dagger:hilt-android:2.38.1'
-//    implementation 'com.google.dagger:hilt-android-compiler:2.38.1'
-
-    // RXJava
-//    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-//    implementation 'io.reactivex.rxjava3:rxjava:3.1.3'
-//    implementation "io.reactivex.rxjava3:rxkotlin:3.0.0"
-//    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-kotlin:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-support-v4:2.0.0'
-//    implementation 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
+    //Fragment extensions
+    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
 
 }
