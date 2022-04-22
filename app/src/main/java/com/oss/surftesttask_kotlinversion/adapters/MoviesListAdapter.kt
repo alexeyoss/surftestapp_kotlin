@@ -39,7 +39,7 @@ class RecycleViewAdapter() :
         fun bindData(result: Result) = with(binding) {
             Glide.with(itemView.context)
                 .load(Constants.IMG_URL + result.posterPath)
-                .placeholder(R.drawable.ic_default_poster)
+                .placeholder(Constants.DEFAULT_PICTURE)
                 .fitCenter()
                 .into(poster)
             title.text = result.title

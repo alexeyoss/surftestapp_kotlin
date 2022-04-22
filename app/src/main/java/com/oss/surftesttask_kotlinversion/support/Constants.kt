@@ -1,5 +1,7 @@
 package com.oss.surftesttask_kotlinversion.support
 
+import com.oss.surftesttask_kotlinversion.R
+
 object Constants {
     const val API_KEY = "50bd34c2f45cba21762125b1c6069573"
     const val BASE_URL = "https://api.themoviedb.org"
@@ -8,6 +10,7 @@ object Constants {
     const val WITH_WATCH_MONETIZATION_TYPES = "flatrate"
     const val TV_EMPTY_SEARCH1 = "По запросу "
     const val TV_EMPTY_SEARCH2 = "\n ничего не найдено"
+    const val DEFAULT_PICTURE = R.drawable.ic_default_poster
 
     // DEFAULT VALUES
     const val DEFAULT_LANGUAGE = "en-US"
