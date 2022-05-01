@@ -2,16 +2,15 @@ package com.oss.surftesttask_kotlinversion.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doAfterTextChanged
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
-import com.oss.surftesttask_kotlinversion.fragments.EmptyMoviesListFragment
 import com.oss.surftesttask_kotlinversion.fragments.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.fragments.MoviesListFragment
-import com.oss.surftesttask_kotlinversion.support.UiHandler
-import com.oss.surftesttask_kotlinversion.support.chooseCall
-import com.oss.surftesttask_kotlinversion.support.replaceFragment
+import com.oss.surftesttask_kotlinversion.fragments.SearchFragment
+import com.oss.surftesttask_kotlinversion.support.ActivityUIhandler
+import com.oss.surftesttask_kotlinversion.support.replaceFragmentDataContainer
+import com.oss.surftesttask_kotlinversion.support.replaceFragmentSearchContainer
 
-class MainActivity : AppCompatActivity(), UiHandler {
+class MainActivity : AppCompatActivity(), ActivityUIhandler {
 
     private lateinit var mBinding: ActivityMainBinding
 
@@ -21,30 +20,29 @@ class MainActivity : AppCompatActivity(), UiHandler {
         setContentView(mBinding.root)
 
         if (savedInstanceState == null) {
-            replaceFragment(MoviesListFragment())
+            replaceFragmentSearchContainer(SearchFragment())
+            replaceFragmentDataContainer(MoviesListFragment())
         }
+
         initListeners()
     }
 
     private fun initListeners() = with(mBinding) {
         swipeRefreshLayout.setOnRefreshListener {
-            // INVOKE GET request
+            replaceFragmentDataContainer(MoviesListFragment()) // Add save
             swipeRefreshLayout.isRefreshing = false
         }
-
-        etSearch.doAfterTextChanged { chooseCall(it) }
     }
 
     override fun showErrorFragment() {
-        replaceFragment(ErrorScreenFragment())
+        replaceFragmentDataContainer(ErrorScreenFragment())
     }
 
     override fun showEmptySearch() {
-        replaceFragment(EmptyMoviesListFragment.newInstance(mBinding.etSearch.text.toString()))
+//        replaceFragment(EmptyMoviesListFragment.newInstance(mBinding.etSearch.text.toString()))
     }
 
     override fun showRecycleViewFragment() {
-        // INVOKE GET request depends on the TEXT in the Search Line
-        replaceFragment(MoviesListFragment())
+        replaceFragmentDataContainer(MoviesListFragment())
     }
 }

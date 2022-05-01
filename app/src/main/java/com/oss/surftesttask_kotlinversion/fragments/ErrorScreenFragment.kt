@@ -18,17 +18,21 @@ class ErrorScreenFragment : Fragment() {
     ): View {
         mBinding = FragmentErrorScreenBinding.inflate(inflater, container, false)
 
-        if (!mBinding.refreshImageButton.hasOnClickListeners()) {
-            mBinding.refreshImageButton.setOnClickListener {
-                handleUI().showRecycleViewFragment()
-            }
-        }
+        initListeners()
         return mBinding.root
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(): ErrorScreenFragment = ErrorScreenFragment()
+    fun initListeners() = with(mBinding) {
+        if (!refreshImageButton.hasOnClickListeners()) {
+            refreshImageButton.setOnClickListener {
+                handleUI().showRecycleViewFragment()
+            }
+        }
     }
+
+//    companion object {
+//        @JvmStatic
+//        fun newInstance(): ErrorScreenFragment = ErrorScreenFragment()
+//    }
 
 }

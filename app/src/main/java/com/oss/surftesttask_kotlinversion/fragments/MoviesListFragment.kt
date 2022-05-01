@@ -4,19 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
+import com.oss.surftesttask_kotlinversion.support.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.support.handleUI
-import com.oss.surftesttask_kotlinversion.viewmodels.RvFragmentViewModel
+import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
 
-class MoviesListFragment : Fragment() {
+class MoviesListFragment : Fragment(), AdapterOnClickListener {
     private lateinit var mBinding: FragmentMovieListBinding
-    private lateinit var mAdapter: RecycleViewAdapter
+    private var mAdapter = RecycleViewAdapter(this)
 
-    private val mViewModel: RvFragmentViewModel by viewModels()
+    private val mViewModel: MoviesListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +27,7 @@ class MoviesListFragment : Fragment() {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
 
         initRecycleView()
-        initViewModel()
+        initViewModels()
 
         return mBinding.root
     }
@@ -38,7 +40,7 @@ class MoviesListFragment : Fragment() {
         }
     }
 
-    private fun initViewModel() = with(mBinding) {
+    private fun initViewModels() = with(mBinding) {
         mViewModel.getLastData().observe(viewLifecycleOwner) {
             mAdapter.setData(it)
             roundProgressBar.visibility = View.GONE
@@ -53,8 +55,8 @@ class MoviesListFragment : Fragment() {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(): MoviesListFragment = MoviesListFragment()
+    override fun onItemClicked(position: Int) {
+        // replace(MovieDetailsFragment()) need injection for looking on one ViewModel
+        Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
     }
 }

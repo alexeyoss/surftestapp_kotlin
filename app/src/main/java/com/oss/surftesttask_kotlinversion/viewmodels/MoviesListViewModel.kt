@@ -1,16 +1,17 @@
 package com.oss.surftesttask_kotlinversion.viewmodels
 
-import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.oss.surftesttask_kotlinversion.models.Result
 import com.oss.surftesttask_kotlinversion.repositories.Repository
 import kotlinx.coroutines.*
 
-class RvFragmentViewModel() : ViewModel() {
+class MoviesListViewModel : ViewModel() {
 
     private var mActualData: MutableLiveData<MutableList<Result>> = MutableLiveData()
+    private lateinit var itemSelected: MutableList<Result>
     private var errorMessage = MutableLiveData<String>()
     private var loading = MutableLiveData<Boolean>()
     private var job: Job? = null
@@ -25,7 +26,7 @@ class RvFragmentViewModel() : ViewModel() {
 
     fun getMovies() {
         setLoading(true)
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+        job = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             val response =
                 Repository.getMovies() // TODO handle the Exception without INTERNET connection
             withContext(Dispatchers.Main) {
@@ -41,7 +42,7 @@ class RvFragmentViewModel() : ViewModel() {
 
     fun getSearchMovies(query: String) {
         setLoading(true)
-        job = CoroutineScope(Dispatchers.IO + exceptionHandler).launch {
+        job = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
             val response =
                 Repository.getSearchMovies(query) // TODO handle the Exception without INTERNET connection
             withContext(Dispatchers.Main) {
@@ -59,6 +60,14 @@ class RvFragmentViewModel() : ViewModel() {
     fun getErrorMessage(): LiveData<String> = errorMessage
     fun getLoading(): LiveData<Boolean> = loading
 
+
+    // For MovieDetails fragment
+    fun putItemSelected(item: MutableList<Result>) {
+        itemSelected = item
+    }
+
+    fun getItemSelected(): MutableList<Result> = itemSelected
+
     private fun onError(message: String) {
         errorMessage.value = message
         setLoading(false)
@@ -72,14 +81,4 @@ class RvFragmentViewModel() : ViewModel() {
         super.onCleared()
         job?.cancel()
     }
-
-//    companion object {
-//        private lateinit var instance: RvFragmentViewModel
-//
-//        @MainThread
-//        fun getInstance(modelId: Long): RvFragmentViewModel {
-//            instance = if (::instance.isInitialized) instance else RvFragmentViewModel(modelId)
-//            return instance
-//        }
-//    }
 }
