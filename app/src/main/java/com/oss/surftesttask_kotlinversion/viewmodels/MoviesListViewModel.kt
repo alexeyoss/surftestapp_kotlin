@@ -4,31 +4,55 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oss.surftesttask_kotlinversion.models.Result
+import com.oss.surftesttask_kotlinversion.retrofit.ResultsNetworkEntity
 import com.oss.surftesttask_kotlinversion.repositories.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class MoviesListViewModel : ViewModel() {
+@HiltViewModel
+class MoviesListViewModel
+@Inject
+constructor(private val repo: Repository) : ViewModel() {
 
-    private var mActualData: MutableLiveData<MutableList<Result>> = MutableLiveData()
-    private lateinit var itemSelected: MutableList<Result>
+    private var mActualData: MutableLiveData<MutableList<ResultsNetworkEntity>> = MutableLiveData()
+
     private var errorMessage = MutableLiveData<String>()
     private var loading = MutableLiveData<Boolean>()
     private var job: Job? = null
+
+    val getActualData: LiveData<MutableList<ResultsNetworkEntity>> get() = mActualData
+    val getErrorInfo: LiveData<String> get() = errorMessage
+    val getLoadingStatus: LiveData<Boolean> get() = loading
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         onError("Exception handled: ${throwable.localizedMessage}")
     }
 
     init {
-        getMovies()
+        callGetMovies()
     }
 
-    fun getMovies() {
+    fun callGetMovies() {
         setLoading(true)
-        job = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        job = viewModelScope.launch(Dispatchers.IO) {
+            val response = repo.getMovies()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    mActualData.postValue(response.body()?.results?.toMutableList())
+                } else {
+                    onError(response.message())
+                }
+                setLoading(false)
+            }
+        }
+    }
+
+    fun callSearchMovies(query: String) {
+        setLoading(true)
+        job = viewModelScope.launch(Dispatchers.IO) {
             val response =
-                Repository.getMovies() // TODO handle the Exception without INTERNET connection
+                repo.getSearchMovies(query) // TODO handle the Exception without INTERNET connection
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     mActualData.postValue(response.body()?.results?.toMutableList())
@@ -40,33 +64,7 @@ class MoviesListViewModel : ViewModel() {
         }
     }
 
-    fun getSearchMovies(query: String) {
-        setLoading(true)
-        job = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            val response =
-                Repository.getSearchMovies(query) // TODO handle the Exception without INTERNET connection
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    mActualData.postValue(response.body()?.results?.toMutableList())
-                    setLoading(false)
-                } else {
-                    onError(response.message())
-                }
-            }
-        }
-    }
-
-    fun getLastData(): LiveData<MutableList<Result>> = mActualData
-    fun getErrorMessage(): LiveData<String> = errorMessage
-    fun getLoading(): LiveData<Boolean> = loading
-
-
-    // For MovieDetails fragment
-    fun putItemSelected(item: MutableList<Result>) {
-        itemSelected = item
-    }
-
-    fun getItemSelected(): MutableList<Result> = itemSelected
+    fun getCertainData(position: Int): ResultsNetworkEntity = mActualData.value?.get(position) ?: ResultsNetworkEntity()
 
     private fun onError(message: String) {
         errorMessage.value = message

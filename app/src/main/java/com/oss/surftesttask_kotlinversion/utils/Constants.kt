@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.support
+package com.oss.surftesttask_kotlinversion.utils
 
 import com.oss.surftesttask_kotlinversion.R
 
@@ -12,9 +12,14 @@ object Constants {
     const val TV_EMPTY_SEARCH2 = "\n ничего не найдено"
     const val DEFAULT_PICTURE = R.drawable.ic_default_poster
 
-    // DEFAULT VALUES
+    // REPOSITORY DEFAULT VALUES
     const val DEFAULT_LANGUAGE = "en-US"
     const val DEFAULT_SORT_BY = "popularity.desc"
     const val DEFAULT_INCLUDE_ADULT = false
     const val DEFAULT_INCLUDE_VIDEO = false
+
+    // ROOM DEFAULT VALUES
+    const val DEFAULT_LIKED = false
+    const val DB_VERSION = 1
+    const val DB_NAME = "result_db"
 }

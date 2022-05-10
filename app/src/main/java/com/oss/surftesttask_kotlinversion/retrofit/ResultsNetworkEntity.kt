@@ -1,63 +1,62 @@
-package com.oss.surftesttask_kotlinversion.models
+package com.oss.surftesttask_kotlinversion.retrofit
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Result() {
+data class ResultsNetworkEntity(
     @SerializedName("adult")
     @Expose
-    var isAdult = false
+    var isAdult: Boolean,
 
     @SerializedName("backdrop_path")
     @Expose
-    var backdropPath: String? = null
+    var backdropPath: String,
 
     @SerializedName("genre_ids")
     @Expose
-    var genreIds: List<Int>? = null
+    var genreIds: List<Int>,
 
     @SerializedName("id")
     @Expose
-    var id = 0
+    var id: Int,
 
     @SerializedName("original_language")
     @Expose
-    var originalLanguage: String? = null
+    var originalLanguage: String,
 
     @SerializedName("original_title")
     @Expose
-    var originalTitle: String? = null
+    var originalTitle: String,
 
     @SerializedName("overview")
     @Expose
-    var overview: String? = null
+    var overview: String,
 
     @SerializedName("popularity")
     @Expose
-    var popularity = 0.0
+    var popularity: Float,
 
     @SerializedName("poster_path")
     @Expose
-    var posterPath: String? = null
+    var posterPath: String,
 
     @SerializedName("release_date")
     @Expose
-    var releaseDate: String? = null
+    var releaseDate: String,
 
     @SerializedName("title")
     @Expose
-    var title: String? = null
+    var title: String,
 
     @SerializedName("video")
     @Expose
-    var isVideo = false
+    var isVideoisVideo: Boolean,
 
     @SerializedName("vote_average")
     @Expose
-    var voteAverage = 0.0
+    var voteAverage: Float,
 
     @SerializedName("vote_count")
     @Expose
-    var voteCount = 0
-
-}
+    var voteCount: Int,
+)

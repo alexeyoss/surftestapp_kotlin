@@ -6,7 +6,7 @@
         <item name="android:layout_width">@dimen/poster_width</item>
         <item name="android:layout_height">@dimen/poster_height</item>
         <item name="android:contentDescription">@string/movie_poster_desc</item>
-        <item name="android:scaleType">fitXY</item>
+        <!--        <item name="android:scaleType">fitXY</item>-->
     </style>
 
     <style name="rv_layout">
@@ -76,6 +76,7 @@
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:importantForAutofill">no</item>
         <item name="android:inputType">text</item>
+        <item name="android:freezesText">false</item>
         <item name="android:paddingHorizontal">@dimen/paddingHorizontal</item>
         <item name="android:paddingVertical">@dimen/paddingVertical</item>
         <item name="android:textColor">@color/black</item>
@@ -170,8 +171,8 @@
     <style name="movie_details_poster_ic_heart">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
-        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
         <item name="android:contentDescription">@string/ic_heart</item>
     </style>
 
@@ -188,8 +189,8 @@
     <style name="movie_details_back_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
-        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_small</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
         <item name="android:background">@color/white</item>
         <item name="android:contentDescription">@string/back_btn</item>
     </style>

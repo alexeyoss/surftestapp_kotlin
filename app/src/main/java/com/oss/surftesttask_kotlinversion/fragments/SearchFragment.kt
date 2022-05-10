@@ -8,12 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.oss.surftesttask_kotlinversion.databinding.FragmentSearchBinding
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
+import dagger.hilt.android.scopes.FragmentScoped
+
 
 class SearchFragment : Fragment() {
 
     private lateinit var mBinding: FragmentSearchBinding
-
-//    private val mViewModel: MoviesListViewModel by viewModels()
+    private val mViewModel: MoviesListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,16 +26,7 @@ class SearchFragment : Fragment() {
         return mBinding.root
     }
 
-
     private fun initListeners() = with(mBinding) {
-//        if (!etSearch.hasOnClickListeners()) {
-//            etSearch.doAfterTextChanged {
-//                if (!it.toString().isEmpty()) {
-//                    mViewModel.getSearchMovies(it.toString())
-//                } else {
-//                    mViewModel.getMovies()
-//                }
-//            }
-//        }
+        // TODO changeListener based on coroutines
     }
 }

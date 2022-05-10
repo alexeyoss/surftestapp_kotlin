@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentErrorScreenBinding
-import com.oss.surftesttask_kotlinversion.support.handleUI
+import com.oss.surftesttask_kotlinversion.utils.handleUI
 
 class ErrorScreenFragment : Fragment() {
 

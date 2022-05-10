@@ -1,6 +1,5 @@
-package com.oss.surftesttask_kotlinversion.network
+package com.oss.surftesttask_kotlinversion.retrofit
 
-import com.oss.surftesttask_kotlinversion.models.PostModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,13 +16,13 @@ interface ApiService {
         @Query("include_adult") include_adult: Boolean?,
         @Query("include_video") include_video: Boolean?,
         @Query("with_watch_monetization_types") with_watch_monetization_types: String?
-    ): Response<PostModel>
+    ): Response<PostModelNetworkEntity>
 
     @GET("/{apiVersion}/search/movie")
     suspend fun getSearchData(
         @Path("apiVersion") apiVersion: String?,
         @Query("api_key") apiKey: String?,
         @Query("query") query: String?
-    ): Response<PostModel>
+    ): Response<PostModelNetworkEntity>
 
 }

@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.support
+package com.oss.surftesttask_kotlinversion.utils
 
 interface AdapterOnClickListener {
     fun onItemClicked(position: Int)

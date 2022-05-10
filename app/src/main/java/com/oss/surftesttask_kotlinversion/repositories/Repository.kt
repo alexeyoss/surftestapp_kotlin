@@ -1,16 +1,21 @@
 package com.oss.surftesttask_kotlinversion.repositories
 
-import com.oss.surftesttask_kotlinversion.models.PostModel
-import com.oss.surftesttask_kotlinversion.network.ApiService
-import com.oss.surftesttask_kotlinversion.network.Client
-import com.oss.surftesttask_kotlinversion.support.Constants
+import com.oss.surftesttask_kotlinversion.retrofit.PostModelNetworkEntity
+import com.oss.surftesttask_kotlinversion.retrofit.ApiService
+import com.oss.surftesttask_kotlinversion.retrofit.Client
+import com.oss.surftesttask_kotlinversion.utils.Constants
+import dagger.hilt.android.scopes.ServiceScoped
 import retrofit2.Response
 
-object Repository {
+@ServiceScoped
+class Repository {
+    private lateinit var apiService: ApiService
+    private val api: ApiService = Client(
+        Constants.BASE_URL,
+        apiService
+    ).getApiService()
 
-    private val api: ApiService = Client.getApiService()
-
-    suspend fun getMovies(): Response<PostModel> {
+    suspend fun getMovies(): Response<PostModelNetworkEntity> {
         return api.getData(
             Constants.API_VERSION,
             Constants.API_KEY,
@@ -22,7 +27,7 @@ object Repository {
         )
     }
 
-    suspend fun getSearchMovies(query: String): Response<PostModel> {
+    suspend fun getSearchMovies(query: String): Response<PostModelNetworkEntity> {
         return api.getSearchData(
             Constants.API_VERSION,
             Constants.API_KEY,
@@ -30,4 +35,3 @@ object Repository {
         )
     }
 }
-

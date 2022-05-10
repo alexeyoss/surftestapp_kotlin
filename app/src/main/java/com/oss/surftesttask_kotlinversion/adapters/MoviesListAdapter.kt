@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ItemMoviesListLayoutBinding
-import com.oss.surftesttask_kotlinversion.models.Result
-import com.oss.surftesttask_kotlinversion.support.AdapterOnClickListener
-import com.oss.surftesttask_kotlinversion.support.Constants
+import com.oss.surftesttask_kotlinversion.retrofit.ResultsNetworkEntity
+import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
+import com.oss.surftesttask_kotlinversion.utils.Constants
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -18,7 +18,7 @@ import java.util.*
 class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
     RecyclerView.Adapter<RecycleViewAdapter.mViewHolder>() {
 
-    private var results: MutableList<Result> = ArrayList()
+    private var results: MutableList<ResultsNetworkEntity> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
         val v = LayoutInflater.from(parent.context)
@@ -36,20 +36,20 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         private val binding = ItemMoviesListLayoutBinding.bind(itemView)
 
         init {
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 mClickListener.onItemClicked(adapterPosition)
             }
         }
 
-        fun bindData(result: Result) = with(binding) {
+        fun bindData(results: ResultsNetworkEntity) = with(binding) {
             Glide.with(itemView.context)
-                .load(Constants.IMG_URL + result.posterPath)
+                .load(Constants.IMG_URL + results.posterPath)
                 .placeholder(Constants.DEFAULT_PICTURE)
                 .fitCenter()
                 .into(poster)
-            title.text = result.title
-            overview.text = result.overview
-            date.text = transformDate(result.releaseDate as String)
+            title.text = results.title
+            overview.text = results.overview
+            date.text = transformDate(results.releaseDate)
             icHeart.setBackgroundResource(R.drawable.ic_heart_empty_small)
         }
 
@@ -63,17 +63,17 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         }
     }
 
-    fun setData(newResult: MutableList<Result>) {
-        val diffCallBack = MoviesDiffCallback(results, newResult)
+    fun setData(newResults: MutableList<ResultsNetworkEntity>) {
+        val diffCallBack = MoviesDiffCallback(results, newResults)
         val diffResult = DiffUtil.calculateDiff(diffCallBack, false)
-        results = newResult
+        results = newResults
         diffResult.dispatchUpdatesTo(this)
     }
 }
 
 class MoviesDiffCallback(
-    private val oldList: MutableList<Result>,
-    private val newList: MutableList<Result>
+    private val oldList: MutableList<ResultsNetworkEntity>,
+    private val newList: MutableList<ResultsNetworkEntity>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

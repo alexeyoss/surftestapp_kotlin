@@ -1,7 +1,6 @@
-package com.oss.surftesttask_kotlinversion.support
+package com.oss.surftesttask_kotlinversion.utils
 
 import androidx.fragment.app.Fragment
-import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 
 fun Fragment.handleUI(): ActivityUIhandler = requireActivity() as ActivityUIhandler
 
@@ -11,4 +10,6 @@ interface ActivityUIhandler {
     fun showEmptySearch()
 
     fun showRecycleViewFragment()
+
+    fun hideSearchBar(status: Int)
 }

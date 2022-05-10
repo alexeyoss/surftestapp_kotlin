@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentEmptyMovieListBinding
-import com.oss.surftesttask_kotlinversion.support.Constants
+import com.oss.surftesttask_kotlinversion.utils.Constants
 
 class EmptyMoviesListFragment : Fragment() {
 

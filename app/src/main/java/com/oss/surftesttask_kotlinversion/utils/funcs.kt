@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.support
+package com.oss.surftesttask_kotlinversion.utils
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

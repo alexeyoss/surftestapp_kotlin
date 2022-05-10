@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieDetailsBinding
-import com.oss.surftesttask_kotlinversion.models.Result
 
-class MovieDetailsFragment(movieData: MutableList<Result>) : Fragment() {
+class MovieDetailsFragment(moviePosition: Int) : Fragment() {
 
     private lateinit var mBinding: FragmentMovieDetailsBinding
+
+    // TODO Dependency Injection for getting data from one viewModel
+    // TODO Rebuild the layout file for using the backdrop image instead of posterPath
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +24,24 @@ class MovieDetailsFragment(movieData: MutableList<Result>) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+
+        initView()
         return mBinding.root
     }
 
-
-    private fun getMovieData(): Any? = requireArguments().get(MOVIE_ID)
+    private fun initView(){
+        // Get ActualData from ViewModel
+        // Search certain movie via position
+        // try to use the data binding
+        // maybe we can do it in the isolated thread ?
+    }
 
     companion object {
-        private const val MOVIE_ID = "MOVIE_ID"
+        private const val MOVIE_POSITION = "MOVIE_POSITION"
 
-        fun newInstance(movieData: MutableList<Result>): MovieDetailsFragment {
-            val fragment = MovieDetailsFragment(movieData)
-            fragment.arguments = bundleOf(MOVIE_ID to movieData)
+        fun newInstance(moviePosition: Int): MovieDetailsFragment {
+            val fragment = MovieDetailsFragment(moviePosition)
+            fragment.arguments = bundleOf(MOVIE_POSITION to moviePosition)
             return fragment
         }
     }
