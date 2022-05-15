@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.fragments
+package com.oss.surftesttask_kotlinversion.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater

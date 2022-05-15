@@ -1,12 +1,9 @@
-package com.oss.surftesttask_kotlinversion.activities
+package com.oss.surftesttask_kotlinversion.ui
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
-import com.oss.surftesttask_kotlinversion.fragments.ErrorScreenFragment
-import com.oss.surftesttask_kotlinversion.fragments.MoviesListFragment
-import com.oss.surftesttask_kotlinversion.fragments.SearchFragment
 import com.oss.surftesttask_kotlinversion.utils.ActivityUIhandler
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentSearchContainer

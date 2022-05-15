@@ -36,7 +36,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         private val binding = ItemMoviesListLayoutBinding.bind(itemView)
 
         init {
-            itemView.setOnClickListener {
+            if (!itemView.hasOnClickListeners()) itemView.setOnClickListener {
                 mClickListener.onItemClicked(adapterPosition)
             }
         }

@@ -7,23 +7,6 @@ import javax.inject.Inject
 class NetworkMapper
 @Inject
 constructor() : EntityMapper<ResultsNetworkEntity, Results> {
-//    override fun mapPostModelFromEntity(entity: PostModelNetworkEntity): PostModel {
-//        return PostModel(
-//            page = entity.page,
-//            results = entity.results,
-//            totalPages = entity.totalPages,
-//            totalResults = entity.totalResults
-//        )
-//    }
-//
-//    override fun mapPostModelToEntity(domainModel: PostModel): PostModelNetworkEntity {
-//        return PostModelNetworkEntity(
-//            page = domainModel.page,
-//            results = domainModel.results,
-//            totalPages = domainModel.totalPages,
-//            totalResults = domainModel.totalResults
-//        )
-//    }
 
     override fun mapResultFromEntity(entity: ResultsNetworkEntity): Results {
         return Results(

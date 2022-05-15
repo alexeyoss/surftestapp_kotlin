@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.fragments
+package com.oss.surftesttask_kotlinversion.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
