@@ -34,8 +34,8 @@ constructor(
                 Constants.WITH_WATCH_MONETIZATION_TYPES
             ).results
             val results = networkMapper.mapFromEntityList(networkResult)
-            for (result in results) {
-                resultDao.insert(cacheMapper.mapResultToEntity(result, false))
+            for (item in results) {
+                resultDao.insert(cacheMapper.mapResultToEntity(item, false))
             }
             val cachedResults = resultDao.get()
             emit(DataState.Success(cacheMapper.mapFromEntityList(cachedResults)))
@@ -43,7 +43,6 @@ constructor(
             emit(DataState.Error(e))
         }
     }
-
 //    suspend fun getMovies(): Response<PostModelNetworkEntity> {
 //        return api.getData(
 //            Constants.API_VERSION,

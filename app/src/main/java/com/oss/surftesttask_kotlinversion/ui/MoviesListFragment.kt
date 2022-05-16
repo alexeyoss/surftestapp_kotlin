@@ -15,6 +15,7 @@ import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
 import com.oss.surftesttask_kotlinversion.utils.handleUI
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
+import com.oss.surftesttask_kotlinversion.viewmodels.MainStateEvent
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
 import dagger.hilt.android.scopes.FragmentScoped
 
@@ -32,8 +33,9 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
 
         initRecycleView()
-        initViewModels()
 
+        initViewModels()
+        mViewModel.setStateEvent(MainStateEvent.GetResultEvents)
         return mBinding.root
     }
 
@@ -49,7 +51,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         }
     }
 
-    private fun initViewModels() = with(mBinding) {
+    private fun initViewModels() {
 
         mViewModel.dateState.observe(viewLifecycleOwner, Observer { dateState ->
             when (dateState) {
@@ -63,8 +65,8 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
                 }
             }
-
         })
+
 //        mViewModel.getActualData.observe(viewLifecycleOwner) {
 //            mAdapter.setData(it)
 //            roundProgressBar.visibility = View.GONE
@@ -79,17 +81,8 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 //        }
     }
 
-    private fun displayError(){
-
-    }
-
     override fun onItemClicked(position: Int) {
         replaceFragmentDataContainer(MovieDetailsFragment(position))
         handleUI().hideSearchBar(View.GONE)
-    }
-
-    companion object {
-        @JvmStatic
-        private val KEY_STATE = "STATE"
     }
 }

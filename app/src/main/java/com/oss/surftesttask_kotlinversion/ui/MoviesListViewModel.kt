@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.repositories.Repository
-import com.oss.surftesttask_kotlinversion.retrofit.ResultsNetworkEntity
 import com.oss.surftesttask_kotlinversion.utils.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,11 +22,11 @@ constructor(
 ) : ViewModel() {
 
     private val _dataState: MutableLiveData<DataState<List<Results>>> = MutableLiveData()
-    val  dateState: LiveData<DataState<List<Results>>> get() = _dataState
+    val dateState: LiveData<DataState<List<Results>>> get() = _dataState
 
-    fun setStateEvent(mainStateEvent: MainStateEvent){
+    fun setStateEvent(mainStateEvent: MainStateEvent) {
         viewModelScope.launch(Dispatchers.IO) {
-            when(mainStateEvent){
+            when (mainStateEvent) {
                 is MainStateEvent.GetResultEvents -> {
                     repo.getMovies()
                         .onEach { dateState ->
@@ -40,6 +40,12 @@ constructor(
             }
         }
     }
+}
+
+sealed class MainStateEvent {
+    object GetResultEvents : MainStateEvent()
+    object None : MainStateEvent()
+}
 
 //    private var mActualData: MutableLiveData<MutableList<ResultsNetworkEntity>> = MutableLiveData()
 //
@@ -106,9 +112,4 @@ constructor(
 //        job?.cancel()
 //    }
 
-}
 
-sealed class MainStateEvent {
-    object GetResultEvents : MainStateEvent()
-    object None: MainStateEvent()
-}
