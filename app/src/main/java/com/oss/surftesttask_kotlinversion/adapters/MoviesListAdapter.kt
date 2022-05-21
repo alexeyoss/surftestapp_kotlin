@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ItemMoviesListLayoutBinding
-import com.oss.surftesttask_kotlinversion.retrofit.ResultsNetworkEntity
+import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.Constants
 import java.time.LocalDate
@@ -16,32 +16,32 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
-    RecyclerView.Adapter<RecycleViewAdapter.mViewHolder>() {
+    RecyclerView.Adapter<RecycleViewAdapter.MViewHolder>() {
 
-    private var results: MutableList<ResultsNetworkEntity> = ArrayList()
+    private var results: List<Results> = ArrayList()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): mViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MViewHolder {
         val v = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movies_list_layout, parent, false)
-        return mViewHolder(v)
+        return MViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: mViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MViewHolder, position: Int) {
         holder.bindData(results[position])
     }
 
     override fun getItemCount(): Int = results.size
 
-    inner class mViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemMoviesListLayoutBinding.bind(itemView)
 
         init {
             if (!itemView.hasOnClickListeners()) itemView.setOnClickListener {
-                mClickListener.onItemClicked(adapterPosition)
+                mClickListener.onItemClicked(absoluteAdapterPosition)
             }
         }
 
-        fun bindData(results: ResultsNetworkEntity) = with(binding) {
+        fun bindData(results: Results) = with(binding) {
             Glide.with(itemView.context)
                 .load(Constants.IMG_URL + results.posterPath)
                 .placeholder(Constants.DEFAULT_PICTURE)
@@ -63,7 +63,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         }
     }
 
-    fun setData(newResults: MutableList<ResultsNetworkEntity>) {
+    fun setData(newResults: List<Results>) {
         val diffCallBack = MoviesDiffCallback(results, newResults)
         val diffResult = DiffUtil.calculateDiff(diffCallBack, false)
         results = newResults
@@ -72,8 +72,8 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
 }
 
 class MoviesDiffCallback(
-    private val oldList: MutableList<ResultsNetworkEntity>,
-    private val newList: MutableList<ResultsNetworkEntity>
+    private val oldList: List<Results>,
+    private val newList: List<Results>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

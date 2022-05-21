@@ -7,14 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.repositories.Repository
 import com.oss.surftesttask_kotlinversion.utils.DataState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
+@ViewModelScoped
 class MoviesListViewModel
 @Inject
 constructor(
@@ -27,15 +27,19 @@ constructor(
     fun setStateEvent(mainStateEvent: MainStateEvent) {
         viewModelScope.launch(Dispatchers.IO) {
             when (mainStateEvent) {
-                is MainStateEvent.GetResultEvents -> {
+                is MainStateEvent.GetResultEvent -> {
                     repo.getMovies()
                         .onEach { dateState ->
                             _dataState.value = dateState
                         }
                         .launchIn(viewModelScope)
                 }
-                is MainStateEvent.None -> {
-                    // TODO
+                is MainStateEvent.SearchResultEvent -> {
+//                    repo.searchData()
+                }
+
+                is MainStateEvent.ErrorEvent -> {
+
                 }
             }
         }
@@ -43,8 +47,10 @@ constructor(
 }
 
 sealed class MainStateEvent {
-    object GetResultEvents : MainStateEvent()
-    object None : MainStateEvent()
+    object GetResultEvent : MainStateEvent()
+    object SearchResultEvent : MainStateEvent()
+    object ErrorEvent : MainStateEvent()
+
 }
 
 //    private var mActualData: MutableLiveData<MutableList<ResultsNetworkEntity>> = MutableLiveData()

@@ -18,13 +18,15 @@ import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.viewmodels.MainStateEvent
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
 import dagger.hilt.android.scopes.FragmentScoped
+import javax.inject.Inject
 
 @FragmentScoped
 class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private lateinit var mBinding: FragmentMovieListBinding
     private var mAdapter = RecycleViewAdapter(this)
-    private val mViewModel: MoviesListViewModel by viewModels()
+    @Inject
+    lateinit var mViewModel: MoviesListViewModel // by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,13 +36,10 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
         initRecycleView()
 
-        initViewModels()
-        mViewModel.setStateEvent(MainStateEvent.GetResultEvents)
+        subscribeObservers()
+        mViewModel.setStateEvent(MainStateEvent.GetResultEvent)
+
         return mBinding.root
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-
     }
 
     private fun initRecycleView() = with(mBinding) {
@@ -51,22 +50,27 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         }
     }
 
-    private fun initViewModels() {
-
+    private fun subscribeObservers() {
         mViewModel.dateState.observe(viewLifecycleOwner, Observer { dateState ->
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
-
+                    displayRoundProgressBar(false)
+                    mAdapter.setData(dateState.data)
                 }
                 is DataState.Error -> {
-
+                    displayRoundProgressBar(false)
+                    handleUI().showErrorFragment()
                 }
                 is DataState.Loading -> {
-
+                    displayRoundProgressBar(true)
                 }
             }
         })
+    }
 
+    private fun displayRoundProgressBar(isDisplayed: Boolean) = with(mBinding) {
+        roundProgressBar.visibility = if (isDisplayed) View.VISIBLE else View.GONE
+    }
 //        mViewModel.getActualData.observe(viewLifecycleOwner) {
 //            mAdapter.setData(it)
 //            roundProgressBar.visibility = View.GONE
@@ -79,7 +83,6 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 //        mViewModel.getLoadingStatus.observe(viewLifecycleOwner) {
 //            if (it) roundProgressBar.visibility = View.VISIBLE else View.GONE
 //        }
-    }
 
     override fun onItemClicked(position: Int) {
         replaceFragmentDataContainer(MovieDetailsFragment(position))

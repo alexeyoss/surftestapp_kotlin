@@ -7,12 +7,12 @@ import com.oss.surftesttask_kotlinversion.retrofit.ApiService
 import com.oss.surftesttask_kotlinversion.retrofit.NetworkMapper
 import com.oss.surftesttask_kotlinversion.utils.Constants
 import com.oss.surftesttask_kotlinversion.utils.DataState
-import dagger.hilt.android.scopes.ServiceScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@ServiceScoped
+@Singleton
 class Repository
 @Inject
 constructor(
@@ -43,23 +43,4 @@ constructor(
             emit(DataState.Error(e))
         }
     }
-//    suspend fun getMovies(): Response<PostModelNetworkEntity> {
-//        return api.getData(
-//            Constants.API_VERSION,
-//            Constants.API_KEY,
-//            Constants.DEFAULT_LANGUAGE,
-//            Constants.DEFAULT_SORT_BY,
-//            Constants.DEFAULT_INCLUDE_ADULT,
-//            Constants.DEFAULT_INCLUDE_VIDEO,
-//            Constants.WITH_WATCH_MONETIZATION_TYPES
-//        )
-//    }
-//
-//    suspend fun getSearchMovies(query: String): Response<PostModelNetworkEntity> {
-//        return api.getSearchData(
-//            Constants.API_VERSION,
-//            Constants.API_KEY,
-//            query
-//        )
-//    }
 }

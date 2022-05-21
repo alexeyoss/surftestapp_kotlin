@@ -18,7 +18,7 @@ data class RoomCacheEntity(
     var backdropPath: String,
 
     @ColumnInfo(name = "genre_ids")
-    var genreIds: List<Int>,
+    var genreIds: String,
 
     @ColumnInfo(name = "original_language")
     var originalLanguage: String,
