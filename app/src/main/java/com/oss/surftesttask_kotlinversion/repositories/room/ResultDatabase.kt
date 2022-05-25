@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.oss.surftesttask_kotlinversion.utils.Constants
 
-@Database(entities = [RoomCacheEntity::class], version = Constants.DB_VERSION)
+@Database(entities = [RoomCacheEntity::class], version = Constants.DB_VERSION, exportSchema = false)
 abstract class ResultDatabase : RoomDatabase() {
 
     abstract fun resultDao(): ResultDao

@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieDetailsBinding
+import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 
-class MovieDetailsFragment(moviePosition: Int) : Fragment() {
+@FragmentScoped
+class MovieDetailsFragment : Fragment() {
 
     private lateinit var mBinding: FragmentMovieDetailsBinding
 
@@ -29,7 +32,7 @@ class MovieDetailsFragment(moviePosition: Int) : Fragment() {
         return mBinding.root
     }
 
-    private fun initView(){
+    private fun initView() {
         // Get ActualData from ViewModel
         // Search certain movie via position
         // try to use the data binding
@@ -40,7 +43,7 @@ class MovieDetailsFragment(moviePosition: Int) : Fragment() {
         private const val MOVIE_POSITION = "MOVIE_POSITION"
 
         fun newInstance(moviePosition: Int): MovieDetailsFragment {
-            val fragment = MovieDetailsFragment(moviePosition)
+            val fragment = MovieDetailsFragment()
             fragment.arguments = bundleOf(MOVIE_POSITION to moviePosition)
             return fragment
         }

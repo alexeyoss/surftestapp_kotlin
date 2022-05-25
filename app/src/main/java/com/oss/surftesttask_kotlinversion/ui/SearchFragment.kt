@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.oss.surftesttask_kotlinversion.databinding.FragmentSearchBinding
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
-import dagger.hilt.android.scopes.FragmentScoped
-
 
 class SearchFragment : Fragment() {
 

@@ -13,6 +13,7 @@ ext {
     coroutines_version = "1.6.1"
     retrofit_version = "2.9.0"
     room_version = "2.4.2"
+    dagger_version = "2.41"
 }
 
 task clean(type: Delete) {

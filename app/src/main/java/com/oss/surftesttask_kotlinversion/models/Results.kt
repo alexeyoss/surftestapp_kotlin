@@ -5,7 +5,7 @@ import com.oss.surftesttask_kotlinversion.utils.Constants
 data class Results(
     var isAdult: Boolean,
     var backdropPath: String,
-    var genreIds: List<Int>,
+    var genreIds: String,
     var id: Int,
     var originalLanguage: String,
     var originalTitle: String,

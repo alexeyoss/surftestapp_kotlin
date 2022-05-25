@@ -18,15 +18,14 @@ import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.viewmodels.MainStateEvent
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
 import dagger.hilt.android.scopes.FragmentScoped
-import javax.inject.Inject
 
 @FragmentScoped
 class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private lateinit var mBinding: FragmentMovieListBinding
     private var mAdapter = RecycleViewAdapter(this)
-    @Inject
-    lateinit var mViewModel: MoviesListViewModel // by viewModels()
+
+    val mViewModel by viewModels<MoviesListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,7 +84,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 //        }
 
     override fun onItemClicked(position: Int) {
-        replaceFragmentDataContainer(MovieDetailsFragment(position))
+        replaceFragmentDataContainer(MovieDetailsFragment())
         handleUI().hideSearchBar(View.GONE)
     }
 }
