@@ -11,6 +11,7 @@ import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.navigator.navigate
+import com.oss.surftesttask_kotlinversion.ui.base.factory
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
@@ -24,8 +25,8 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private lateinit var mBinding: FragmentMovieListBinding
     private var mAdapter = RecycleViewAdapter(this)
-
-    private val mViewModel: MoviesListViewModel by activityViewModels()
+    
+    private val mViewModel: MoviesListViewModel by activityViewModels { factory() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

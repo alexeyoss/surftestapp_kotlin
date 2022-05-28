@@ -6,14 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.oss.surftesttask_kotlinversion.data.repository.Repository
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Singleton
 class ViewModelFactory
 @Inject
 constructor(
-    @Named("Repository") private val repo: Repository
+    private val repo: Repository
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val viewModel = when (modelClass) {
@@ -28,4 +27,4 @@ constructor(
     }
 }
 
-//fun Fragment.factory() = ViewModelFactory()
+fun Fragment.factory() = ViewModelFactory(Repository())

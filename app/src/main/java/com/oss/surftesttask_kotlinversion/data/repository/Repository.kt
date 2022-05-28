@@ -12,14 +12,19 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Repository
-@Inject
-constructor(
-    private val resultDao: ResultDao,
-    private val retrofit: ApiService,
-    private val cacheMapper: ResultCacheMapper,
-    private val networkMapper: NetworkMapper
-) {
+class Repository {
+    @Inject
+    lateinit var resultDao: ResultDao
+
+    @Inject
+    lateinit var retrofit: ApiService
+
+    @Inject
+    lateinit var resultMapper: ResultCacheMapper
+
+    @Inject
+    lateinit var networkMapper: NetworkMapper
+
     suspend fun getMovies(): Flow<DataState<List<Results>>> = flow {
         emit(DataState.Loading)
         try {
@@ -34,10 +39,10 @@ constructor(
             ).results
             val results = networkMapper.mapFromEntityList(networkResult)
             for (item in results) {
-                resultDao.insert(cacheMapper.mapResultToEntity(item, false))
+                resultDao.insert(resultMapper.mapResultToEntity(item, false))
             }
             val cachedResults = resultDao.get()
-            emit(DataState.Success(cacheMapper.mapFromEntityList(cachedResults)))
+            emit(DataState.Success(resultMapper.mapFromEntityList(cachedResults)))
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }

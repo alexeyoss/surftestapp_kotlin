@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun showEmptySearch() {
-
     }
 
     override fun showRecycleViewFragment() {
