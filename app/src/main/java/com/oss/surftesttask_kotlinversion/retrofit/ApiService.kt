@@ -1,6 +1,6 @@
 package com.oss.surftesttask_kotlinversion.retrofit
 
-import retrofit2.Response
+import com.oss.surftesttask_kotlinversion.retrofit.entities.PostModelNetworkEntity
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

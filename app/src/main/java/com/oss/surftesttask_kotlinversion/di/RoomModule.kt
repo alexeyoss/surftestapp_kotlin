@@ -2,9 +2,8 @@ package com.oss.surftesttask_kotlinversion.di
 
 import android.content.Context
 import androidx.room.Room
-import com.google.gson.GsonBuilder
-import com.oss.surftesttask_kotlinversion.repositories.room.ResultDao
-import com.oss.surftesttask_kotlinversion.repositories.room.ResultDatabase
+import com.oss.surftesttask_kotlinversion.data.db.ResultDao
+import com.oss.surftesttask_kotlinversion.data.db.ResultDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,7 +21,7 @@ object RoomModule {
         return Room.databaseBuilder(
             context,
             ResultDatabase::class.java,
-            ResultDatabase.DATABASE_NAME,
+            ResultDatabase.DB_NAME,
         )
             .fallbackToDestructiveMigration()
             .build()

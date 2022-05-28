@@ -10,7 +10,6 @@ import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ItemMoviesListLayoutBinding
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
-import com.oss.surftesttask_kotlinversion.utils.Constants
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -33,7 +32,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
     override fun getItemCount(): Int = results.size
 
     inner class MViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemMoviesListLayoutBinding.bind(itemView)
+        private val mBinding = ItemMoviesListLayoutBinding.bind(itemView)
 
         init {
             if (!itemView.hasOnClickListeners()) itemView.setOnClickListener {
@@ -41,10 +40,10 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
             }
         }
 
-        fun bindData(results: Results) = with(binding) {
+        fun bindData(results: Results) = with(mBinding) {
             Glide.with(itemView.context)
-                .load(Constants.IMG_URL + results.posterPath)
-                .placeholder(Constants.DEFAULT_PICTURE)
+                .load(IMG_URL + results.posterPath)
+                .placeholder(DEFAULT_PICTURE)
                 .fitCenter()
                 .into(poster)
             title.text = results.title
@@ -54,10 +53,10 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         }
 
         private fun transformDate(date: String): String {
-            return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")).format(
+            return LocalDate.parse(date, DateTimeFormatter.ofPattern(NETWORK_DATE_PATTERN)).format(
                 DateTimeFormatter.ofPattern(
-                    "dd MMMM yyyy",
-                    Locale("ru")
+                    LOCAL_DATE_PATTERN,
+                    Locale(LOCAL_LANG)
                 )
             ) ?: date
         }
@@ -68,6 +67,14 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         val diffResult = DiffUtil.calculateDiff(diffCallBack, false)
         results = newResults
         diffResult.dispatchUpdatesTo(this)
+    }
+
+    companion object {
+        const val DEFAULT_PICTURE = R.drawable.ic_default_poster
+        const val IMG_URL = "https://image.tmdb.org/t/p/w500"
+        const val NETWORK_DATE_PATTERN = "yyyy-MM-dd"
+        const val LOCAL_DATE_PATTERN = "yyyy-MM-dd"
+        const val LOCAL_LANG = "ru"
     }
 }
 

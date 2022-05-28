@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.R
 
+interface AdapterOnClickListener {
+    fun onItemClicked(position: Int)
+}
 
 fun Fragment.replaceFragmentDataContainer(fragment: Fragment, addStack: Boolean = false) {
     if (addStack) {

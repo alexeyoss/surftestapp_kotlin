@@ -1,7 +1,5 @@
 package com.oss.surftesttask_kotlinversion.models
 
-import com.oss.surftesttask_kotlinversion.utils.Constants
-
 data class Results(
     var isAdult: Boolean,
     var backdropPath: String,
@@ -17,5 +15,10 @@ data class Results(
     var isVideoisVideo: Boolean,
     var voteAverage: Float,
     var voteCount: Int,
-    var liked: Boolean = Constants.DEFAULT_LIKED
-)
+    var liked: Boolean = DEFAULT_LIKED
+) {
+    companion object {
+        const val DEFAULT_LIKED = false
+    }
+}
+

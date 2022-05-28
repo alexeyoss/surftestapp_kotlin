@@ -1,14 +1,14 @@
-package com.oss.surftesttask_kotlinversion.repositories.room
+package com.oss.surftesttask_kotlinversion.data.db.entities
 
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.utils.EntityMapper
 import javax.inject.Inject
 
 
-class RoomCacheMapper
+class ResultCacheMapper
 @Inject constructor() :
-    EntityMapper<RoomCacheEntity, Results> {
-    override fun mapResultFromEntity(entity: RoomCacheEntity): Results {
+    EntityMapper<ResultCacheEntity, Results> {
+    override fun mapResultFromEntity(entity: ResultCacheEntity): Results {
         return Results(
             id = entity.id,
             isAdult = entity.isAdult,
@@ -27,8 +27,8 @@ class RoomCacheMapper
         )
     }
 
-    override fun mapResultToEntity(domainModel: Results, liked: Boolean): RoomCacheEntity {
-        return RoomCacheEntity(
+    override fun mapResultToEntity(domainModel: Results, liked: Boolean): ResultCacheEntity {
+        return ResultCacheEntity(
             id = domainModel.id,
             isAdult = domainModel.isAdult,
             backdropPath = domainModel.backdropPath,
@@ -47,7 +47,7 @@ class RoomCacheMapper
         )
     }
 
-    fun mapFromEntityList(entity: List<RoomCacheEntity>): List<Results> {
+    fun mapFromEntityList(entity: List<ResultCacheEntity>): List<Results> {
         return entity.map { mapResultFromEntity(it) }
     }
 

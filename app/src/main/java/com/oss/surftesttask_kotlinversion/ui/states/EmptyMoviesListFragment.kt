@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui
+package com.oss.surftesttask_kotlinversion.ui.states
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentEmptyMovieListBinding
-import com.oss.surftesttask_kotlinversion.utils.Constants
 
 class EmptyMoviesListFragment : Fragment() {
 
@@ -21,7 +20,7 @@ class EmptyMoviesListFragment : Fragment() {
         mBinding = FragmentEmptyMovieListBinding.inflate(inflater, container, false)
 
         mBinding.tvEmptySearch.text =
-            "${Constants.TV_EMPTY_SEARCH1} + ${getSearchText()} + ${Constants.TV_EMPTY_SEARCH2}"
+            "$TV_EMPTY_SEARCH1 + ${getSearchText()} + $TV_EMPTY_SEARCH2"
         return mBinding.root
     }
 
@@ -29,8 +28,9 @@ class EmptyMoviesListFragment : Fragment() {
 
     companion object {
 
-        @JvmStatic
-        private val ARG_SEARCH = "ARG_SEARCH"
+        const val ARG_SEARCH = "ARG_SEARCH"
+        const val TV_EMPTY_SEARCH1 = "По запросу "
+        const val TV_EMPTY_SEARCH2 = "\n ничего не найдено"
 
         @JvmStatic
         fun newInstance(searchText: String): EmptyMoviesListFragment {

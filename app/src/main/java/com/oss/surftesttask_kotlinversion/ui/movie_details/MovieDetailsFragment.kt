@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui
+package com.oss.surftesttask_kotlinversion.ui.movie_details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieDetailsBinding
 import dagger.hilt.android.scopes.FragmentScoped
-import dagger.hilt.android.scopes.ViewModelScoped
 
 @FragmentScoped
 class MovieDetailsFragment : Fragment() {

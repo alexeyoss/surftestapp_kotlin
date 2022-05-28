@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui
+package com.oss.surftesttask_kotlinversion.ui.states
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentErrorScreenBinding
-import com.oss.surftesttask_kotlinversion.utils.handleUI
+import com.oss.surftesttask_kotlinversion.navigator.navigate
 
 class ErrorScreenFragment : Fragment() {
 
@@ -25,7 +25,7 @@ class ErrorScreenFragment : Fragment() {
     fun initListeners() = with(mBinding) {
         if (!refreshImageButton.hasOnClickListeners()) {
             refreshImageButton.setOnClickListener {
-                handleUI().showRecycleViewFragment()
+                navigate().showRecycleViewFragment()
             }
         }
     }

@@ -1,12 +1,12 @@
-package com.oss.surftesttask_kotlinversion.repositories.room
+package com.oss.surftesttask_kotlinversion.data.db.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.oss.surftesttask_kotlinversion.utils.Constants
 
 @Entity(tableName = "liked_movies")
-data class RoomCacheEntity(
+data class ResultCacheEntity(
+
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "id")
     var id: Int,

@@ -1,24 +1,26 @@
-package com.oss.surftesttask_kotlinversion.ui
+package com.oss.surftesttask_kotlinversion
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
-import com.oss.surftesttask_kotlinversion.utils.ActivityUIhandler
+import com.oss.surftesttask_kotlinversion.navigator.Navigator
+import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
+import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
+import com.oss.surftesttask_kotlinversion.ui.states.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentSearchContainer
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(), ActivityUIhandler {
+class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var mBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-
 
         if (savedInstanceState == null) {
             replaceFragmentSearchContainer(SearchFragment())
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity(), ActivityUIhandler {
     }
 
     override fun showEmptySearch() {
-//        replaceFragment(EmptyMoviesListFragment.newInstance(mBinding.etSearch.text.toString()))
+
     }
 
     override fun showRecycleViewFragment() {

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/movie_details_layout"
-    tools:context=".ui.MovieDetailsFragment">
+    tools:context=".ui.movie_details.MovieDetailsFragment">
 
     <ImageView
         android:id="@+id/poster"

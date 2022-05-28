@@ -2,8 +2,8 @@ package com.oss.surftesttask_kotlinversion.di
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.oss.surftesttask_kotlinversion.App
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
-import com.oss.surftesttask_kotlinversion.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +36,7 @@ object RetrofitModule {
     @Provides
     fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(App.BASE_URL)
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
     }

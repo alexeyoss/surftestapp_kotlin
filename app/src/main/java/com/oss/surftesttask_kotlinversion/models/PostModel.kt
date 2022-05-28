@@ -1,6 +1,6 @@
 package com.oss.surftesttask_kotlinversion.models
 
-import com.oss.surftesttask_kotlinversion.retrofit.ResultsNetworkEntity
+import com.oss.surftesttask_kotlinversion.retrofit.entities.ResultsNetworkEntity
 
 data class PostModel(
     var page: Int,

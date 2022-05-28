@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.retrofit
+package com.oss.surftesttask_kotlinversion.retrofit.entities
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

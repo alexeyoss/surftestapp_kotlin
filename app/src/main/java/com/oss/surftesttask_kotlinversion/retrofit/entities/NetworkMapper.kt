@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.retrofit
+package com.oss.surftesttask_kotlinversion.retrofit.entities
 
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.utils.EntityMapper

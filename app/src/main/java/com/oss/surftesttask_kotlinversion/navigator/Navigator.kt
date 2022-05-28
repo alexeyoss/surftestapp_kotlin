@@ -1,10 +1,10 @@
-package com.oss.surftesttask_kotlinversion.utils
+package com.oss.surftesttask_kotlinversion.navigator
 
 import androidx.fragment.app.Fragment
 
-fun Fragment.handleUI(): ActivityUIhandler = requireActivity() as ActivityUIhandler
+fun Fragment.navigate(): Navigator = requireActivity() as Navigator
 
-interface ActivityUIhandler {
+interface Navigator {
     fun showErrorFragment()
 
     fun showEmptySearch()
