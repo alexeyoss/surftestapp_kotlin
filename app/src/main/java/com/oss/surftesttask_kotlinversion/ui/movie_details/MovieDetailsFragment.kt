@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieDetailsBinding
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.AndroidEntryPoint
 
-@FragmentScoped
+@AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
     private lateinit var mBinding: FragmentMovieDetailsBinding
 
-    // TODO Dependency Injection for getting data from one viewModel
     // TODO Rebuild the layout file for using the backdrop image instead of posterPath
 
     override fun onCreate(savedInstanceState: Bundle?) {

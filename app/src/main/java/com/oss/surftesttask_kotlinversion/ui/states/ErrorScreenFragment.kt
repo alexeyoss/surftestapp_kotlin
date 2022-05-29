@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentErrorScreenBinding
 import com.oss.surftesttask_kotlinversion.navigator.navigate
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ErrorScreenFragment : Fragment() {
 
     private lateinit var mBinding: FragmentErrorScreenBinding
@@ -29,10 +31,4 @@ class ErrorScreenFragment : Fragment() {
             }
         }
     }
-
-//    companion object {
-//        @JvmStatic
-//        fun newInstance(): ErrorScreenFragment = ErrorScreenFragment()
-//    }
-
 }

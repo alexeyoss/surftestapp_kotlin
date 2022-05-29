@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
 import com.oss.surftesttask_kotlinversion.navigator.Navigator
+import com.oss.surftesttask_kotlinversion.ui.base.BaseScreen
 import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
 import com.oss.surftesttask_kotlinversion.ui.states.ErrorScreenFragment
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity(), Navigator {
             replaceFragmentSearchContainer(SearchFragment())
             replaceFragmentDataContainer(MoviesListFragment())
         }
-
         initListeners()
     }
 
@@ -36,6 +36,10 @@ class MainActivity : AppCompatActivity(), Navigator {
             replaceFragmentDataContainer(MoviesListFragment()) // Add save instance
             swipeRefreshLayout.isRefreshing = false
         }
+    }
+
+    override fun launch(screen: BaseScreen) {
+
     }
 
     override fun showErrorFragment() {

@@ -12,18 +12,22 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Repository {
-    @Inject
-    lateinit var resultDao: ResultDao
-
-    @Inject
-    lateinit var retrofit: ApiService
-
-    @Inject
-    lateinit var resultMapper: ResultCacheMapper
-
-    @Inject
-    lateinit var networkMapper: NetworkMapper
+class Repository
+@Inject
+constructor(
+    private val resultDao: ResultDao,
+    private val retrofit: ApiService,
+    private val resultMapper: ResultCacheMapper,
+    private val networkMapper: NetworkMapper
+) {
+//    @Inject
+//    private lateinit var resultDao:ResultDao
+//    @Inject
+//    private lateinit var retrofit:ApiService
+//    @Inject
+//    private lateinit var resultMapper:ResultCacheMapper
+//    @Inject
+//    private lateinit var networkMapper:NetworkMapper
 
     suspend fun getMovies(): Flow<DataState<List<Results>>> = flow {
         emit(DataState.Loading)

@@ -5,28 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.oss.surftesttask_kotlinversion.Events
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.navigator.navigate
-import com.oss.surftesttask_kotlinversion.ui.base.factory
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
-import com.oss.surftesttask_kotlinversion.viewmodels.MainStateEvent
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
-import dagger.hilt.android.scopes.FragmentScoped
+import dagger.hilt.android.AndroidEntryPoint
 
-@FragmentScoped
+@AndroidEntryPoint
 class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private lateinit var mBinding: FragmentMovieListBinding
     private var mAdapter = RecycleViewAdapter(this)
-    
-    private val mViewModel: MoviesListViewModel by activityViewModels { factory() }
+
+    private val mViewModel: MoviesListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +36,11 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         initRecycleView()
 
         subscribeObservers()
-        mViewModel.setStateEvent(MainStateEvent.GetResultEvent)
+
+        if (savedInstanceState == null) {
+            mViewModel.setStateEvent(Events.GetResultEvent)
+        } else
+            mViewModel.setStateEvent(Events.OnRestoreEvent)
 
         return mBinding.root
     }
@@ -49,6 +52,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             adapter = mAdapter
         }
     }
+
 
     private fun subscribeObservers() {
         mViewModel.dateState.observe(viewLifecycleOwner) { dateState ->
@@ -64,6 +68,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 is DataState.Loading -> {
                     displayRoundProgressBar(true)
                 }
+
             }
         }
     }
@@ -78,5 +83,9 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         navigate().hideSearchBar(View.GONE)
     }
 
+    companion object {
+        @JvmStatic
+        private val KEY_STATE = "LAST_MOVIES"
+    }
 }
 

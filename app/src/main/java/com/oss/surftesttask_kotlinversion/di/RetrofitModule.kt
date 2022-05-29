@@ -1,7 +1,5 @@
 package com.oss.surftesttask_kotlinversion.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.oss.surftesttask_kotlinversion.App
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
 import dagger.Module
@@ -20,12 +18,6 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideGsonBuilder(): Gson {
-        return GsonBuilder().create()
-    }
-
-    @Singleton
-    @Provides
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
             .callTimeout(15, TimeUnit.SECONDS)
@@ -34,17 +26,11 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(gson: Gson, httpClient: OkHttpClient): Retrofit.Builder {
+    fun provideApiService(httpClient: OkHttpClient): ApiService {
         return Retrofit.Builder()
             .baseUrl(App.BASE_URL)
             .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-    }
-
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit.Builder): ApiService {
-        return retrofit
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(ApiService::class.java)
     }
