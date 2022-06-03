@@ -3,8 +3,11 @@ package com.oss.surftesttask_kotlinversion.data.db.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.oss.surftesttask_kotlinversion.data.db.DataConverter
 
 @Entity(tableName = "liked_movies")
+@TypeConverters(value = [DataConverter::class])
 data class ResultCacheEntity(
 
     @PrimaryKey(autoGenerate = false)
@@ -18,7 +21,7 @@ data class ResultCacheEntity(
     var backdropPath: String,
 
     @ColumnInfo(name = "genre_ids")
-    var genreIds: String,
+    var genreIds: List<Int>,
 
     @ColumnInfo(name = "original_language")
     var originalLanguage: String,

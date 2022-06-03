@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     private fun initListeners() = with(mBinding) {
         swipeRefreshLayout.setOnRefreshListener {
-            replaceFragmentDataContainer(MoviesListFragment()) // Add save instance
+            replaceFragmentDataContainer(MoviesListFragment())
             swipeRefreshLayout.isRefreshing = false
         }
     }

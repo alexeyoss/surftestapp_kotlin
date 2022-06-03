@@ -14,7 +14,7 @@ data class ResultsNetworkEntity(
 
     @SerializedName("genre_ids")
     @Expose
-    var genreIds: String,
+    var genreIds: List<Int>,
 
     @SerializedName("id")
     @Expose

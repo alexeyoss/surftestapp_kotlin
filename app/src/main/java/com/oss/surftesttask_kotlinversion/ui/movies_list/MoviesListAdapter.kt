@@ -43,7 +43,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         fun bindData(results: Results) = with(mBinding) {
             Glide.with(itemView.context)
                 .load(IMG_URL + results.posterPath)
-                .placeholder(DEFAULT_PICTURE)
+//                .placeholder(DEFAULT_PICTURE) // TODO amend size of the picture
                 .fitCenter()
                 .into(poster)
             title.text = results.title
@@ -73,7 +73,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         const val DEFAULT_PICTURE = R.drawable.ic_default_poster
         const val IMG_URL = "https://image.tmdb.org/t/p/w500"
         const val NETWORK_DATE_PATTERN = "yyyy-MM-dd"
-        const val LOCAL_DATE_PATTERN = "yyyy-MM-dd"
+        const val LOCAL_DATE_PATTERN = "dd-MM-yyyy"
         const val LOCAL_LANG = "ru"
     }
 }

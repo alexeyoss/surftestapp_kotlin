@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/rv_layout">
 
     <ImageView
-        style="@style/rv_poster"
         android:id="@+id/poster"
-        android:src="@drawable/ic_default_poster"
+        style="@style/rv_poster"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/rv_film_name"
         android:id="@+id/title"
+        style="@style/rv_film_name"
         android:text="@string/text_example"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/poster"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        style="@style/rv_item_desc"
         android:id="@+id/overview"
+        style="@style/rv_item_desc"
         android:text="@string/text_example"
         app:layout_constraintBottom_toTopOf="@+id/ic_heart"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,16 +30,16 @@
 
 
     <ImageView
-        style="@style/rv_ic_calendar"
         android:id="@+id/ic_calendar"
+        style="@style/rv_ic_calendar"
         android:src="@drawable/ic_calendar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/poster"
         tools:ignore="ImageContrastCheck" />
 
     <TextView
-        style="@style/rv_date"
         android:id="@+id/date"
+        style="@style/rv_date"
         android:text="@string/date_example"
         app:layout_constraintBottom_toBottomOf="@+id/ic_calendar"
         app:layout_constraintEnd_toStartOf="@+id/ic_heart"
@@ -48,8 +47,8 @@
         app:layout_constraintTop_toTopOf="@+id/ic_calendar" />
 
     <ImageView
-        style="@style/rv_ic_heart"
         android:id="@+id/ic_heart"
+        style="@style/rv_ic_heart"
         android:src="@drawable/ic_heart_empty_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
