@@ -43,8 +43,8 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         fun bindData(results: Results) = with(mBinding) {
             Glide.with(itemView.context)
                 .load(IMG_URL + results.posterPath)
-//                .placeholder(DEFAULT_PICTURE) // TODO amend size of the picture
-                .fitCenter()
+                .placeholder(DEFAULT_PICTURE)
+                .centerCrop()
                 .into(poster)
             title.text = results.title
             overview.text = results.overview

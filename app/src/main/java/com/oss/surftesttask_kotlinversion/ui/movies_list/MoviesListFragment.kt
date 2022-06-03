@@ -40,7 +40,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         if (savedInstanceState == null) {
             mViewModel.setStateEvent(Events.GetResultEvent)
         } else
-            mViewModel.setStateEvent(Events.OnRestoreEvent)
+            mViewModel.setStateEvent(Events.OnRestoreEvent) // TODO restore from the Bundle
 
         return mBinding.root
     }

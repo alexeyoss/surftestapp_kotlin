@@ -6,7 +6,7 @@
         <item name="android:layout_width">@dimen/poster_width</item>
         <item name="android:layout_height">@dimen/poster_height</item>
         <item name="android:contentDescription">@string/movie_poster_desc</item>
-        <item name="android:scaleType">fitXY</item>
+<!--        <item name="android:scaleType">fitXY</item>-->
     </style>
 
     <style name="rv_layout">
