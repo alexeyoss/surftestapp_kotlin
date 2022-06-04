@@ -1,6 +1,7 @@
 package com.oss.surftesttask_kotlinversion.retrofit.entities
 
 import com.oss.surftesttask_kotlinversion.models.Results
+import com.oss.surftesttask_kotlinversion.utils.Constants
 import com.oss.surftesttask_kotlinversion.utils.EntityMapper
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ constructor() : EntityMapper<ResultsNetworkEntity, Results> {
             originalTitle = entity.originalTitle,
             overview = entity.overview,
             popularity = entity.popularity,
-            posterPath = entity.posterPath,
+            posterPath = Constants.IMG_URL + entity.posterPath,
             releaseDate = entity.releaseDate,
             title = entity.title,
             isVideoisVideo = entity.isVideoisVideo,
@@ -27,7 +28,7 @@ constructor() : EntityMapper<ResultsNetworkEntity, Results> {
         )
     }
 
-    override fun mapResultToEntity(domainModel: Results, liked:Boolean): ResultsNetworkEntity {
+    override fun mapResultToEntity(domainModel: Results, liked: Boolean): ResultsNetworkEntity {
         return ResultsNetworkEntity(
             isAdult = domainModel.isAdult,
             backdropPath = domainModel.backdropPath,

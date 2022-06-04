@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.Events
+import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
@@ -15,7 +16,6 @@ import com.oss.surftesttask_kotlinversion.navigator.navigate
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
-import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,8 +33,8 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     ): View {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
 
+        initListeners()
         initRecycleView()
-
         subscribeObservers()
 
         if (savedInstanceState == null) {
@@ -50,6 +50,13 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = mAdapter
+        }
+    }
+
+    private fun initListeners() = with(mBinding) {
+        swipeRefreshLayout.setOnRefreshListener {
+            mViewModel.setStateEvent(Events.GetResultEvent)
+            swipeRefreshLayout.isRefreshing = false
         }
     }
 
@@ -78,14 +85,17 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     }
 
 
-    override fun onItemClicked(position: Int) {
-        replaceFragmentDataContainer(MovieDetailsFragment())
-        navigate().hideSearchBar(View.GONE)
+    override fun onItemClicked(result: Results) {
+        navigate().showSearchBar(visible = false) //TODO showBack the SearchFragment
+        parentFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.dataContainer, MovieDetailsFragment.newInstance(result))
+            .commit()
     }
 
     companion object {
         @JvmStatic
-        private val KEY_STATE = "LAST_MOVIES"
+        fun newInstance(): MoviesListFragment = MoviesListFragment()
     }
 }
 

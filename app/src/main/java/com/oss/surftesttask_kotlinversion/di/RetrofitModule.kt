@@ -1,7 +1,7 @@
 package com.oss.surftesttask_kotlinversion.di
 
-import com.oss.surftesttask_kotlinversion.App
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
+import com.oss.surftesttask_kotlinversion.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,12 +26,17 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideApiService(httpClient: OkHttpClient): ApiService {
+    fun provideRetrofit(httpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(App.BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ApiService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }

@@ -7,7 +7,7 @@ fun Fragment.navigate(): Navigator = requireActivity() as Navigator
 
 interface Navigator {
 
-    fun launch(screen: BaseScreen)
+    fun launch(screen: BaseScreen, addStack: Boolean = false)
 
     fun showErrorFragment()
 
@@ -15,5 +15,5 @@ interface Navigator {
 
     fun showRecycleViewFragment()
 
-    fun hideSearchBar(status: Int)
+    fun showSearchBar(visible: Boolean)
 }

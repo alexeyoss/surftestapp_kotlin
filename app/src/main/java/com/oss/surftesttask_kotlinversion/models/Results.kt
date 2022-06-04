@@ -1,5 +1,6 @@
 package com.oss.surftesttask_kotlinversion.models
 
+import java.io.Serializable
 
 data class Results(
     var isAdult: Boolean,
@@ -17,7 +18,8 @@ data class Results(
     var voteAverage: Float,
     var voteCount: Int,
     var liked: Boolean = DEFAULT_LIKED
-) {
+) : Serializable {
+
     companion object {
         const val DEFAULT_LIKED = false
     }

@@ -1,8 +1,9 @@
-package com.oss.surftesttask_kotlinversion
+package com.oss.surftesttask_kotlinversion.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
 import com.oss.surftesttask_kotlinversion.navigator.Navigator
 import com.oss.surftesttask_kotlinversion.ui.base.BaseScreen
@@ -10,9 +11,7 @@ import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
 import com.oss.surftesttask_kotlinversion.ui.states.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
-import com.oss.surftesttask_kotlinversion.utils.replaceFragmentSearchContainer
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Navigator {
@@ -23,24 +22,20 @@ class MainActivity : AppCompatActivity(), Navigator {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        if (savedInstanceState == null) {
-            replaceFragmentSearchContainer(SearchFragment())
-            replaceFragmentDataContainer(MoviesListFragment())
-        }
-        initListeners()
-    }
-
-
-    private fun initListeners() = with(mBinding) {
-        swipeRefreshLayout.setOnRefreshListener {
-            replaceFragmentDataContainer(MoviesListFragment())
-            swipeRefreshLayout.isRefreshing = false
+        if (savedInstanceState == null) with(supportFragmentManager) {
+            beginTransaction()
+                .replace(R.id.searchContainer, SearchFragment.newInstance())
+                .replace(R.id.dataContainer, MoviesListFragment.newInstance())
+                .commit()
+            // TODO migrate to handling via Navigator
+        } else {
+            // TODO state recovery
         }
     }
 
-    override fun launch(screen: BaseScreen) {
-
+    override fun launch(screen: BaseScreen, addStack: Boolean) {
     }
+
 
     override fun showErrorFragment() {
         replaceFragmentDataContainer(ErrorScreenFragment())
@@ -53,10 +48,7 @@ class MainActivity : AppCompatActivity(), Navigator {
         replaceFragmentDataContainer(MoviesListFragment())
     }
 
-    override fun hideSearchBar(status: Int) = with(mBinding) {
-        when (status) {
-            View.GONE -> searchContainer.visibility = View.GONE
-            View.VISIBLE -> searchContainer.visibility = View.VISIBLE
-        }
+    override fun showSearchBar(visible: Boolean) = with(mBinding) {
+        searchContainer.isVisible = visible
     }
 }

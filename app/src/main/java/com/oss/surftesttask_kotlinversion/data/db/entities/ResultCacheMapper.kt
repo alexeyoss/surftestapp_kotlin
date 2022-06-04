@@ -1,6 +1,7 @@
 package com.oss.surftesttask_kotlinversion.data.db.entities
 
 import com.oss.surftesttask_kotlinversion.models.Results
+import com.oss.surftesttask_kotlinversion.utils.Constants
 import com.oss.surftesttask_kotlinversion.utils.EntityMapper
 import javax.inject.Inject
 

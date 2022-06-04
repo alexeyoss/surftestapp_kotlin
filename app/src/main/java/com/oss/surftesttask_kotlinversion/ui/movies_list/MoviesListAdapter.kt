@@ -10,6 +10,7 @@ import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ItemMoviesListLayoutBinding
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
+import com.oss.surftesttask_kotlinversion.utils.Constants
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -35,15 +36,15 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         private val mBinding = ItemMoviesListLayoutBinding.bind(itemView)
 
         init {
-            if (!itemView.hasOnClickListeners()) itemView.setOnClickListener {
-                mClickListener.onItemClicked(absoluteAdapterPosition)
+            itemView.setOnClickListener {
+                mClickListener.onItemClicked(results.get(absoluteAdapterPosition))
             }
         }
 
         fun bindData(results: Results) = with(mBinding) {
             Glide.with(itemView.context)
-                .load(IMG_URL + results.posterPath)
-                .placeholder(DEFAULT_PICTURE)
+                .load(results.posterPath)
+                .placeholder(Constants.DEFAULT_PICTURE)
                 .centerCrop()
                 .into(poster)
             title.text = results.title
@@ -70,8 +71,6 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
     }
 
     companion object {
-        const val DEFAULT_PICTURE = R.drawable.ic_default_poster
-        const val IMG_URL = "https://image.tmdb.org/t/p/w500"
         const val NETWORK_DATE_PATTERN = "yyyy-MM-dd"
         const val LOCAL_DATE_PATTERN = "dd-MM-yyyy"
         const val LOCAL_LANG = "ru"
