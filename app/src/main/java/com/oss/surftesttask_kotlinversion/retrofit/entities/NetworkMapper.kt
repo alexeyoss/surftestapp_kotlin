@@ -12,7 +12,7 @@ constructor() : EntityMapper<ResultsNetworkEntity, Results> {
     override fun mapResultFromEntity(entity: ResultsNetworkEntity): Results {
         return Results(
             isAdult = entity.isAdult,
-            backdropPath = entity.backdropPath,
+            backdropPath = Constants.IMG_URL + entity.backdropPath,
             genreIds = entity.genreIds,
             id = entity.id,
             originalLanguage = entity.originalLanguage,

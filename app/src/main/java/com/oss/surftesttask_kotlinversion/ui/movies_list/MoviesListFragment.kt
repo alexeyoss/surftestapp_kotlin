@@ -4,16 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.oss.surftesttask_kotlinversion.Events
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
+import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
-import com.oss.surftesttask_kotlinversion.navigator.navigate
+import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
+import com.oss.surftesttask_kotlinversion.ui.states.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
@@ -61,36 +63,52 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     }
 
 
-    private fun subscribeObservers() {
+    private fun subscribeObservers() = with(mBinding) {
         mViewModel.dateState.observe(viewLifecycleOwner) { dateState ->
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
-                    displayRoundProgressBar(false)
+                    displayProgressBar(visible = false)
                     mAdapter.setData(dateState.data)
                 }
                 is DataState.Error -> {
-                    displayRoundProgressBar(false)
-                    navigate().showErrorFragment()
+                    displayProgressBar(visible = false)
+                    navigator().launch(ErrorScreenFragment::class.java, null)
                 }
-                is DataState.Loading -> {
-                    displayRoundProgressBar(true)
+                is DataState.Loading<List<Results>> -> {
+                    displayProgressBar(dateState.data.size, true)
                 }
 
             }
         }
     }
 
-    private fun displayRoundProgressBar(isDisplayed: Boolean) = with(mBinding) {
-        roundProgressBar.visibility = if (isDisplayed) View.VISIBLE else View.GONE
-    }
+    private fun displayProgressBar(dataSize: Int = -1, visible: Boolean = false) =
+        with(mBinding) {
+            when {
+                dataSize == 0 -> {
+                    lineProgressBar.isVisible = visible
+                }
+                dataSize > 0 -> {
+                    roundProgressBar.isVisible = visible
+                }
+                else -> {
+                    lineProgressBar.isVisible = visible
+                    roundProgressBar.isVisible = visible
+                }
+            }
+        }
 
 
     override fun onItemClicked(result: Results) {
-        navigate().showSearchBar(visible = false) //TODO showBack the SearchFragment
-        parentFragmentManager.beginTransaction()
+        navigator().showSearchContainer(visible = false) //TODO showBack the SearchFragment
+
+        parentFragmentManager
+            .beginTransaction()
             .addToBackStack(null)
-            .replace(R.id.dataContainer, MovieDetailsFragment.newInstance(result))
+            .replace(R.id.dataContainer, MovieDetailsFragment.newInstance(result)) //TODO add operation + blur and turn off the background (1'st fragment)
             .commit()
+
+//        navigator().launch(MovieDetailsFragment::class.java, result) // TODO figure out why i can't invoke fragment with parameters via Activity
     }
 
     companion object {

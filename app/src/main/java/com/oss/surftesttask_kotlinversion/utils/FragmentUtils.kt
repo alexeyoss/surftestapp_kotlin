@@ -9,19 +9,6 @@ interface AdapterOnClickListener {
     fun onItemClicked(result: Results)
 }
 
-fun Fragment.replaceFragmentDataContainer(fragment: Fragment, addStack: Boolean = false) {
-    if (addStack) {
-        parentFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.dataContainer, fragment)
-            .commit()
-    } else {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.dataContainer, fragment)
-            .commit()
-    }
-}
-
 fun AppCompatActivity.replaceFragmentDataContainer(fragment: Fragment, addStack: Boolean = false) {
     if (addStack) {
         supportFragmentManager.beginTransaction()
@@ -35,33 +22,4 @@ fun AppCompatActivity.replaceFragmentDataContainer(fragment: Fragment, addStack:
     }
 }
 
-
-fun Fragment.replaceFragmentSearchContainer(fragment: Fragment, addStack: Boolean = false) {
-    if (addStack) {
-        parentFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.searchContainer, fragment)
-            .commit()
-    } else {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.searchContainer, fragment)
-            .commit()
-    }
-}
-
-fun AppCompatActivity.replaceFragmentSearchContainer(
-    fragment: Fragment,
-    addStack: Boolean = false
-) {
-    if (addStack) {
-        supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.searchContainer, fragment)
-            .commit()
-    } else {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.searchContainer, fragment)
-            .commit()
-    }
-}
 

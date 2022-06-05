@@ -9,6 +9,7 @@ import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheEntity
 @Dao
 interface ResultDao {
 
+    // TODO insert only new data + think about the like
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(resultEntity: ResultCacheEntity): Long
 

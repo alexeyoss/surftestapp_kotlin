@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion
+package com.oss.surftesttask_kotlinversion.ui
 
 sealed class Events {
     object GetResultEvent : Events()

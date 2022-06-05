@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.oss.surftesttask_kotlinversion.Events
+import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.data.repository.Repository
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.utils.DataState

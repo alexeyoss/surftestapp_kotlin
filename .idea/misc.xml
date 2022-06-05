@@ -27,7 +27,17 @@
         <entry key="..\:/Users/Public/SurfTestTask_KotlinVersion/app/src/main/res/layout/fragment_search.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/SurfTestTask_KotlinVersion/app/src/main/res/layout/item_movies_list_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/SurfTestTask_KotlinVersion/app/src/main/res/layout/rv_item_layout.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_film_svgrepo_com.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_empty_big.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_empty_small.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_fill_big.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_fill_small.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/ic_back_button.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/ic_default_poster.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/ic_imdb_logo.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/movie_details_background.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/activity_main.xml" value="0.2171875" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_empty_movie_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_error_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_movie_details.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_movie_list.xml" value="0.25416666666666665" />
