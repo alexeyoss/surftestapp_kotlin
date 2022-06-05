@@ -8,6 +8,8 @@
     <dimen name="horizontal_margin">15dp</dimen>
     <dimen name="vertical_margin">15dp</dimen>
     <dimen name="horizontal_margin_small">12dp</dimen>
+    <dimen name="horizontal_margin_tiny">8dp</dimen>
+    <dimen name="vertical_margin_tiny">8dp</dimen>
     <dimen name="zero_layout_width">0dp</dimen>
     <dimen name="zero_layout_height">0dp</dimen>
     <dimen name="paddingHorizontal">16dp</dimen>

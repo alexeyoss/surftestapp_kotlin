@@ -17,7 +17,6 @@ class Repository(
     private val networkMapper: NetworkMapper
 ) {
     suspend fun getMovies(): Flow<DataState<List<Results>>> = flow {
-        emit(DataState.Loading)
         try {
             val networkResult = retrofit.getData(
                 API_VERSION,
@@ -29,6 +28,7 @@ class Repository(
                 WITH_WATCH_MONETIZATION_TYPES
             ).results
             val results = networkMapper.mapFromEntityList(networkResult)
+            emit(DataState.Loading(results))
             for (item in results) {
                 resultDao.insert(resultMapper.mapResultToEntity(item, false))
             }

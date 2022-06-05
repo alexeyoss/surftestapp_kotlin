@@ -5,62 +5,65 @@
     style="@style/movie_details_layout"
     tools:context=".ui.movie_details.MovieDetailsFragment">
 
-        <ImageView
-            android:id="@+id/poster"
-            style="@style/movie_details_poster"
-            android:src="@drawable/ic_default_poster"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/poster"
+        style="@style/movie_details_poster"
+        android:src="@drawable/ic_default_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/film_name"
+        style="@style/movie_details_film_name"
+        app:layout_constraintEnd_toStartOf="@+id/ic_imdb"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poster" />
+
+    <ImageView
+        android:id="@+id/ic_imdb"
+        style="@style/movie_details_poster_imdb"
+        android:src="@drawable/ic_imdb_logo"
+        app:layout_constraintBottom_toBottomOf="@+id/film_name"
+        app:layout_constraintEnd_toStartOf="@+id/film_rate"
+        app:layout_constraintTop_toTopOf="@+id/film_name" />
+
+    <ImageView
+        android:id="@+id/ic_heart"
+        style="@style/movie_details_poster_ic_heart"
+        android:src="@drawable/ic_heart_empty_big"
+        app:layout_constraintEnd_toEndOf="@id/poster"
+        app:layout_constraintTop_toTopOf="@id/poster" />
+
+    <TextView
+        android:id="@+id/film_rate"
+        style="@style/movie_details__film_rate"
+        app:layout_constraintBottom_toBottomOf="@+id/film_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/film_name" />
+
+    <ImageView
+        android:id="@+id/back_btn"
+        style="@style/movie_details_back_btn"
+        android:src="@drawable/ic_back_button"
+        app:layout_constraintStart_toStartOf="@id/poster"
+        app:layout_constraintTop_toTopOf="@id/poster" />
+
+    <ScrollView
+        style="@style/movie_details_scroll_view"
+        android:fadeScrollbars="false"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="5000"
+        android:scrollbarThumbVertical="@color/snackBarColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/film_name">
 
         <TextView
-            android:id="@+id/film_name"
-            style="@style/movie_details_film_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poster" />
+            android:id="@+id/overview"
+            style="@style/movie_details_overview" />
 
-        <ImageView
-            android:id="@+id/ic_imdb"
-            style="@style/movie_details_poster_imdb"
-            android:src="@drawable/ic_imdb_logo"
-            app:layout_constraintBottom_toBottomOf="@+id/film_name"
-            app:layout_constraintEnd_toStartOf="@+id/film_rate"
-            app:layout_constraintTop_toTopOf="@+id/film_name" />
-
-        <ImageView
-            android:id="@+id/ic_heart"
-            style="@style/movie_details_poster_ic_heart"
-            android:src="@drawable/ic_heart_empty_big"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/film_rate"
-            style="@style/movie_details__film_rate"
-            app:layout_constraintBottom_toBottomOf="@+id/film_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/film_name" />
-
-        <ImageButton
-            android:id="@+id/back_btn"
-            style="@style/movie_details_back_btn"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/ic_back_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ScrollView
-            style="@style/movie_details_scroll_view"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/film_name">
-
-            <TextView
-                android:id="@+id/overview"
-                style="@style/movie_details_overview" />
-
-        </ScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

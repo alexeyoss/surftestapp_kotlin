@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.oss.surftesttask_kotlinversion.databinding.FragmentEmptyMovieListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,27 +19,20 @@ class EmptyMoviesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentEmptyMovieListBinding.inflate(inflater, container, false)
+        mBinding.alias = getAlias()
 
-        mBinding.tvEmptySearch.text =
-            "$TV_EMPTY_SEARCH1 + ${getSearchText()} + $TV_EMPTY_SEARCH2"
         return mBinding.root
     }
 
-    private fun getSearchText(): String = requireArguments().getString(ARG_SEARCH) as String
+    private fun getAlias(): String = requireArguments().getString(ARG_SEARCH) as String
 
     companion object {
-
         const val ARG_SEARCH = "ARG_SEARCH"
-        const val TV_EMPTY_SEARCH1 = "По запросу "
-        const val TV_EMPTY_SEARCH2 = "\n ничего не найдено"
 
         @JvmStatic
         fun newInstance(searchText: String): EmptyMoviesListFragment {
-            val args = Bundle().apply {
-                putString(ARG_SEARCH, searchText)
-            }
             val fragment = EmptyMoviesListFragment()
-            fragment.arguments = args
+            fragment.arguments = bundleOf(ARG_SEARCH to searchText)
             return fragment
         }
     }
