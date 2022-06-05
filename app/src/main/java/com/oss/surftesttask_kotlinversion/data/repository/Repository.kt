@@ -39,6 +39,26 @@ class Repository(
         }
     }
 
+    suspend fun searchMovies(searchText: String): Flow<DataState<List<Results>>> = flow {
+        try {
+            val networkResult = retrofit.getSearchData(
+                API_VERSION,
+                API_KEY,
+                searchText
+            ).results
+            val results = networkMapper.mapFromEntityList(networkResult)
+            emit(DataState.Loading(results))
+            for (item in results) {
+                resultDao.insert(resultMapper.mapResultToEntity(item, false))
+            }
+            val cachedResults = resultDao.get()
+            emit(DataState.Success(resultMapper.mapFromEntityList(cachedResults)))
+        } catch (e: Exception) {
+            emit(DataState.Error(e))
+        }
+    }
+
+
     companion object {
         const val API_VERSION = "3"
         const val API_KEY = "50bd34c2f45cba21762125b1c6069573"

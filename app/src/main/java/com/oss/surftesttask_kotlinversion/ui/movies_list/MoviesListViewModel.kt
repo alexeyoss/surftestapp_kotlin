@@ -36,7 +36,7 @@ constructor(
                         .launchIn(viewModelScope)
                 }
                 is Events.SearchResultEvent -> {
-
+                    // TODO
                 }
 
                 is Events.ErrorEvent -> {
