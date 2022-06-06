@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
     private lateinit var mBinding: FragmentMovieDetailsBinding
-    private lateinit var result :Results
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +32,10 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun initViews() = with(mBinding) {
-        navigator().listenResult(Results::class.java, viewLifecycleOwner){
-            result = it
-        }
-//        val result = requireArguments().getSerializable(ARG_MOVIE_KEY) as Results
+//        navigator().listenResult(Results::class.java, viewLifecycleOwner){
+//            result = it
+//        }
+        val result = requireArguments().getSerializable(ARG_MOVIE_KEY) as Results
 
         // TODO make animation between placeholder image and poster
         Glide.with(root)

@@ -10,15 +10,15 @@ fun Fragment.navigator(): Navigator = requireActivity() as Navigator
 
 interface Navigator {
 
-    fun <T : Serializable> launch(screen: String, args: T?)
+    fun <B,T> launch(screen: Class<B>?, args: T?)
 
     fun goBack()
 
     fun showSearchContainer(visible: Boolean)
 
-    fun <T : Serializable> listenResult(
-        clazz: Class<T>,
-        owner: LifecycleOwner,
-        listener: ResultListener<T>
-    )
+//    fun <T : Serializable> listenResult(
+//        clazz: Class<T>,
+//        owner: LifecycleOwner,
+//        listener: ResultListener<T>
+//    )
 }

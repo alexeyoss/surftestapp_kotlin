@@ -10,6 +10,7 @@ import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.contract.Navigator
 import com.oss.surftesttask_kotlinversion.contract.ResultListener
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
+import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
@@ -35,32 +36,28 @@ class MainActivity : AppCompatActivity(), Navigator {
                 .add(R.id.dataContainer, MoviesListFragment.newInstance())
                 .commit()
             // TODO migrate to handling via Navigator
-        } else {
-            // TODO state recovery
         }
     }
 
-    override fun <T : Serializable> launch(screen: String, args: T?) {
+    override fun <B, T> launch(screen: Class<B>?, args: T?) {
         when (screen) {
-            MoviesListFragment::javaClass.name -> {
+            MoviesListFragment::javaClass -> {
                 showSearchContainer(visible = true)
                 replaceFragmentDataContainer(
                     MoviesListFragment.newInstance(), false
                 )
             }
-            MovieDetailsFragment::javaClass.name -> {
-                supportFragmentManager.setFragmentResult(
-                    screen::class.java.name, bundleOf(
-                        KEY_SEARCH to args
-                    )
+            MovieDetailsFragment::javaClass -> {
+                replaceFragmentDataContainer(
+                    MovieDetailsFragment.newInstance(args as Results)
                 )
             }
-            ErrorScreenFragment::javaClass.name -> {
+            ErrorScreenFragment::javaClass -> {
                 replaceFragmentDataContainer(
                     ErrorScreenFragment.newInstance()
                 )
             }
-            EmptyMoviesListFragment::javaClass.name -> {
+            EmptyMoviesListFragment::javaClass -> {
                 replaceFragmentDataContainer(
                     EmptyMoviesListFragment.newInstance(args as String)
                 )
@@ -76,19 +73,19 @@ class MainActivity : AppCompatActivity(), Navigator {
         searchContainer.isVisible = visible
     }
 
-    override fun <T : Serializable> listenResult(
-        clazz: Class<T>,
-        owner: LifecycleOwner,
-        listener: ResultListener<T>
-    ) {
-        supportFragmentManager.setFragmentResultListener(
-            clazz.name,
-            owner,
-            FragmentResultListener { key, bundle ->
-                listener.invoke(bundle.getSerializable(KEY_SEARCH) as T)
-            }
-        )
-    }
+//    override fun <T : Serializable> listenResult(
+//        clazz: Class<T>,
+//        owner: LifecycleOwner,
+//        listener: ResultListener<T>
+//    ) {
+//        supportFragmentManager.setFragmentResultListener(
+//            clazz.name,
+//            owner,
+//            FragmentResultListener { key, bundle ->
+//                listener.invoke(bundle.getSerializable(KEY_SEARCH) as T)
+//            }
+//        )
+//    }
 
     companion object {
         @JvmStatic

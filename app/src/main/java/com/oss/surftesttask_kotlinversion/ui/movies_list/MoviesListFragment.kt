@@ -29,13 +29,13 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private val mViewModel: MoviesListViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setFragmentResultListener(REQUEST_KEY) { _, bundle ->
-            val searchRequest = bundle.getSerializable(KEY_SEARCH)
-            mViewModel.setStateEvent(Events.SearchResultEvent(searchRequest as String))
-        }
-    }
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        setFragmentResultListener(REQUEST_KEY) { _, bundle ->
+//            val searchRequest = bundle.getSerializable(KEY_SEARCH)
+//            mViewModel.setStateEvent(Events.SearchResultEvent(searchRequest as String))
+//        }
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +80,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 }
                 is DataState.Error -> {
                     displayProgressBar(visible = false)
-                    navigator().launch(ErrorScreenFragment::class.java.name, null)
+                    navigator().launch(ErrorScreenFragment::class.java, null)
                 }
                 is DataState.Loading<List<Results>> -> {
                     displayProgressBar(dateState.data.size, true)
@@ -109,7 +109,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     override fun onItemClicked(result: Results) {
         navigator().showSearchContainer(visible = false) //TODO showBack the SearchFragment
-        navigator().launch(MovieDetailsFragment::javaClass.name, result)
+        navigator().launch(MovieDetailsFragment::class.java, result)
     }
 
     companion object {
