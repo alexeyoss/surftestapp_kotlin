@@ -9,7 +9,6 @@ import com.oss.surftesttask_kotlinversion.utils.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-
 class Repository(
     private val resultDao: ResultDao,
     private val retrofit: ApiService,
@@ -27,6 +26,7 @@ class Repository(
                 DEFAULT_INCLUDE_VIDEO,
                 WITH_WATCH_MONETIZATION_TYPES
             ).results
+
             val results = networkMapper.mapFromEntityList(networkResult)
             emit(DataState.Loading(results))
             for (item in results) {
@@ -38,26 +38,6 @@ class Repository(
             emit(DataState.Error(e))
         }
     }
-
-    suspend fun searchMovies(searchText: String): Flow<DataState<List<Results>>> = flow {
-        try {
-            val networkResult = retrofit.getSearchData(
-                API_VERSION,
-                API_KEY,
-                searchText
-            ).results
-            val results = networkMapper.mapFromEntityList(networkResult)
-            emit(DataState.Loading(results))
-            for (item in results) {
-                resultDao.insert(resultMapper.mapResultToEntity(item, false))
-            }
-            val cachedResults = resultDao.get()
-            emit(DataState.Success(resultMapper.mapFromEntityList(cachedResults)))
-        } catch (e: Exception) {
-            emit(DataState.Error(e))
-        }
-    }
-
 
     companion object {
         const val API_VERSION = "3"

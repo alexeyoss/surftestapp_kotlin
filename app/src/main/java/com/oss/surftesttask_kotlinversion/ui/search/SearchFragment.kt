@@ -44,8 +44,5 @@ class SearchFragment : Fragment() {
 
         @JvmStatic
         private val REQUEST_KEY = "REQUEST_KEY"
-
-        @JvmStatic
-        fun newInstance(): SearchFragment = SearchFragment()
     }
 }

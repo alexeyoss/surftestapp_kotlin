@@ -1,16 +1,18 @@
 package com.oss.surftesttask_kotlinversion.ui
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.LifecycleOwner
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.contract.Navigator
 import com.oss.surftesttask_kotlinversion.contract.ResultListener
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
-import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
@@ -25,70 +27,88 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var mBinding: ActivityMainBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
         if (savedInstanceState == null) with(supportFragmentManager) {
             beginTransaction()
-                .add(R.id.searchContainer, SearchFragment.newInstance())
-                .add(R.id.dataContainer, MoviesListFragment.newInstance())
+                .add(R.id.searchContainer, SearchFragment(), SearchFragment.toString())
+                .add(R.id.dataContainer, MoviesListFragment())
                 .commit()
-            // TODO migrate to handling via Navigator
         }
+
+        supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
     }
 
-    override fun <B, T> launch(screen: Class<B>?, args: T?) {
+    override fun launchScreen(screen: Fragment) {
         when (screen) {
-            MoviesListFragment::javaClass -> {
-                showSearchContainer(visible = true)
-                replaceFragmentDataContainer(
-                    MoviesListFragment.newInstance(), false
-                )
+            is MoviesListFragment -> {
+                replaceFragmentDataContainer(MoviesListFragment(), false)
             }
-            MovieDetailsFragment::javaClass -> {
-                replaceFragmentDataContainer(
-                    MovieDetailsFragment.newInstance(args as Results)
-                )
+            is MovieDetailsFragment -> {
+                replaceFragmentDataContainer(MovieDetailsFragment(), addStack = true)
             }
-            ErrorScreenFragment::javaClass -> {
-                replaceFragmentDataContainer(
-                    ErrorScreenFragment.newInstance()
-                )
+            is ErrorScreenFragment -> {
+                replaceFragmentDataContainer(ErrorScreenFragment())
             }
-            EmptyMoviesListFragment::javaClass -> {
-                replaceFragmentDataContainer(
-                    EmptyMoviesListFragment.newInstance(args as String)
-                )
+            is EmptyMoviesListFragment -> {
+                replaceFragmentDataContainer(EmptyMoviesListFragment())
             }
         }
     }
 
-    override fun goBack() {
+    override fun goBack(result: Any?) {
         onBackPressed()
     }
 
-    override fun showSearchContainer(visible: Boolean) = with(mBinding) {
-        searchContainer.isVisible = visible
+    override fun <T : Serializable> publishResult(result: T) {
+        supportFragmentManager.setFragmentResult(
+            result::class.java.name,
+            bundleOf(KEY_RESULT to result)
+        )
     }
 
-//    override fun <T : Serializable> listenResult(
-//        clazz: Class<T>,
-//        owner: LifecycleOwner,
-//        listener: ResultListener<T>
-//    ) {
-//        supportFragmentManager.setFragmentResultListener(
-//            clazz.name,
-//            owner,
-//            FragmentResultListener { key, bundle ->
-//                listener.invoke(bundle.getSerializable(KEY_SEARCH) as T)
-//            }
-//        )
-//    }
+    override fun <T : Serializable> listenResult(
+        clazz: Class<T>,
+        owner: LifecycleOwner,
+        listener: ResultListener<T>
+    ) {
+        supportFragmentManager.setFragmentResultListener(
+            clazz.name,
+            owner,
+            FragmentResultListener { _, bundle ->
+                listener.invoke(bundle.getSerializable(KEY_RESULT) as T)
+            })
+    }
+
+    private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
+            super.onFragmentAttached(fm, f, context)
+            when (fm.findFragmentByTag(SearchFragment.toString())) {
+                is MovieDetailsFragment -> showSearchContainer(false)
+            }
+        }
+
+        override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
+            super.onFragmentDetached(fm, f)
+            when (fm.findFragmentByTag(SearchFragment.toString())) {
+                is MovieDetailsFragment -> showSearchContainer(isVisible = true)
+            }
+        }
+    }
+
+    private fun showSearchContainer(isVisible: Boolean) = with(mBinding) {
+        searchContainer.isVisible = isVisible
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+    }
 
     companion object {
         @JvmStatic
-        private val KEY_SEARCH = "KEY_SEARCH"
+        private val KEY_RESULT = "KEY_RESULT"
     }
 }

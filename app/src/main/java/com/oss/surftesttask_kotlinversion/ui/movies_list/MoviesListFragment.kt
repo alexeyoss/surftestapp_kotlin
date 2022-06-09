@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
@@ -28,14 +28,6 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     private var mAdapter = RecycleViewAdapter(this)
 
     private val mViewModel: MoviesListViewModel by viewModels()
-
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setFragmentResultListener(REQUEST_KEY) { _, bundle ->
-//            val searchRequest = bundle.getSerializable(KEY_SEARCH)
-//            mViewModel.setStateEvent(Events.SearchResultEvent(searchRequest as String))
-//        }
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +64,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
 
     private fun subscribeObservers() = with(mBinding) {
-        mViewModel.dateState.observe(viewLifecycleOwner) { dateState ->
+        mViewModel.dataState.observe(viewLifecycleOwner) { dateState ->
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
@@ -80,7 +72,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 }
                 is DataState.Error -> {
                     displayProgressBar(visible = false)
-                    navigator().launch(ErrorScreenFragment::class.java, null)
+                    navigator().launchScreen(ErrorScreenFragment())
                 }
                 is DataState.Loading<List<Results>> -> {
                     displayProgressBar(dateState.data.size, true)
@@ -89,6 +81,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             }
         }
     }
+
 
     private fun displayProgressBar(dataSize: Int = -1, visible: Boolean = false) =
         with(mBinding) {
@@ -108,19 +101,8 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
 
     override fun onItemClicked(result: Results) {
-        navigator().showSearchContainer(visible = false) //TODO showBack the SearchFragment
-        navigator().launch(MovieDetailsFragment::class.java, result)
-    }
-
-    companion object {
-        @JvmStatic
-        private val REQUEST_KEY = "REQUEST_KEY"
-
-        @JvmStatic
-        private val KEY_SEARCH = "KEY_SEARCH"
-
-        @JvmStatic
-        fun newInstance(): MoviesListFragment = MoviesListFragment()
+        navigator().publishResult(result)
+        navigator().launchScreen(MovieDetailsFragment())
     }
 }
 

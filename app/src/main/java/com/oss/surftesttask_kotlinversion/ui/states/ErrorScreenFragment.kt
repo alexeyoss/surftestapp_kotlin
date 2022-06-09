@@ -28,13 +28,8 @@ class ErrorScreenFragment : Fragment() {
     fun initListeners() = with(mBinding) {
         if (!refreshImageButton.hasOnClickListeners()) {
             refreshImageButton.setOnClickListener {
-//                navigator().launch(MoviesListFragment::class.java, null)
+                navigator().launchScreen(MoviesListFragment())
             }
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(): ErrorScreenFragment = ErrorScreenFragment()
     }
 }
