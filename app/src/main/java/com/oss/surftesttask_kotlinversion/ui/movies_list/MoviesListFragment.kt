@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
@@ -64,7 +64,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
 
     private fun subscribeObservers() = with(mBinding) {
-        mViewModel.dateState.observe(viewLifecycleOwner) { dateState ->
+        mViewModel.dataState.observe(viewLifecycleOwner) { dateState ->
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
@@ -72,7 +72,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 }
                 is DataState.Error -> {
                     displayProgressBar(visible = false)
-                    navigator().launch(ErrorScreenFragment::class.java, null)
+                    navigator().launchScreen(ErrorScreenFragment())
                 }
                 is DataState.Loading<List<Results>> -> {
                     displayProgressBar(dateState.data.size, true)
@@ -81,6 +81,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             }
         }
     }
+
 
     private fun displayProgressBar(dataSize: Int = -1, visible: Boolean = false) =
         with(mBinding) {
@@ -100,20 +101,8 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
 
     override fun onItemClicked(result: Results) {
-        navigator().showSearchContainer(visible = false) //TODO showBack the SearchFragment
-
-        parentFragmentManager
-            .beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.dataContainer, MovieDetailsFragment.newInstance(result)) //TODO add operation + blur and turn off the background (1'st fragment)
-            .commit()
-
-//        navigator().launch(MovieDetailsFragment::class.java, result) // TODO figure out why i can't invoke fragment with parameters via Activity
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance(): MoviesListFragment = MoviesListFragment()
+        navigator().publishResult(result)
+        navigator().launchScreen(MovieDetailsFragment())
     }
 }
 

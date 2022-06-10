@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
 
     private lateinit var mBinding: FragmentMovieDetailsBinding
+    private lateinit var result: Results
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,43 +26,51 @@ class MovieDetailsFragment : Fragment() {
     ): View {
         mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
-        initViews()
         initListeners()
 
         return mBinding.root
     }
 
-    private fun initViews() = with(mBinding) {
-        val result = requireArguments().getSerializable(ARG_MOVIE_KEY) as Results
-
-        // TODO make animation between placeholder image and poster
-        Glide.with(root)
-            .load(result.backdropPath)
-            .placeholder(Constants.DEFAULT_PICTURE)
-            .centerCrop()
-            .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
-            .into(poster)
-
-        filmName.text = result.title
-        filmRate.text = result.voteAverage.toString()
-        overview.text = result.overview
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (savedInstanceState != null) {
+            result = savedInstanceState.getSerializable(KEY_STATE) as Results
+            initView(result)
+        }
     }
 
     private fun initListeners() = with(mBinding) {
+
+        navigator().listenResult(Results::class.java, viewLifecycleOwner) { source ->
+            this@MovieDetailsFragment.result = source
+            initView(source)
+        }
+
         backBtn.setOnClickListener {
             navigator().goBack()
         }
     }
 
+    private fun initView(source: Results) = with(mBinding) {
+        Glide.with(root)
+            .load(source.backdropPath)
+            .placeholder(Constants.DEFAULT_PICTURE)
+            .centerCrop()
+            .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
+            .into(poster)
+
+        filmName.text = source.title
+        filmRate.text = source.voteAverage.toString()
+        overview.text = source.overview
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(KEY_STATE, result)
+    }
+
     companion object {
         @JvmStatic
-        private val ARG_MOVIE_KEY = "ARG_MOVIE_KEY"
-
-        @JvmStatic
-        fun newInstance(result: Results): MovieDetailsFragment {
-            val fragment = MovieDetailsFragment()
-            fragment.arguments = Bundle().apply { putSerializable(ARG_MOVIE_KEY, result) }
-            return fragment
-        }
+        private val KEY_STATE = "KEY_STATE"
     }
 }

@@ -9,7 +9,6 @@ import com.oss.surftesttask_kotlinversion.utils.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-
 class Repository(
     private val resultDao: ResultDao,
     private val retrofit: ApiService,
@@ -27,6 +26,7 @@ class Repository(
                 DEFAULT_INCLUDE_VIDEO,
                 WITH_WATCH_MONETIZATION_TYPES
             ).results
+
             val results = networkMapper.mapFromEntityList(networkResult)
             emit(DataState.Loading(results))
             for (item in results) {

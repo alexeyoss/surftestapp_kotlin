@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import com.oss.surftesttask_kotlinversion.contract.navigator
+import androidx.fragment.app.setFragmentResult
 import com.oss.surftesttask_kotlinversion.databinding.FragmentSearchBinding
-import com.oss.surftesttask_kotlinversion.ui.states.EmptyMoviesListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +21,8 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentSearchBinding.inflate(inflater, container, false)
+
+//        initListeners()
         return mBinding.root
     }
 
@@ -28,13 +31,18 @@ class SearchFragment : Fragment() {
         if (savedInstanceState == null) etSearch.text.clear() //TODO testing
     }
 
-    fun initListeners() = with(mBinding) {
+    private fun initListeners() = with(mBinding) {
         // TODO  when user change text
-        navigator().launch(EmptyMoviesListFragment::class.java, etSearch.text)
+        etSearch.doAfterTextChanged {
+            setFragmentResult(REQUEST_KEY, bundleOf(KEY_SEARCH to etSearch.text))
+        }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(): SearchFragment = SearchFragment()
+        private val KEY_SEARCH = "KEY_SEARCH"
+
+        @JvmStatic
+        private val REQUEST_KEY = "REQUEST_KEY"
     }
 }
