@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui.states
+package com.oss.surftesttask_kotlinversion.ui.empty_movies_list
 
 import android.os.Bundle
 import android.view.LayoutInflater

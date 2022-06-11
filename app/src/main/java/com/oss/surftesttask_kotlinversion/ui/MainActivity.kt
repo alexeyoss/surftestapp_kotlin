@@ -16,8 +16,8 @@ import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
-import com.oss.surftesttask_kotlinversion.ui.states.EmptyMoviesListFragment
-import com.oss.surftesttask_kotlinversion.ui.states.ErrorScreenFragment
+import com.oss.surftesttask_kotlinversion.ui.empty_movies_list.EmptyMoviesListFragment
+import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable

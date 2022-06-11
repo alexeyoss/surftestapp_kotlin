@@ -8,12 +8,18 @@ import java.lang.reflect.Type
 class DataConverter {
     @TypeConverter
     fun fromResultsList(results: List<Int>): String? {
-        if (results == null) return null
-        else {
+        results.let{
             val gson = Gson()
             val type: Type = object : TypeToken<List<Int>>() {}.type
             return gson.toJson(results, type)
         }
+//
+//        if (results == null) return null
+//        else {
+//            val gson = Gson()
+//            val type: Type = object : TypeToken<List<Int>>() {}.type
+//            return gson.toJson(results, type)
+//        }
     }
 
     @TypeConverter
