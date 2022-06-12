@@ -7,7 +7,7 @@ import com.oss.surftesttask_kotlinversion.data.db.ResultDatabase.Companion.DB_VE
 import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheEntity
 
 @Database(entities = [ResultCacheEntity::class], version = DB_VERSION, exportSchema = false)
-@TypeConverters(value = [DataConverter::class])
+@TypeConverters(value = [TypeConverter::class])
 abstract class ResultDatabase : RoomDatabase() {
 
     abstract fun resultDao(): ResultDao

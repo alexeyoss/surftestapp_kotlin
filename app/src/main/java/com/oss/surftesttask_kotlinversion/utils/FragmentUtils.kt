@@ -9,15 +9,34 @@ interface AdapterOnClickListener {
     fun onItemClicked(result: Results)
 }
 
-fun AppCompatActivity.replaceFragmentDataContainer(fragment: Fragment, addStack: Boolean = false) {
+fun AppCompatActivity.replaceFragmentDataContainer(
+    fragment: Fragment,
+    addStack: Boolean = false
+) {
     if (addStack) {
         supportFragmentManager.beginTransaction()
             .addToBackStack(null)
-            .replace(R.id.dataContainer, fragment)
+            .replace(R.id.dataContainer, fragment, fragment.toString())
             .commit()
     } else {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.dataContainer, fragment)
+            .replace(R.id.dataContainer, fragment, fragment.toString())
+            .commit()
+    }
+}
+
+fun AppCompatActivity.replaceFragmentSearchContainer(
+    fragment: Fragment,
+    addStack: Boolean = false,
+) {
+    if (addStack) {
+        supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.searchContainer, fragment, fragment.toString())
+            .commit()
+    } else {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.searchContainer, fragment, fragment.toString())
             .commit()
     }
 }

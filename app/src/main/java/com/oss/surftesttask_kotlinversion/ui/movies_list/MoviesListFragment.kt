@@ -8,13 +8,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.Events
-import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
+import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
 import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
@@ -38,10 +39,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         initRecycleView()
         subscribeObservers()
 
-        if (savedInstanceState == null) {
-            mViewModel.setStateEvent(Events.GetResultEvent)
-        } else
-            mViewModel.setStateEvent(Events.OnRestoreEvent) // TODO restore from the Bundle
+        if (savedInstanceState == null) mViewModel.setStateEvent(Events.GetResultEvent)
 
         return mBinding.root
     }
@@ -62,7 +60,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     }
 
 
-    private fun subscribeObservers() = with(mBinding) {
+    private fun subscribeObservers() {
         mViewModel.dataState.observe(viewLifecycleOwner) { dateState ->
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
@@ -71,12 +69,12 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 }
                 is DataState.Error -> {
                     displayProgressBar(visible = false)
+                    navigator().showSnackBar()
                     navigator().launchScreen(ErrorScreenFragment())
                 }
                 is DataState.Loading<List<Results>> -> {
                     displayProgressBar(dateState.data.size, true)
                 }
-
             }
         }
     }
@@ -86,10 +84,10 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         with(mBinding) {
             when {
                 dataSize == 0 -> {
-                    lineProgressBar.isVisible = visible
+                    roundProgressBar.isVisible = visible
                 }
                 dataSize > 0 -> {
-                    roundProgressBar.isVisible = visible
+                    lineProgressBar.isVisible = visible
                 }
                 else -> {
                     lineProgressBar.isVisible = visible

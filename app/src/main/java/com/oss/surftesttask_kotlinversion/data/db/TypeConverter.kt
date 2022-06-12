@@ -5,30 +5,22 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
 
-class DataConverter {
+class TypeConverter {
     @TypeConverter
     fun fromResultsList(results: List<Int>): String? {
-        results.let{
+        results.let {
             val gson = Gson()
             val type: Type = object : TypeToken<List<Int>>() {}.type
             return gson.toJson(results, type)
         }
-//
-//        if (results == null) return null
-//        else {
-//            val gson = Gson()
-//            val type: Type = object : TypeToken<List<Int>>() {}.type
-//            return gson.toJson(results, type)
-//        }
     }
 
     @TypeConverter
     fun toResultsList(results: String): List<Int>? {
-        if (results == null) {
-            return null
+        results.let {
+            val gson = Gson()
+            val type: Type = object : TypeToken<List<Int?>?>() {}.type
+            return gson.fromJson<List<Int>>(results, type)
         }
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<Int?>?>() {}.type
-        return gson.fromJson<List<Int>>(results, type)
     }
 }

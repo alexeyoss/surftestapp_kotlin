@@ -1,7 +1,7 @@
 package com.oss.surftesttask_kotlinversion.ui
 
-import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -9,16 +9,19 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.snackbar.Snackbar
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.contract.Navigator
 import com.oss.surftesttask_kotlinversion.contract.ResultListener
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
+import com.oss.surftesttask_kotlinversion.ui.empty_movies_list.EmptyMoviesListFragment
+import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
-import com.oss.surftesttask_kotlinversion.ui.empty_movies_list.EmptyMoviesListFragment
-import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
+import com.oss.surftesttask_kotlinversion.utils.Constants
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
+import com.oss.surftesttask_kotlinversion.utils.replaceFragmentSearchContainer
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.Serializable
 
@@ -26,16 +29,31 @@ import java.io.Serializable
 class MainActivity : AppCompatActivity(), Navigator {
 
     private lateinit var mBinding: ActivityMainBinding
+    private val currentFragment: Fragment?
+        get() = supportFragmentManager.findFragmentById(R.id.dataContainer)
+
+    private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
+        override fun onFragmentViewCreated(
+            fm: FragmentManager,
+            f: Fragment,
+            v: View,
+            savedInstanceState: Bundle?
+        ) {
+            super.onFragmentViewCreated(fm, f, v, savedInstanceState)
+            when (currentFragment) {
+                is MovieDetailsFragment -> showSearchContainer(false)
+                is MoviesListFragment -> showSearchContainer(true)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
 
-        if (savedInstanceState == null) with(supportFragmentManager) {
-            beginTransaction()
-                .add(R.id.searchContainer, SearchFragment(), SearchFragment.toString())
-                .add(R.id.dataContainer, MoviesListFragment())
-                .commit()
+        if (savedInstanceState == null) {
+            replaceFragmentSearchContainer(SearchFragment())
+            replaceFragmentDataContainer(MoviesListFragment())
         }
 
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
@@ -44,10 +62,11 @@ class MainActivity : AppCompatActivity(), Navigator {
     override fun launchScreen(screen: Fragment) {
         when (screen) {
             is MoviesListFragment -> {
-                replaceFragmentDataContainer(MoviesListFragment(), false)
+                replaceFragmentDataContainer(MoviesListFragment())
             }
             is MovieDetailsFragment -> {
                 replaceFragmentDataContainer(MovieDetailsFragment(), addStack = true)
+                showSearchContainer(isVisible = false)
             }
             is ErrorScreenFragment -> {
                 replaceFragmentDataContainer(ErrorScreenFragment())
@@ -58,8 +77,12 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
     }
 
-    override fun goBack(result: Any?) {
+    override fun goBack() {
         onBackPressed()
+    }
+
+    override fun showSnackBar() {
+        Snackbar.make(mBinding.dataContainer, Constants.SNACKBAR_TEXT, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun <T : Serializable> publishResult(result: T) {
@@ -80,22 +103,6 @@ class MainActivity : AppCompatActivity(), Navigator {
             FragmentResultListener { _, bundle ->
                 listener.invoke(bundle.getSerializable(KEY_RESULT) as T)
             })
-    }
-
-    private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
-        override fun onFragmentAttached(fm: FragmentManager, f: Fragment, context: Context) {
-            super.onFragmentAttached(fm, f, context)
-            when (fm.findFragmentByTag(SearchFragment.toString())) {
-                is MovieDetailsFragment -> showSearchContainer(false)
-            }
-        }
-
-        override fun onFragmentDetached(fm: FragmentManager, f: Fragment) {
-            super.onFragmentDetached(fm, f)
-            when (fm.findFragmentByTag(SearchFragment.toString())) {
-                is MovieDetailsFragment -> showSearchContainer(isVisible = true)
-            }
-        }
     }
 
     private fun showSearchContainer(isVisible: Boolean) = with(mBinding) {

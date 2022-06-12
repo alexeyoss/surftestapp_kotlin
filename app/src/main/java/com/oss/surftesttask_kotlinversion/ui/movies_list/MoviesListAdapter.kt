@@ -33,11 +33,11 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
     override fun getItemCount(): Int = results.size
 
     inner class MViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val mBinding = ItemMoviesListLayoutBinding.bind(itemView)
+        private val mBinding by lazy { ItemMoviesListLayoutBinding.bind(itemView) }
 
         init {
             itemView.setOnClickListener {
-                mClickListener.onItemClicked(results.get(absoluteAdapterPosition))
+                mClickListener.onItemClicked(results[absoluteAdapterPosition])
             }
         }
 
@@ -99,4 +99,5 @@ class MoviesDiffCallback(
                 && oldMovie.releaseDate == newMovie.releaseDate
                 && oldMovie.posterPath == newMovie.posterPath
     }
+
 }

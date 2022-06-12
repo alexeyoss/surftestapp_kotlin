@@ -25,11 +25,10 @@ class ErrorScreenFragment : Fragment() {
         return mBinding.root
     }
 
-    fun initListeners() = with(mBinding) {
-        if (!refreshImageButton.hasOnClickListeners()) {
-            refreshImageButton.setOnClickListener {
-                navigator().launchScreen(MoviesListFragment())
-            }
+    private fun initListeners() = with(mBinding) {
+        refreshImageButton.setOnClickListener {
+            navigator().launchScreen(MoviesListFragment())
         }
+
     }
 }

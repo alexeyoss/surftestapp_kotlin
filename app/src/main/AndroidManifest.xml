@@ -14,6 +14,7 @@
         android:theme="@style/Theme.SurfTestTask_KotlinVersion">
         <activity
             android:name=".ui.MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

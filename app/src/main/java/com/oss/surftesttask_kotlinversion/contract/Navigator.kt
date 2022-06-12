@@ -12,7 +12,9 @@ interface Navigator {
 
     fun launchScreen(screen: Fragment)
 
-    fun goBack(result: Any? = null)
+    fun goBack()
+
+    fun showSnackBar()
 
     fun <T : Serializable> publishResult(result: T)
 

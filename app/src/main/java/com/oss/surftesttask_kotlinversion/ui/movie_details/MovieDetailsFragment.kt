@@ -35,7 +35,7 @@ class MovieDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null) {
             result = savedInstanceState.getSerializable(KEY_STATE) as Results
-            initView(result)
+            initViews(result)
         }
     }
 
@@ -43,7 +43,7 @@ class MovieDetailsFragment : Fragment() {
 
         navigator().listenResult(Results::class.java, viewLifecycleOwner) { source ->
             this@MovieDetailsFragment.result = source
-            initView(source)
+            initViews(source)
         }
 
         backBtn.setOnClickListener {
@@ -51,7 +51,8 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun initView(source: Results) = with(mBinding) {
+
+    private fun initViews(source: Results) = with(mBinding) {
         Glide.with(root)
             .load(source.backdropPath)
             .placeholder(Constants.DEFAULT_PICTURE)
