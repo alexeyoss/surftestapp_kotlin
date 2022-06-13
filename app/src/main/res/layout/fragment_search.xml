@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search.SearchFragment">
+    tools:context=".ui.search_screen.SearchFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -15,7 +15,8 @@
         <EditText
             android:id="@+id/et_search"
             style="@style/mainActivity_searchView"
-            android:hint="@string/search_hint" />
+            android:hint="@string/search_hint"
+            tools:ignore="Autofill" />
 
     </androidx.cardview.widget.CardView>
 

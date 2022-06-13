@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui.movies_list
+package com.oss.surftesttask_kotlinversion.ui.movies_list_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,20 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
-import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
+import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFragment
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
-import com.oss.surftesttask_kotlinversion.viewmodels.MoviesListViewModel
+import com.oss.surftesttask_kotlinversion.utils.refreshes
+import com.oss.surftesttask_kotlinversion.viewmodels.ShareViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class MoviesListFragment : Fragment(), AdapterOnClickListener {
@@ -27,7 +30,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     private lateinit var mBinding: FragmentMovieListBinding
     private var mAdapter = RecycleViewAdapter(this)
 
-    private val mViewModel: MoviesListViewModel by viewModels()
+    private val mViewModel: ShareViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +41,6 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         initListeners()
         initRecycleView()
         subscribeObservers()
-
-        if (savedInstanceState == null) mViewModel.setStateEvent(Events.GetResultEvent)
 
         return mBinding.root
     }
@@ -53,10 +54,13 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     }
 
     private fun initListeners() = with(mBinding) {
-        swipeRefreshLayout.setOnRefreshListener {
-            mViewModel.setStateEvent(Events.GetResultEvent)
-            swipeRefreshLayout.isRefreshing = false
-        }
+        swipeRefreshLayout
+            .refreshes()
+            .onEach {
+                mViewModel.setStateEvent(Events.GetResultEvent)
+                swipeRefreshLayout.isRefreshing = false
+            }
+            .launchIn(lifecycleScope)
     }
 
 
@@ -65,10 +69,18 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
-                    mAdapter.setData(dateState.data)
+//                    mAdapter.setData(dateState.data)
+
+                    if (dateState.data.isNotEmpty()) {
+                        mAdapter.setData(dateState.data)
+                    } else {
+//                        navigator().launchScreen(EmptyMoviesListFragment()) // TODO alias delivery & how to go back
+                    }
+
                 }
                 is DataState.Error -> {
                     displayProgressBar(visible = false)
+
                     navigator().showSnackBar()
                     navigator().launchScreen(ErrorScreenFragment())
                 }

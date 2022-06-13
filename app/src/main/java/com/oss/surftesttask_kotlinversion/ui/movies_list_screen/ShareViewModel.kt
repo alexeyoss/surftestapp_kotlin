@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MoviesListViewModel
+class ShareViewModel
 @Inject
 constructor(
     private val repo: Repository
@@ -25,7 +25,9 @@ constructor(
     private val _dataState: MutableLiveData<DataState<List<Results>>> = MutableLiveData()
     val dataState: LiveData<DataState<List<Results>>> get() = _dataState
 
-    fun setStateEvent(mainStateEvent: Events) {
+    // TODO put query text into the viewModel for EmptyMovieListFragment
+
+    fun setStateEvent(mainStateEvent: Events<Any?>) {
         viewModelScope.launch(Dispatchers.IO) {
             when (mainStateEvent) {
                 is Events.GetResultEvent -> {
@@ -35,11 +37,15 @@ constructor(
                         }
                         .launchIn(viewModelScope)
                 }
-                is Events.ErrorEvent -> {
 
-                }
-                is Events.OnRestoreEvent -> {
+                is Events.ErrorEvent -> Unit // TODO
 
+                is Events.SearchResultEvent -> {
+                    repo.getMovies(mainStateEvent.query as String)
+                        .onEach { dateState ->
+                            _dataState.value = dateState
+                        }
+                        .launchIn(viewModelScope)
                 }
             }
         }

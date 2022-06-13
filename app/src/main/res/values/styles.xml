@@ -89,6 +89,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/additionalScreens_text_marginTop</item>
+        <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/emptySearchText</item>
         <item name="android:textSize">@dimen/text_normal</item>
@@ -97,9 +98,7 @@
     <style name="empty_fragment_ic_search">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:contentDescription">@string/ic_big_search</item>
     </style>
-
 
     <!--Error Fragment-->
     <style name="error_fragment_ic_attention">
@@ -146,13 +145,11 @@
     <style name="movie_details_poster">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:contentDescription">@string/movie_poster_desc</item>
     </style>
 
     <style name="movie_details_poster_landscape">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:contentDescription">@string/movie_poster_desc</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
     </style>
 
@@ -184,7 +181,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
-        <item name="android:contentDescription">@string/imdb_icon</item>
     </style>
 
     <style name="movie_details_poster_imdb_landscape">
@@ -193,7 +189,6 @@
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin_small</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
-        <item name="android:contentDescription">@string/imdb_icon</item>
     </style>
 
     <style name="movie_details_poster_ic_heart">
@@ -201,7 +196,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_tiny</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_tiny</item>
-        <item name="android:contentDescription">@string/ic_heart</item>
     </style>
 
     <style name="movie_details_poster_ic_heart_landscape">
@@ -209,7 +203,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_tiny</item>
-        <item name="android:contentDescription">@string/ic_heart</item>
     </style>
 
     <style name="movie_details__film_rate">
@@ -238,7 +231,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin_tiny</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_tiny</item>
-        <item name="android:contentDescription">@string/back_btn</item>
     </style>
 
     <style name="movie_details_back_btn_landscape">
@@ -246,7 +238,6 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin_tiny</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
-        <item name="android:contentDescription">@string/back_btn</item>
     </style>
 
     <style name="movie_details_scroll_view">

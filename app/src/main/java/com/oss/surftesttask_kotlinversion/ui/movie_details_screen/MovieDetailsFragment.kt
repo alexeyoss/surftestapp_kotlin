@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui.movie_details
+package com.oss.surftesttask_kotlinversion.ui.movie_details_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater

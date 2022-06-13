@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.ui.empty_movies_list
+package com.oss.surftesttask_kotlinversion.ui.empty_movies_list_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +19,7 @@ class EmptyMoviesListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentEmptyMovieListBinding.inflate(inflater, container, false)
-        mBinding.alias = getAlias()
+//        mBinding.alias = getAlias() // TODO
 
         return mBinding.root
     }

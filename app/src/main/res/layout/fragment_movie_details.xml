@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/movie_details_layout"
-    tools:context=".ui.movie_details.MovieDetailsFragment">
+    tools:context=".ui.movie_details_screen.MovieDetailsFragment">
 
     <ImageView
         android:id="@+id/poster"
         style="@style/movie_details_poster"
+        android:contentDescription="@string/movie_poster_desc"
         android:src="@drawable/ic_default_poster"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,6 +24,7 @@
     <ImageView
         android:id="@+id/ic_imdb"
         style="@style/movie_details_poster_imdb"
+        android:contentDescription="@string/imdb_icon"
         android:src="@drawable/ic_imdb_logo"
         app:layout_constraintBottom_toBottomOf="@+id/film_name"
         app:layout_constraintEnd_toStartOf="@+id/film_rate"
@@ -32,6 +33,7 @@
     <ImageView
         android:id="@+id/ic_heart"
         style="@style/movie_details_poster_ic_heart"
+        android:contentDescription="@string/ic_heart"
         android:src="@drawable/ic_heart_empty_big"
         app:layout_constraintEnd_toEndOf="@id/poster"
         app:layout_constraintTop_toTopOf="@id/poster" />
@@ -46,6 +48,7 @@
     <ImageView
         android:id="@+id/back_btn"
         style="@style/movie_details_back_btn"
+        android:contentDescription="@string/back_btn"
         android:src="@drawable/ic_back_button"
         app:layout_constraintStart_toStartOf="@id/poster"
         app:layout_constraintTop_toTopOf="@id/poster" />

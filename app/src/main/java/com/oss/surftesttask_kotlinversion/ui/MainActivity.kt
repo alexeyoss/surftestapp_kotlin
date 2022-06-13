@@ -14,11 +14,11 @@ import com.oss.surftesttask_kotlinversion.contract.Navigator
 import com.oss.surftesttask_kotlinversion.contract.ResultListener
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
 import com.oss.surftesttask_kotlinversion.ui.custom_snackbar.CustomSnackBar
-import com.oss.surftesttask_kotlinversion.ui.empty_movies_list.EmptyMoviesListFragment
+import com.oss.surftesttask_kotlinversion.ui.empty_movies_list_screen.EmptyMoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
-import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
-import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
-import com.oss.surftesttask_kotlinversion.ui.search.SearchFragment
+import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFragment
+import com.oss.surftesttask_kotlinversion.ui.movies_list_screen.MoviesListFragment
+import com.oss.surftesttask_kotlinversion.ui.search_screen.SearchFragment
 import com.oss.surftesttask_kotlinversion.utils.Constants
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentSearchContainer

@@ -5,10 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentErrorScreenBinding
-import com.oss.surftesttask_kotlinversion.ui.movies_list.MoviesListFragment
+import com.oss.surftesttask_kotlinversion.ui.movies_list_screen.MoviesListFragment
+import com.oss.surftesttask_kotlinversion.utils.clicks
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 @AndroidEntryPoint
 class ErrorScreenFragment : Fragment() {
@@ -26,9 +30,8 @@ class ErrorScreenFragment : Fragment() {
     }
 
     private fun initListeners() = with(mBinding) {
-        refreshImageButton.setOnClickListener {
-            navigator().launchScreen(MoviesListFragment())
-        }
-
+        refreshImageButton.clicks()
+            .onEach { navigator().launchScreen(MoviesListFragment()) }
+            .launchIn(lifecycleScope)
     }
 }
