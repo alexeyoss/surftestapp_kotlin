@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.LifecycleOwner
-import com.google.android.material.snackbar.Snackbar
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.contract.Navigator
 import com.oss.surftesttask_kotlinversion.contract.ResultListener
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
+import com.oss.surftesttask_kotlinversion.ui.custom_snackbar.CustomSnackBar
 import com.oss.surftesttask_kotlinversion.ui.empty_movies_list.EmptyMoviesListFragment
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.ui.movie_details.MovieDetailsFragment
@@ -82,7 +82,10 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
     override fun showSnackBar() {
-        Snackbar.make(mBinding.dataContainer, Constants.SNACKBAR_TEXT, Snackbar.LENGTH_SHORT).show()
+        CustomSnackBar.make(
+            this.findViewById(android.R.id.content),
+            title = Constants.SNACKBAR_TEXT
+        ).show()
     }
 
     override fun <T : Serializable> publishResult(result: T) {

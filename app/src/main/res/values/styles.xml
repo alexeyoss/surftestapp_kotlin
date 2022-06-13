@@ -134,7 +134,6 @@
     </style>
 
 
-
     <!--Movie Details-->
     <style name="movie_details_layout">
         <item name="android:layout_width">match_parent</item>

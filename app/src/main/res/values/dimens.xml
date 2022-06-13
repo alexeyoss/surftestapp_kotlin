@@ -29,4 +29,9 @@
     <dimen name="vertical_margin_small">12dp</dimen>
     <dimen name="rv_date_marginStart">2dp</dimen>
     <dimen name="additionalScreens_text_marginTop">33dp</dimen>
+
+    <!--SnackBar-->
+    <dimen name="snackBarPadding_horizontal">24dp</dimen>
+    <dimen name="snackBarPadding_vertical">20dp</dimen>
+
 </resources>
