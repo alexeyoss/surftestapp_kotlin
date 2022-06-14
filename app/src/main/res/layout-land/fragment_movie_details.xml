@@ -5,67 +5,67 @@
     style="@style/movie_details_layout"
     tools:context=".ui.movie_details_screen.MovieDetailsFragment">
 
+
     <ImageView
         android:id="@+id/poster"
-        style="@style/movie_details_poster"
+        style="@style/movie_details_poster_landscape"
         android:contentDescription="@string/movie_poster_desc"
-        android:src="@drawable/ic_default_poster"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/ic_default_poster_black_background"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/film_name" />
 
     <TextView
         android:id="@+id/film_name"
-        style="@style/movie_details_film_name"
-        app:layout_constraintEnd_toStartOf="@+id/ic_imdb"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poster" />
+        style="@style/movie_details_film_name_landscape"
+        app:layout_constraintEnd_toStartOf="@+id/ic_heart"
+        app:layout_constraintStart_toEndOf="@+id/back_btn"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ic_imdb"
-        style="@style/movie_details_poster_imdb"
+        style="@style/movie_details_poster_imdb_landscape"
         android:contentDescription="@string/imdb_icon"
         android:src="@drawable/ic_imdb_logo"
-        app:layout_constraintBottom_toBottomOf="@+id/film_name"
-        app:layout_constraintEnd_toStartOf="@+id/film_rate"
-        app:layout_constraintTop_toTopOf="@+id/film_name" />
-
-    <ImageView
-        android:id="@+id/ic_heart"
-        style="@style/movie_details_poster_ic_heart"
-        android:contentDescription="@string/ic_heart"
-        android:src="@drawable/ic_heart_empty_big"
-        app:layout_constraintEnd_toEndOf="@id/poster"
-        app:layout_constraintTop_toTopOf="@id/poster" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/poster" />
 
     <TextView
         android:id="@+id/film_rate"
-        style="@style/movie_details__film_rate"
-        app:layout_constraintBottom_toBottomOf="@+id/film_name"
+        style="@style/movie_details__film_rate_landscape"
+        app:layout_constraintBottom_toBottomOf="@+id/ic_imdb"
+        app:layout_constraintStart_toEndOf="@id/ic_imdb"
+        app:layout_constraintTop_toTopOf="@+id/ic_imdb" />
+
+    <ImageView
+        android:id="@+id/ic_heart"
+        style="@style/movie_details_poster_ic_heart_landscape"
+        android:contentDescription="@string/ic_heart"
+        android:src="@drawable/ic_heart_empty_big"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/film_name" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/back_btn"
-        style="@style/movie_details_back_btn"
+        style="@style/movie_details_back_btn_landscape"
         android:contentDescription="@string/back_btn"
         android:src="@drawable/ic_back_button"
-        app:layout_constraintStart_toStartOf="@id/poster"
-        app:layout_constraintTop_toTopOf="@id/poster" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        style="@style/movie_details_scroll_view"
+        android:id="@+id/scrollView2"
+        style="@style/movie_details_scroll_view_landscape"
         android:fadeScrollbars="false"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbarFadeDuration="5000"
         android:scrollbarThumbVertical="@color/snackBarColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/poster"
         app:layout_constraintTop_toBottomOf="@+id/film_name">
 
         <TextView
             android:id="@+id/overview"
-            style="@style/movie_details_overview" />
+            style="@style/movie_details_overview_landscape" />
 
     </ScrollView>
 

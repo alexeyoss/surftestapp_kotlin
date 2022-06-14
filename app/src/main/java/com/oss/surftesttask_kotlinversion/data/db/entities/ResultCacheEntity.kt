@@ -4,10 +4,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.oss.surftesttask_kotlinversion.data.db.DataConverter
+import com.oss.surftesttask_kotlinversion.data.db.TypeConverter
 
-@Entity(tableName = "liked_movies")
-@TypeConverters(value = [DataConverter::class])
+@Entity(tableName = "cached_movies")
+@TypeConverters(value = [TypeConverter::class])
 data class ResultCacheEntity(
 
     @PrimaryKey(autoGenerate = false)

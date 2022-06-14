@@ -78,28 +78,11 @@
         <item name="android:inputType">text</item>
         <item name="android:freezesText">false</item>
         <item name="android:paddingHorizontal">@dimen/paddingHorizontal</item>
-        <item name="android:paddingVertical">@dimen/paddingVertical</item>
+        <item name="android:paddingVertical">@dimen/paddingVertical_small</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">@color/item_desc</item>
         <item name="android:textSize">@dimen/text_small</item>
     </style>
-
-    <!--Empty Fragment-->
-    <style name="empty_fragment_text">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/additionalScreens_text_marginTop</item>
-        <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textColor">@color/emptySearchText</item>
-        <item name="android:textSize">@dimen/text_normal</item>
-    </style>
-
-    <style name="empty_fragment_ic_search">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:contentDescription">@string/ic_big_search</item>
-    </style>
-
 
     <!--Error Fragment-->
     <style name="error_fragment_ic_attention">
@@ -124,13 +107,36 @@
         <item name="android:contentDescription">@string/refresh_button_desc</item>
     </style>
 
-    <!--RecycleView Fragment-->
+    <!--Movies List Fragment-->
+    <style name="rv_fragment_lineProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/appBlue</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
     <style name="rv_fragment_roundProgressBar" parent="android:Widget.DeviceDefault.ProgressBar">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:indeterminate">true</item>
         <item name="android:indeterminateTint">@color/appBlue</item>
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="movies_empty_list_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/additionalScreens_text_marginTop</item>
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/emptySearchText</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+    </style>
+
+    <style name="movies_list_ic_search">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!--Movie Details-->
@@ -145,8 +151,12 @@
     <style name="movie_details_poster">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-<!--        <item name="android:layout_marginTop">@dimen/vertical_margin</item>-->
-        <item name="android:contentDescription">@string/movie_poster_desc</item>
+    </style>
+
+    <style name="movie_details_poster_landscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
     </style>
 
     <style name="movie_details_film_name">
@@ -156,7 +166,18 @@
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
         <item name="android:ellipsize">end</item>
         <item name="android:fontFamily">@font/roboto</item>
-<!--        <item name="android:paddingHorizontal">@dimen/horizontal_margin</item>-->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="movie_details_film_name_landscape">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/roboto</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_large</item>
         <item name="android:textStyle">bold</item>
@@ -166,7 +187,14 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
-        <item name="android:contentDescription">@string/imdb_icon</item>
+    </style>
+
+    <style name="movie_details_poster_imdb_landscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_small</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_small</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
     </style>
 
     <style name="movie_details_poster_ic_heart">
@@ -174,7 +202,13 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_tiny</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin_tiny</item>
-        <item name="android:contentDescription">@string/ic_heart</item>
+    </style>
+
+    <style name="movie_details_poster_ic_heart_landscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin_tiny</item>
     </style>
 
     <style name="movie_details__film_rate">
@@ -187,17 +221,41 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="movie_details__film_rate_landscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_tiny</item>
+        <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="movie_details_back_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/horizontal_margin_tiny</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin_tiny</item>
-        <item name="android:contentDescription">@string/back_btn</item>
+    </style>
+
+    <style name="movie_details_back_btn_landscape">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin_tiny</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin_small</item>
     </style>
 
     <style name="movie_details_scroll_view">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_margin</item>
+    </style>
+
+    <style name="movie_details_scroll_view_landscape">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">@dimen/horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
     </style>
@@ -206,10 +264,19 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:paddingHorizontal">@dimen/paddingHorizontal_avg</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_normal</item>
         <item name="android:textStyle">italic</item>
+    </style>
 
+    <style name="movie_details_overview_landscape">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textStyle">italic</item>
     </style>
 
 </resources>

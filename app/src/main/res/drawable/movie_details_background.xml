@@ -5,7 +5,7 @@
         android:topRightRadius="10dp"/>
     <gradient
         android:startColor="@color/black"
-        android:centerColor="@color/item_desc"
+        android:centerColor="@color/backColor"
         android:endColor="@color/snackBarColor"
         android:angle="90">
     </gradient>
