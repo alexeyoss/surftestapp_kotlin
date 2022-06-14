@@ -30,7 +30,7 @@ class ErrorScreenFragment : Fragment() {
     }
 
     private fun initListeners() = with(mBinding) {
-        refreshImageButton.clicks()
+        refreshImageButton.clicks() // TODO refactor
             .onEach { navigator().launchScreen(MoviesListFragment()) }
             .launchIn(lifecycleScope)
     }

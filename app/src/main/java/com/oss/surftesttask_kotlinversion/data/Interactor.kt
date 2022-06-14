@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.data.repository
+package com.oss.surftesttask_kotlinversion.data
 
 import com.oss.surftesttask_kotlinversion.data.db.ResultDao
 import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheMapper
@@ -10,7 +10,7 @@ import com.oss.surftesttask_kotlinversion.utils.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class Repository(
+class Interactor(
     private val resultDao: ResultDao,
     private val retrofit: ApiService,
     private val resultMapper: ResultCacheMapper,
@@ -18,7 +18,7 @@ class Repository(
 ) {
     private lateinit var networkResult: List<ResultsNetworkEntity>
 
-    suspend fun getMovies(query: String? = null): Flow<DataState<List<Results>>> = flow {
+    suspend fun getMoviesFromNetwork(query: String? = null): Flow<DataState<List<Results>>> = flow {
         try {
             if (query != null && query.isNotEmpty()) {
                 networkResult = retrofit.getSearchData(
@@ -40,22 +40,32 @@ class Repository(
 
             val results = networkMapper.mapFromEntityList(networkResult)
             emit(DataState.Loading(results))
+            emit(DataState.Success(results))
 
-            // TODO refactoring
-            for (item in results) {
-                resultDao.insert(resultMapper.mapResultToEntity(item, false))
-            }
-            val cachedResults = resultDao.get()
+//            for (item in results) {
+//                resultDao.insert(resultMapper.mapResultToEntity(item, false))
+//            }
+//            val cachedResults = resultDao.get()
 //            emit(DataState.Success(resultMapper.mapFromEntityList(cachedResults)))
 
-            emit(DataState.Success(results))
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }
     }
 
+//    suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean): Flow<Boolean> = flow {
+//        val currentStatus = resultDao.getLikedMovieStatus(movieId)
+//        emit()
+//        if (!currentStatus) {
+//            resultDao.setLikedMovieStatus(movieId, isLiked)
+//        } else {
+//
+//        }
+//
+//    }
+
+
     companion object {
-        // TODO
         const val API_VERSION = "3"
         const val API_KEY = "50bd34c2f45cba21762125b1c6069573"
         const val DEFAULT_LANGUAGE = "en-US"

@@ -1,5 +1,6 @@
-package com.oss.surftesttask_kotlinversion.adapters
+package com.oss.surftesttask_kotlinversion.ui.movies_list_screen
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
     override fun getItemCount(): Int = results.size
 
     inner class MViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val mBinding by lazy { ItemMoviesListLayoutBinding.bind(itemView) }
+        private val mBinding = ItemMoviesListLayoutBinding.bind(itemView)
 
         init {
             itemView.setOnClickListener {
@@ -54,12 +55,18 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
         }
 
         private fun transformDate(date: String): String {
-            return LocalDate.parse(date, DateTimeFormatter.ofPattern(NETWORK_DATE_PATTERN)).format(
-                DateTimeFormatter.ofPattern(
-                    LOCAL_DATE_PATTERN,
-                    Locale(LOCAL_LANG)
-                )
-            ) ?: date
+            return try {
+                LocalDate.parse(date, DateTimeFormatter.ofPattern(NETWORK_DATE_PATTERN))
+                    .format(
+                        DateTimeFormatter.ofPattern(
+                            LOCAL_DATE_PATTERN,
+                            Locale(LOCAL_LANG)
+                        )
+                    )
+            } catch (e: Exception) {
+                Log.i("PARSE", "Parse error, incorrect date format $date")
+                date
+            }
         }
     }
 

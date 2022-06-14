@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.oss.surftesttask_kotlinversion.adapters.RecycleViewAdapter
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
@@ -19,7 +18,6 @@ import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFr
 import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
 import com.oss.surftesttask_kotlinversion.utils.refreshes
-import com.oss.surftesttask_kotlinversion.viewmodels.ShareViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -30,13 +28,16 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     private lateinit var mBinding: FragmentMovieListBinding
     private var mAdapter = RecycleViewAdapter(this)
 
-    private val mViewModel: ShareViewModel by activityViewModels()
+    private val mViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
+
+        mBinding.layoutViewModel = mViewModel
+        mBinding.lifecycleOwner = this
 
         initListeners()
         initRecycleView()
@@ -69,12 +70,19 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             when (dateState) {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
-//                    mAdapter.setData(dateState.data)
 
                     if (dateState.data.isNotEmpty()) {
                         mAdapter.setData(dateState.data)
+
+                        with(mBinding) {
+                            recyclerView.isVisible = true
+                            emptyMovieLayout.isVisible = false
+                        }
                     } else {
-//                        navigator().launchScreen(EmptyMoviesListFragment()) // TODO alias delivery & how to go back
+                        with(mBinding) {
+                            recyclerView.isVisible = false
+                            emptyMovieLayout.isVisible = true
+                        }
                     }
 
                 }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.oss.surftesttask_kotlinversion.data.db.TypeConverter
 
-@Entity(tableName = "liked_movies")
+@Entity(tableName = "cached_movies")
 @TypeConverters(value = [TypeConverter::class])
 data class ResultCacheEntity(
 

@@ -8,9 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 
 private fun checkMainThread() {
     check(Looper.myLooper() == Looper.getMainLooper()) {
