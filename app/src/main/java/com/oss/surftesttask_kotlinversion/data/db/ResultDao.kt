@@ -10,7 +10,8 @@ import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheEntity
 interface ResultDao {
 
     // TODO insert only new data + think about the like
-    @Insert(onConflict = OnConflictStrategy.ABORT)
+    // TODO Abort trigger the Exception in the Interactor
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(resultEntity: ResultCacheEntity): Long
 
     @Query("SELECT * FROM cached_movies")

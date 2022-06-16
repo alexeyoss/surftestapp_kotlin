@@ -71,18 +71,20 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
 
+                    mBinding.dataSize = dateState.data.size
+
                     if (dateState.data.isNotEmpty()) {
                         mAdapter.setData(dateState.data)
 
-                        with(mBinding) {
-                            recyclerView.isVisible = true
-                            emptyMovieLayout.isVisible = false
-                        }
+//                        with(mBinding) {
+//                            recyclerView.isVisible = true
+//                            emptyMovieLayout.isVisible = false
+//                        }
                     } else {
-                        with(mBinding) {
-                            recyclerView.isVisible = false
-                            emptyMovieLayout.isVisible = true
-                        }
+//                        with(mBinding) {
+//                            recyclerView.isVisible = false
+//                            emptyMovieLayout.isVisible = true
+//                        }
                     }
 
                 }
@@ -116,10 +118,14 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             }
         }
 
-
     override fun onItemClicked(result: Results) {
         navigator().publishResult(result)
         navigator().launchScreen(MovieDetailsFragment())
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // TODO
     }
 }
 

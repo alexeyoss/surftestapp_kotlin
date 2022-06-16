@@ -6,7 +6,7 @@ import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
 import com.oss.surftesttask_kotlinversion.retrofit.entities.NetworkMapper
 import com.oss.surftesttask_kotlinversion.retrofit.entities.ResultsNetworkEntity
-import com.oss.surftesttask_kotlinversion.utils.DataState
+import com.oss.surftesttask_kotlinversion.utils.DataState import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -40,14 +40,13 @@ class Interactor(
 
             val results = networkMapper.mapFromEntityList(networkResult)
             emit(DataState.Loading(results))
-            emit(DataState.Success(results))
 
 //            for (item in results) {
 //                resultDao.insert(resultMapper.mapResultToEntity(item, false))
 //            }
 //            val cachedResults = resultDao.get()
 //            emit(DataState.Success(resultMapper.mapFromEntityList(cachedResults)))
-
+            emit(DataState.Success(results))
         } catch (e: Exception) {
             emit(DataState.Error(e))
         }
