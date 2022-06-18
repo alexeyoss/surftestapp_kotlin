@@ -6,7 +6,8 @@ import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
 import com.oss.surftesttask_kotlinversion.retrofit.entities.NetworkMapper
 import com.oss.surftesttask_kotlinversion.retrofit.entities.ResultsNetworkEntity
-import com.oss.surftesttask_kotlinversion.utils.DataState import kotlinx.coroutines.delay
+import com.oss.surftesttask_kotlinversion.utils.DataState
+import com.oss.surftesttask_kotlinversion.utils.LikeState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -52,16 +53,19 @@ class Interactor(
         }
     }
 
-//    suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean): Flow<Boolean> = flow {
-//        val currentStatus = resultDao.getLikedMovieStatus(movieId)
-//        emit()
-//        if (!currentStatus) {
-//            resultDao.setLikedMovieStatus(movieId, isLiked)
-//        } else {
-//
-//        }
-//
-//    }
+    suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean): Flow<LikeState<Int>> =
+        flow {
+            try {
+                emit(LikeState.Loading)
+                val dbLikeStatus = resultDao.getLikedMovieStatus(movieId)
+                if (dbLikeStatus != isLiked) {
+                    val updatedRows = resultDao.setLikedMovieStatus(movieId, isLiked)
+                    emit(LikeState.Success(updatedRows))
+                }
+            } catch (e: Exception) {
+                emit(LikeState.Error(e))
+            }
+        }
 
 
     companion object {

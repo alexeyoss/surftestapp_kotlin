@@ -8,6 +8,7 @@ import com.oss.surftesttask_kotlinversion.data.Interactor
 import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.utils.DataState
+import com.oss.surftesttask_kotlinversion.utils.LikeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -19,11 +20,14 @@ import javax.inject.Inject
 class SharedViewModel
 @Inject
 constructor(
-    private val interactor: Interactor
+    private val interactor: Interactor,
 ) : ViewModel() {
 
     private val _dataState: MutableLiveData<DataState<List<Results>>> = MutableLiveData()
     val dataState: LiveData<DataState<List<Results>>> get() = _dataState
+
+    private val _likeState: MutableLiveData<LikeState<Int>> = MutableLiveData()
+    val likeState: LiveData<LikeState<Int>> get() = _likeState
 
     private val _queryText: MutableLiveData<String> = MutableLiveData()
     val queryText: LiveData<String> get() = _queryText
@@ -37,8 +41,8 @@ constructor(
             when (mainStateEvent) {
                 is Events.GetResultEvent -> {
                     interactor.getMoviesFromNetwork()
-                        .onEach { dateState ->
-                            _dataState.value = dateState
+                        .onEach { item ->
+                            _dataState.value = item
                         }
                         .launchIn(viewModelScope)
                 }
@@ -47,8 +51,16 @@ constructor(
 
                 is Events.SearchResultEvent -> {
                     interactor.getMoviesFromNetwork(mainStateEvent.query as String)
-                        .onEach { dateState ->
-                            _dataState.value = dateState
+                        .onEach { item ->
+                            _dataState.value = item
+                        }
+                        .launchIn(viewModelScope)
+                }
+
+                is Events.LikeMovie -> {
+                    interactor.setLikedMovieStatus(mainStateEvent.movieId, mainStateEvent.isLiked)
+                        .onEach { item ->
+                            _likeState.value = item
                         }
                         .launchIn(viewModelScope)
                 }
@@ -58,5 +70,10 @@ constructor(
 
     fun setQueryText(text: String) {
         _queryText.value = text
+    }
+
+    companion object {
+        @JvmStatic
+        private val KEY_DATA_STATE = "KEY_DATA_STATE"
     }
 }

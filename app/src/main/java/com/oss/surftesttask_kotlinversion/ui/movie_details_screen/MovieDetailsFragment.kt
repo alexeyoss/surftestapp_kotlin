@@ -67,7 +67,7 @@ class MovieDetailsFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_STATE, result)
+        outState.putParcelable(KEY_STATE, result)
     }
 
     companion object {

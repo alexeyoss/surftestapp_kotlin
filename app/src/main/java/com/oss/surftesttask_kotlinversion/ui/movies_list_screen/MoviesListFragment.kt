@@ -15,8 +15,8 @@ import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFragment
-import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.DataState
+import com.oss.surftesttask_kotlinversion.utils.LikeState
 import com.oss.surftesttask_kotlinversion.utils.refreshes
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -75,16 +75,6 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
                     if (dateState.data.isNotEmpty()) {
                         mAdapter.setData(dateState.data)
-
-//                        with(mBinding) {
-//                            recyclerView.isVisible = true
-//                            emptyMovieLayout.isVisible = false
-//                        }
-                    } else {
-//                        with(mBinding) {
-//                            recyclerView.isVisible = false
-//                            emptyMovieLayout.isVisible = true
-//                        }
                     }
 
                 }
@@ -96,6 +86,22 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 }
                 is DataState.Loading<List<Results>> -> {
                     displayProgressBar(dateState.data.size, true)
+                }
+            }
+        }
+
+        mViewModel.likeState.observe(viewLifecycleOwner) { likeState ->
+            when (likeState) {
+                is LikeState.Success<Int> -> {
+                    // display Loading = false
+                }
+
+                is LikeState.Loading -> {
+                    // display progress bar
+                }
+
+                is LikeState.Error -> {
+                    // display Loading = false
                 }
             }
         }
@@ -121,6 +127,10 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     override fun onItemClicked(result: Results) {
         navigator().publishResult(result)
         navigator().launchScreen(MovieDetailsFragment())
+    }
+
+    override fun onLikeClicked(movieId: Int) {
+        navigator().showToast(movieId.toString())
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -15,12 +15,11 @@ interface ResultDao {
     suspend fun insert(resultEntity: ResultCacheEntity): Long
 
     @Query("SELECT * FROM cached_movies")
-    suspend fun get(): List<ResultCacheEntity>
+    suspend fun getAll(): List<ResultCacheEntity>
 
     @Query("UPDATE cached_movies SET liked = :isLiked WHERE id == :movieId")
     suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean): Int
 
     @Query("SELECT liked FROM cached_movies WHERE id == :movieId")
     suspend fun getLikedMovieStatus(movieId: Int): Boolean
-
 }

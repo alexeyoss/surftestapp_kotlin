@@ -1,8 +1,8 @@
 package com.oss.surftesttask_kotlinversion.contract
 
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import java.io.Serializable
 
 typealias  ResultListener<T> = (T) -> Unit
 
@@ -16,9 +16,11 @@ interface Navigator {
 
     fun showSnackBar()
 
-    fun <T : Serializable> publishResult(result: T)
+    fun showToast(data: String)
 
-    fun <T : Serializable> listenResult(
+    fun <T : Parcelable> publishResult(result: T)
+
+    fun <T : Parcelable> listenResult(
         clazz: Class<T>,
         owner: LifecycleOwner,
         listener: ResultListener<T>

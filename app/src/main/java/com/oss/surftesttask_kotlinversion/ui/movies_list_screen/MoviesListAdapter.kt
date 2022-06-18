@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.databinding.ItemMoviesListLayoutBinding
 import com.oss.surftesttask_kotlinversion.models.Results
-import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
 import com.oss.surftesttask_kotlinversion.utils.Constants
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -29,6 +28,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
 
     override fun onBindViewHolder(holder: MViewHolder, position: Int) {
         holder.bindData(results[position])
+        holder.setLikeClickListener()
     }
 
     override fun getItemCount(): Int = results.size
@@ -51,7 +51,14 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
             title.text = results.title
             overview.text = results.overview
             date.text = transformDate(results.releaseDate)
-            icHeart.setBackgroundResource(R.drawable.ic_heart_empty_small)
+            icHeart.setBackgroundResource(R.drawable.ic_heart_empty_small) // TODO
+        }
+
+        fun setLikeClickListener() = with(mBinding) {
+            icHeart.setOnClickListener { heartIcon ->
+                heartIcon.setBackgroundResource(R.drawable.ic_heart_fill_small)
+                mClickListener.onLikeClicked(results[absoluteAdapterPosition].id)
+            }
         }
 
         private fun transformDate(date: String): String {
