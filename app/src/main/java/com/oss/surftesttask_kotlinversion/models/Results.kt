@@ -19,7 +19,7 @@ data class Results(
     var isVideoisVideo: Boolean,
     var voteAverage: Float,
     var voteCount: Int,
-    var liked: Boolean = DEFAULT_LIKED
+    var liked: Boolean
 ) : Parcelable {
 
     companion object {

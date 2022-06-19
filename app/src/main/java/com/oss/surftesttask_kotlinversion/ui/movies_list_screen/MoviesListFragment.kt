@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.onEach
 class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private lateinit var mBinding: FragmentMovieListBinding
-    private var mAdapter = RecycleViewAdapter(this)
+    private var mAdapter = MoviesListAdapter(this)
 
     private val mViewModel: SharedViewModel by activityViewModels()
 
@@ -92,17 +92,18 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
         mViewModel.likeState.observe(viewLifecycleOwner) { likeState ->
             when (likeState) {
-                is LikeState.Success<Int> -> {
-                    // display Loading = false
+                is LikeState.Success -> {
+                    displayProgressBar(visible = false)
+
+                    // TODO Adapter UI refresh
+                    navigator().likeOperationMade() // TODO need to add parameter Remove OR Add
                 }
 
                 is LikeState.Loading -> {
-                    // display progress bar
+                    displayProgressBar(0, visible = false)
                 }
 
-                is LikeState.Error -> {
-                    // display Loading = false
-                }
+                is LikeState.Error -> Unit
             }
         }
     }
@@ -124,18 +125,13 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             }
         }
 
-    override fun onItemClicked(result: Results) {
+    override fun onViewClicked(result: Results) {
         navigator().publishResult(result)
         navigator().launchScreen(MovieDetailsFragment())
     }
 
-    override fun onLikeClicked(movieId: Int) {
-        navigator().showToast(movieId.toString())
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        // TODO
+    override fun onLikeClicked(movieId: Int, isLiked: Boolean) {
+        mViewModel.setStateEvent(Events.LikeMovie(movieId, isLiked))
     }
 }
 

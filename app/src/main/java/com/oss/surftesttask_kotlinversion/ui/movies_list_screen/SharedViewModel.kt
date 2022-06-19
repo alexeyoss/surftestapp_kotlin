@@ -40,7 +40,7 @@ constructor(
         viewModelScope.launch(Dispatchers.IO) {
             when (mainStateEvent) {
                 is Events.GetResultEvent -> {
-                    interactor.getMoviesFromNetwork()
+                    interactor.getCachedMoviesFromDb()
                         .onEach { item ->
                             _dataState.value = item
                         }
@@ -50,7 +50,7 @@ constructor(
                 is Events.ErrorEvent -> Unit
 
                 is Events.SearchResultEvent -> {
-                    interactor.getMoviesFromNetwork(mainStateEvent.query as String)
+                    interactor.getCachedMoviesFromDb(mainStateEvent.query as String)
                         .onEach { item ->
                             _dataState.value = item
                         }
@@ -70,10 +70,5 @@ constructor(
 
     fun setQueryText(text: String) {
         _queryText.value = text
-    }
-
-    companion object {
-        @JvmStatic
-        private val KEY_DATA_STATE = "KEY_DATA_STATE"
     }
 }

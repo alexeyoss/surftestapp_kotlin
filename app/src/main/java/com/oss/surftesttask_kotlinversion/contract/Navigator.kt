@@ -8,7 +8,7 @@ typealias  ResultListener<T> = (T) -> Unit
 
 fun Fragment.navigator(): Navigator = requireActivity() as Navigator
 
-interface Navigator {
+interface Navigator : LikeHandler {
 
     fun launchScreen(screen: Fragment)
 
@@ -16,7 +16,7 @@ interface Navigator {
 
     fun showSnackBar()
 
-    fun showToast(data: String)
+    override fun likeOperationMade()
 
     fun <T : Parcelable> publishResult(result: T)
 

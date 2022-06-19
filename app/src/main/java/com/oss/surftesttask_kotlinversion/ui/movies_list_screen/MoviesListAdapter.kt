@@ -15,8 +15,8 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
-    RecyclerView.Adapter<RecycleViewAdapter.MViewHolder>() {
+class MoviesListAdapter(val mClickListener: AdapterOnClickListener) :
+    RecyclerView.Adapter<MoviesListAdapter.MViewHolder>() {
 
     private var results: List<Results> = ArrayList()
 
@@ -28,7 +28,7 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
 
     override fun onBindViewHolder(holder: MViewHolder, position: Int) {
         holder.bindData(results[position])
-        holder.setLikeClickListener()
+        holder.initListeners(results[position])
     }
 
     override fun getItemCount(): Int = results.size
@@ -36,29 +36,32 @@ class RecycleViewAdapter(val mClickListener: AdapterOnClickListener) :
     inner class MViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val mBinding = ItemMoviesListLayoutBinding.bind(itemView)
 
-        init {
-            itemView.setOnClickListener {
-                mClickListener.onItemClicked(results[absoluteAdapterPosition])
-            }
-        }
-
         fun bindData(results: Results) = with(mBinding) {
             Glide.with(itemView.context)
                 .load(results.posterPath)
-                .placeholder(Constants.DEFAULT_PICTURE)
+                .placeholder(Constants.DEFAULT_POSTER)
                 .centerCrop()
                 .into(poster)
             title.text = results.title
             overview.text = results.overview
             date.text = transformDate(results.releaseDate)
-            icHeart.setBackgroundResource(R.drawable.ic_heart_empty_small) // TODO
+
+            if (results.liked) icHeart.setBackgroundResource(R.drawable.ic_heart_fill_small)
+            else icHeart.setBackgroundResource(R.drawable.ic_heart_empty_small)
         }
 
-        fun setLikeClickListener() = with(mBinding) {
+        fun initListeners(results: Results) = with(mBinding) {
             icHeart.setOnClickListener { heartIcon ->
-                heartIcon.setBackgroundResource(R.drawable.ic_heart_fill_small)
-                mClickListener.onLikeClicked(results[absoluteAdapterPosition].id)
+                if (results.liked) heartIcon.setBackgroundResource(R.drawable.ic_heart_empty_small)
+                else heartIcon.setBackgroundResource(R.drawable.ic_heart_fill_small)
+
+                mClickListener.onLikeClicked(results.id, !results.liked)
             }
+
+            itemView.setOnClickListener {
+                mClickListener.onViewClicked(results)
+            }
+
         }
 
         private fun transformDate(date: String): String {

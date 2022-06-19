@@ -55,7 +55,7 @@ class MovieDetailsFragment : Fragment() {
     private fun initViews(source: Results) = with(mBinding) {
         Glide.with(root)
             .load(source.backdropPath)
-            .placeholder(Constants.DEFAULT_PICTURE)
+            .placeholder(Constants.DEFAULT_POSTER)
             .centerCrop()
             .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
             .into(poster)

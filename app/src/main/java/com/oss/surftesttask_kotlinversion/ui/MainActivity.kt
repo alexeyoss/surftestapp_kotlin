@@ -86,12 +86,8 @@ class MainActivity : AppCompatActivity(), Navigator {
         ).show()
     }
 
-    override fun showToast(data: String) {
-        Toast.makeText(
-            this,
-            "RowsUpdated $data",
-            Toast.LENGTH_SHORT
-        ).show()
+    override fun likeOperationMade() {
+        Toast.makeText(this, Constants.LIKE_TOAST_TEXT, Toast.LENGTH_SHORT).show()
     }
 
     override fun <T : Parcelable> publishResult(result: T) {

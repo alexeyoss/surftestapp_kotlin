@@ -9,16 +9,17 @@ import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheEntity
 @Dao
 interface ResultDao {
 
-    // TODO insert only new data + think about the like
-    // TODO Abort trigger the Exception in the Interactor
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(resultEntity: ResultCacheEntity): Long
 
     @Query("SELECT * FROM cached_movies")
     suspend fun getAll(): List<ResultCacheEntity>
 
+    @Query("SELECT * FROM cached_movies WHERE id IN (:movieIDs)")
+    suspend fun getByIDs(movieIDs: List<Int>): List<ResultCacheEntity>
+
     @Query("UPDATE cached_movies SET liked = :isLiked WHERE id == :movieId")
-    suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean): Int
+    suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean)
 
     @Query("SELECT liked FROM cached_movies WHERE id == :movieId")
     suspend fun getLikedMovieStatus(movieId: Int): Boolean
