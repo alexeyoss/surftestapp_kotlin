@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
+import com.oss.surftesttask_kotlinversion.models.States.DataState
+import com.oss.surftesttask_kotlinversion.models.States.LikeState
 import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFragment
-import com.oss.surftesttask_kotlinversion.utils.DataState
-import com.oss.surftesttask_kotlinversion.utils.LikeState
 import com.oss.surftesttask_kotlinversion.utils.refreshes
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -35,10 +35,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
-
-        mBinding.layoutViewModel = mViewModel
-        mBinding.lifecycleOwner = this
-
+        
         initListeners()
         initRecycleView()
         subscribeObservers()
@@ -71,7 +68,10 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
 
-                    mBinding.dataSize = dateState.data.size
+                    with(mBinding) {
+                        dataSize = dateState.data.size
+                        query = mViewModel.queryText.value
+                    }
 
                     if (dateState.data.isNotEmpty()) {
                         mAdapter.setData(dateState.data)

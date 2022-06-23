@@ -4,11 +4,11 @@ import com.oss.surftesttask_kotlinversion.data.db.ResultDao
 import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheEntity
 import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheMapper
 import com.oss.surftesttask_kotlinversion.models.Results
+import com.oss.surftesttask_kotlinversion.models.States.DataState
+import com.oss.surftesttask_kotlinversion.models.States.LikeState
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
 import com.oss.surftesttask_kotlinversion.retrofit.entities.NetworkMapper
 import com.oss.surftesttask_kotlinversion.retrofit.entities.ResultsNetworkEntity
-import com.oss.surftesttask_kotlinversion.utils.DataState
-import com.oss.surftesttask_kotlinversion.utils.LikeState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

@@ -1,4 +1,4 @@
-package com.oss.surftesttask_kotlinversion.utils
+package com.oss.surftesttask_kotlinversion.models.States
 
 sealed class LikeState<out R> {
     object Success : LikeState<Nothing>()

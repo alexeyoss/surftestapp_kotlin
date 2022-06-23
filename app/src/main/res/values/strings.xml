@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SurfTestTask_KotlinVersion</string>
+    <string name="app_name">Movies reference</string>
     <string name="movie_poster_desc">Movie poster</string>
     <string name="text_example">Text Example</string>
     <string name="date_example">1 января 2017</string>

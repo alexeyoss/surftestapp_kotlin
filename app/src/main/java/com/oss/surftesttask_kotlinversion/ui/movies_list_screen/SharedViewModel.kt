@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.oss.surftesttask_kotlinversion.data.Interactor
+import com.oss.surftesttask_kotlinversion.di.IoDispatchers
 import com.oss.surftesttask_kotlinversion.models.Results
+import com.oss.surftesttask_kotlinversion.models.States.DataState
+import com.oss.surftesttask_kotlinversion.models.States.LikeState
 import com.oss.surftesttask_kotlinversion.ui.Events
-import com.oss.surftesttask_kotlinversion.utils.DataState
-import com.oss.surftesttask_kotlinversion.utils.LikeState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -21,6 +22,8 @@ class SharedViewModel
 @Inject
 constructor(
     private val interactor: Interactor,
+    @IoDispatchers
+    private val IoDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     private val _dataState: MutableLiveData<DataState<List<Results>>> = MutableLiveData()
@@ -37,7 +40,7 @@ constructor(
     }
 
     fun setStateEvent(mainStateEvent: Events<Any?>) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(IoDispatcher) {
             when (mainStateEvent) {
                 is Events.GetResultEvent -> {
                     interactor.getCachedMoviesFromDb()
