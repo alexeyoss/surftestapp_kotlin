@@ -64,17 +64,14 @@ constructor(
                     interactor.setLikedMovieStatus(mainStateEvent.movieId, mainStateEvent.isLiked)
                         .onEach { item ->
                             _likeState.value = item
-                            updateData()
+
+                            if (queryText.value.isNullOrEmpty()) setStateEvent(Events.GetResultEvent)
+                            else setStateEvent(Events.SearchResultEvent(queryText))
                         }
                         .launchIn(viewModelScope)
                 }
             }
         }
-    }
-
-    private fun updateData() {
-        if (queryText.value.isNullOrEmpty()) setStateEvent(Events.GetResultEvent)
-        else setStateEvent(Events.SearchResultEvent(queryText))
     }
 
     fun setQueryText(text: String) {
