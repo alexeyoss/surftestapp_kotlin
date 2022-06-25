@@ -16,8 +16,6 @@ interface Navigator : LikeHandler {
 
     fun showSnackBar()
 
-    override fun likeOperationMade()
-
     fun <T : Parcelable> publishResult(result: T)
 
     fun <T : Parcelable> listenResult(
@@ -25,4 +23,8 @@ interface Navigator : LikeHandler {
         owner: LifecycleOwner,
         listener: ResultListener<T>
     )
+
+    override fun addToFavorite()
+
+    override fun removeFromFavorite()
 }

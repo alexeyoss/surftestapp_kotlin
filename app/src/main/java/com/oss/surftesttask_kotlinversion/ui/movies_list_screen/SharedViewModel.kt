@@ -29,8 +29,8 @@ constructor(
     private val _dataState: MutableLiveData<DataState<List<Results>>> = MutableLiveData()
     val dataState: LiveData<DataState<List<Results>>> get() = _dataState
 
-    private val _likeState: MutableLiveData<LikeState<Int>> = MutableLiveData()
-    val likeState: LiveData<LikeState<Int>> get() = _likeState
+    private val _likeState: MutableLiveData<LikeState<Any?>> = MutableLiveData()
+    val likeState: LiveData<LikeState<Any?>> get() = _likeState
 
     private val _queryText: MutableLiveData<String> = MutableLiveData()
     val queryText: LiveData<String> get() = _queryText
@@ -64,11 +64,17 @@ constructor(
                     interactor.setLikedMovieStatus(mainStateEvent.movieId, mainStateEvent.isLiked)
                         .onEach { item ->
                             _likeState.value = item
+                            updateData()
                         }
                         .launchIn(viewModelScope)
                 }
             }
         }
+    }
+
+    private fun updateData() {
+        if (queryText.value.isNullOrEmpty()) setStateEvent(Events.GetResultEvent)
+        else setStateEvent(Events.SearchResultEvent(queryText))
     }
 
     fun setQueryText(text: String) {

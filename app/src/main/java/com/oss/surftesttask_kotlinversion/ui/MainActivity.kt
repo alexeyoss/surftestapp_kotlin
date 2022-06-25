@@ -86,8 +86,12 @@ class MainActivity : AppCompatActivity(), Navigator {
         ).show()
     }
 
-    override fun likeOperationMade() {
-        Toast.makeText(this, Constants.LIKE_TOAST_TEXT, Toast.LENGTH_SHORT).show()
+    override fun addToFavorite() {
+        Toast.makeText(this, Constants.ADD_TO_FAVORITE_TOAST_TEXT, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun removeFromFavorite() {
+        Toast.makeText(this, Constants.REMOVE_FROM_FAVORITE_TOAST_TEXT, Toast.LENGTH_SHORT).show()
     }
 
     override fun <T : Parcelable> publishResult(result: T) {

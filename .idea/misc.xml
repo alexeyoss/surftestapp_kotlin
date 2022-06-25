@@ -57,8 +57,10 @@
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/layout_custom_snackbar.xml" value="0.253125" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/snack_bar_layout.xml" value="0.253125" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/snakcbar_layout.xml" value="0.253125" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/view_custom_snackbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
+        <entry key="..\:/tools/android-sdk/platforms/android-31/data/res/layout/auto_complete_list.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

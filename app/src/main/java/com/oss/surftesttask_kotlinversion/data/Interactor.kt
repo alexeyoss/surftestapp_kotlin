@@ -40,7 +40,9 @@ class Interactor(
                         WITH_WATCH_MONETIZATION_TYPES
                     ).results
                 }
-
+                //TODO Need to streamline the caching process, cause when we update the UI after
+                // LIKE operation, we trigger the update by running the full network request, it's
+                // illogical at the resources point
                 val resultsFromNetworkModel = networkMapper.mapFromEntityList(networkResult)
                 emit(DataState.Loading(resultsFromNetworkModel))
 
@@ -74,14 +76,17 @@ class Interactor(
         }
     }
 
-    suspend fun setLikedMovieStatus(movieId: Int, isLiked: Boolean): Flow<LikeState<Int>> =
+    suspend fun setLikedMovieStatus(
+        movieId: Int,
+        isLiked: Boolean
+    ): Flow<LikeState<Any?>> =
         flow {
             try {
                 emit(LikeState.Loading)
                 val dbLikeStatus = resultDao.getLikedMovieStatus(movieId)
                 if (dbLikeStatus != isLiked) {
                     resultDao.setLikedMovieStatus(movieId, isLiked)
-                    emit(LikeState.Success) // TODO system not guarantee that the transaction will have a success
+                    emit(LikeState.Success(isLiked))
                 }
             } catch (e: Exception) {
                 emit(LikeState.Error(e))

@@ -35,7 +35,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
-        
+
         initListeners()
         initRecycleView()
         subscribeObservers()
@@ -52,6 +52,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     }
 
     private fun initListeners() = with(mBinding) {
+        // TODO flexible update cause it make the INITIALIZING request (without query parameter)
         swipeRefreshLayout
             .refreshes()
             .onEach {
@@ -95,15 +96,17 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 is LikeState.Success -> {
                     displayProgressBar(visible = false)
 
-                    // TODO Adapter UI refresh
-                    navigator().likeOperationMade() // TODO need to add parameter Remove OR Add
+                    if (likeState.data) navigator().addToFavorite()
+                    else navigator().removeFromFavorite()
                 }
 
                 is LikeState.Loading -> {
                     displayProgressBar(0, visible = false)
                 }
 
-                is LikeState.Error -> Unit
+                is LikeState.Error -> {
+                    navigator().showSnackBar() // TODO streamline the custom snackBar view, need to set a custom text
+                }
             }
         }
     }

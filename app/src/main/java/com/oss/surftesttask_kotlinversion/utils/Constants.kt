@@ -8,6 +8,7 @@ object Constants {
     const val BASE_URL = "https://api.themoviedb.org"
     const val DEFAULT_POSTER = R.drawable.ic_default_poster
     const val SNACKBAR_TEXT = "Проверьте соединение с интернетом \nи попробуйте еще раз"
-    const val LIKE_TOAST_TEXT = "The film added to your \n\"Favorites list\""
+    const val ADD_TO_FAVORITE_TOAST_TEXT = "The film added to your \n\"Favorites list\""
+    const val REMOVE_FROM_FAVORITE_TOAST_TEXT = "The film added to your \n\"Favorites list\""
 
 }
