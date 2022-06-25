@@ -27,6 +27,7 @@
         <entry key="..\:/Users/Public/SurfTestTask_KotlinVersion/app/src/main/res/layout/fragment_search.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/SurfTestTask_KotlinVersion/app/src/main/res/layout/item_movies_list_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/SurfTestTask_KotlinVersion/app/src/main/res/layout/rv_item_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_calendar.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_film_svgrepo_com.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_empty_big.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_empty_small.xml" value="0.2475" />
@@ -34,6 +35,8 @@
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_heart_fill_small.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable-v24/ic_refresh.xml" value="0.2475" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/circle.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/ic_back_button.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/ic_default_poster.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/drawable/ic_default_poster_black_background.xml" value="0.2475" />
@@ -47,15 +50,17 @@
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_empty_movie_list.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_error_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_movie_details.xml" value="0.1" />
-        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_movie_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_movie_list.xml" value="0.1" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/fragment_search.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/item_custom_snackbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/item_movies_list_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/layout_custom_snackbar.xml" value="0.253125" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/snack_bar_layout.xml" value="0.253125" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/snakcbar_layout.xml" value="0.253125" />
+        <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/layout/view_custom_snackbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2475" />
         <entry key="..\:/Users/Public/surftestapp_kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
+        <entry key="..\:/tools/android-sdk/platforms/android-31/data/res/layout/auto_complete_list.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

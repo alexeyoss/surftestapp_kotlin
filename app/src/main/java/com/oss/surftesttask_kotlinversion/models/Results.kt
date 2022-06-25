@@ -1,7 +1,9 @@
 package com.oss.surftesttask_kotlinversion.models
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Results(
     var isAdult: Boolean,
     var backdropPath: String,
@@ -17,8 +19,8 @@ data class Results(
     var isVideoisVideo: Boolean,
     var voteAverage: Float,
     var voteCount: Int,
-    var liked: Boolean = DEFAULT_LIKED
-) : Serializable {
+    var liked: Boolean
+) : Parcelable {
 
     companion object {
         const val DEFAULT_LIKED = false

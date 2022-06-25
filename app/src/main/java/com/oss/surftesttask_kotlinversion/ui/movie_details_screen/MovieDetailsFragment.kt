@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieDetailsBinding
 import com.oss.surftesttask_kotlinversion.models.Results
@@ -32,7 +33,6 @@ class MovieDetailsFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null) {
             result = savedInstanceState.getSerializable(KEY_STATE) as Results
             initViews(result)
@@ -49,13 +49,17 @@ class MovieDetailsFragment : Fragment() {
         backBtn.setOnClickListener {
             navigator().goBack()
         }
+
+        icHeart.setOnClickListener {
+
+        }
     }
 
 
     private fun initViews(source: Results) = with(mBinding) {
         Glide.with(root)
             .load(source.backdropPath)
-            .placeholder(Constants.DEFAULT_PICTURE)
+            .placeholder(Constants.DEFAULT_POSTER)
             .centerCrop()
             .apply(RequestOptions.bitmapTransform(RoundedCorners(10)))
             .into(poster)
@@ -63,11 +67,14 @@ class MovieDetailsFragment : Fragment() {
         filmName.text = source.title
         filmRate.text = source.voteAverage.toString()
         overview.text = source.overview
+
+        if (source.liked) icHeart.setBackgroundResource(R.drawable.ic_heart_fill_big)
+        else icHeart.setBackgroundResource(R.drawable.ic_heart_empty_big)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_STATE, result)
+        outState.putParcelable(KEY_STATE, result)
     }
 
     companion object {

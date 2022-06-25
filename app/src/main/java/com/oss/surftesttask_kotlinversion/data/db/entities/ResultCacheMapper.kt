@@ -24,7 +24,8 @@ class ResultCacheMapper
             title = entity.title,
             isVideoisVideo = entity.isVideoisVideo,
             voteAverage = entity.voteAverage,
-            voteCount = entity.voteCount
+            voteCount = entity.voteCount,
+            liked = entity.liked
         )
     }
 

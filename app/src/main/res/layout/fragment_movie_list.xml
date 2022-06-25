@@ -5,9 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="layoutViewModel"
-            type="com.oss.surftesttask_kotlinversion.ui.movies_list_screen.SharedViewModel" />
+            name="dataSize"
+            type="Integer" />
+
+        <variable
+            name="query"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +36,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="@{dataSize > 0 ? View.VISIBLE : View.GONE }"
                 tools:listitem="@layout/item_movies_list_layout" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -53,7 +60,7 @@
             android:id="@+id/empty_movie_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="@{dataSize == 0 &amp; query != null ? View.VISIBLE : View.GONE, default=gone }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +80,7 @@
             <TextView
                 android:id="@+id/tv_emptySearch"
                 style="@style/movies_empty_list_text"
-                android:text='@{"По запросу \"" + layoutViewModel.queryText+ "\"" + "\n ничего не найдено"}'
+                android:text='@{"По запросу \"" + query + "\"" + "\n ничего не найдено"}'
                 app:layout_constraintEnd_toEndOf="@+id/ic_search"
                 app:layout_constraintStart_toStartOf="@+id/ic_search"
                 app:layout_constraintTop_toBottomOf="@+id/ic_search" />

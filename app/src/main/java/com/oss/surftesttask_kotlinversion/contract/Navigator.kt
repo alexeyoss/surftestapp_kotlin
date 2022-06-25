@@ -1,14 +1,14 @@
 package com.oss.surftesttask_kotlinversion.contract
 
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
-import java.io.Serializable
 
 typealias  ResultListener<T> = (T) -> Unit
 
 fun Fragment.navigator(): Navigator = requireActivity() as Navigator
 
-interface Navigator {
+interface Navigator : LikeHandler {
 
     fun launchScreen(screen: Fragment)
 
@@ -16,11 +16,15 @@ interface Navigator {
 
     fun showSnackBar()
 
-    fun <T : Serializable> publishResult(result: T)
+    fun <T : Parcelable> publishResult(result: T)
 
-    fun <T : Serializable> listenResult(
+    fun <T : Parcelable> listenResult(
         clazz: Class<T>,
         owner: LifecycleOwner,
         listener: ResultListener<T>
     )
+
+    override fun addToFavorite()
+
+    override fun removeFromFavorite()
 }

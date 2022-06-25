@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.oss.surftesttask_kotlinversion.contract.navigator
 import com.oss.surftesttask_kotlinversion.databinding.FragmentMovieListBinding
 import com.oss.surftesttask_kotlinversion.models.Results
+import com.oss.surftesttask_kotlinversion.models.States.DataState
+import com.oss.surftesttask_kotlinversion.models.States.LikeState
 import com.oss.surftesttask_kotlinversion.ui.Events
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFragment
-import com.oss.surftesttask_kotlinversion.utils.AdapterOnClickListener
-import com.oss.surftesttask_kotlinversion.utils.DataState
 import com.oss.surftesttask_kotlinversion.utils.refreshes
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.onEach
 class MoviesListFragment : Fragment(), AdapterOnClickListener {
 
     private lateinit var mBinding: FragmentMovieListBinding
-    private var mAdapter = RecycleViewAdapter(this)
+    private var mAdapter = MoviesListAdapter(this)
 
     private val mViewModel: SharedViewModel by activityViewModels()
 
@@ -35,9 +35,6 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
         savedInstanceState: Bundle?
     ): View {
         mBinding = FragmentMovieListBinding.inflate(inflater, container, false)
-
-        mBinding.layoutViewModel = mViewModel
-        mBinding.lifecycleOwner = this
 
         initListeners()
         initRecycleView()
@@ -55,6 +52,7 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
     }
 
     private fun initListeners() = with(mBinding) {
+        // TODO flexible update cause it make the INITIALIZING request (without query parameter)
         swipeRefreshLayout
             .refreshes()
             .onEach {
@@ -71,18 +69,13 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 is DataState.Success<List<Results>> -> {
                     displayProgressBar(visible = false)
 
+                    with(mBinding) {
+                        dataSize = dateState.data.size
+                        query = mViewModel.queryText.value
+                    }
+
                     if (dateState.data.isNotEmpty()) {
                         mAdapter.setData(dateState.data)
-
-                        with(mBinding) {
-                            recyclerView.isVisible = true
-                            emptyMovieLayout.isVisible = false
-                        }
-                    } else {
-                        with(mBinding) {
-                            recyclerView.isVisible = false
-                            emptyMovieLayout.isVisible = true
-                        }
                     }
 
                 }
@@ -94,6 +87,25 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
                 }
                 is DataState.Loading<List<Results>> -> {
                     displayProgressBar(dateState.data.size, true)
+                }
+            }
+        }
+
+        mViewModel.likeState.observe(viewLifecycleOwner) { likeState ->
+            when (likeState) {
+                is LikeState.Success -> {
+                    displayProgressBar(visible = false)
+
+                    if (likeState.data) navigator().addToFavorite()
+                    else navigator().removeFromFavorite()
+                }
+
+                is LikeState.Loading -> {
+                    displayProgressBar(0, visible = false)
+                }
+
+                is LikeState.Error -> {
+                    navigator().showSnackBar() // TODO streamline the custom snackBar view, need to set a custom text
                 }
             }
         }
@@ -116,10 +128,13 @@ class MoviesListFragment : Fragment(), AdapterOnClickListener {
             }
         }
 
-
-    override fun onItemClicked(result: Results) {
+    override fun onViewClicked(result: Results) {
         navigator().publishResult(result)
         navigator().launchScreen(MovieDetailsFragment())
+    }
+
+    override fun onLikeClicked(movieId: Int, isLiked: Boolean) {
+        mViewModel.setStateEvent(Events.LikeMovie(movieId, isLiked))
     }
 }
 

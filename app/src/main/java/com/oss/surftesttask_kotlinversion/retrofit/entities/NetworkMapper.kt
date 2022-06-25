@@ -24,7 +24,8 @@ constructor() : EntityMapper<ResultsNetworkEntity, Results> {
             title = entity.title,
             isVideoisVideo = entity.isVideoisVideo,
             voteAverage = entity.voteAverage,
-            voteCount = entity.voteCount
+            voteCount = entity.voteCount,
+            liked = DEFAULT_LIKE
         )
     }
 
@@ -49,5 +50,10 @@ constructor() : EntityMapper<ResultsNetworkEntity, Results> {
 
     fun mapFromEntityList(entities: List<ResultsNetworkEntity>): List<Results> {
         return entities.map { mapResultFromEntity(it) }
+    }
+
+    companion object {
+        @JvmStatic
+        private val DEFAULT_LIKE = false
     }
 }

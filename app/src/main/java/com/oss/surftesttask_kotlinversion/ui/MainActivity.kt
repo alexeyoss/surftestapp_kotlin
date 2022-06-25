@@ -1,7 +1,9 @@
 package com.oss.surftesttask_kotlinversion.ui
 
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -13,6 +15,7 @@ import com.oss.surftesttask_kotlinversion.R
 import com.oss.surftesttask_kotlinversion.contract.Navigator
 import com.oss.surftesttask_kotlinversion.contract.ResultListener
 import com.oss.surftesttask_kotlinversion.databinding.ActivityMainBinding
+import com.oss.surftesttask_kotlinversion.models.Results
 import com.oss.surftesttask_kotlinversion.ui.custom_snackbar.CustomSnackBar
 import com.oss.surftesttask_kotlinversion.ui.error_screen.ErrorScreenFragment
 import com.oss.surftesttask_kotlinversion.ui.movie_details_screen.MovieDetailsFragment
@@ -22,7 +25,6 @@ import com.oss.surftesttask_kotlinversion.utils.Constants
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentDataContainer
 import com.oss.surftesttask_kotlinversion.utils.replaceFragmentSearchContainer
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.Serializable
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), Navigator {
@@ -84,14 +86,22 @@ class MainActivity : AppCompatActivity(), Navigator {
         ).show()
     }
 
-    override fun <T : Serializable> publishResult(result: T) {
+    override fun addToFavorite() {
+        Toast.makeText(this, Constants.ADD_TO_FAVORITE_TOAST_TEXT, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun removeFromFavorite() {
+        Toast.makeText(this, Constants.REMOVE_FROM_FAVORITE_TOAST_TEXT, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun <T : Parcelable> publishResult(result: T) {
         supportFragmentManager.setFragmentResult(
             result::class.java.name,
             bundleOf(KEY_RESULT to result)
         )
     }
 
-    override fun <T : Serializable> listenResult(
+    override fun <T : Parcelable> listenResult(
         clazz: Class<T>,
         owner: LifecycleOwner,
         listener: ResultListener<T>
@@ -100,7 +110,7 @@ class MainActivity : AppCompatActivity(), Navigator {
             clazz.name,
             owner,
             FragmentResultListener { _, bundle ->
-                listener.invoke(bundle.getSerializable(KEY_RESULT) as T)
+                listener.invoke(bundle.getParcelable<Results>(KEY_RESULT) as T)
             })
     }
 

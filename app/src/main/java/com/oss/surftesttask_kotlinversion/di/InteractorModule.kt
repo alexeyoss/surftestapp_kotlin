@@ -1,8 +1,8 @@
 package com.oss.surftesttask_kotlinversion.di
 
+import com.oss.surftesttask_kotlinversion.data.Interactor
 import com.oss.surftesttask_kotlinversion.data.db.ResultDao
 import com.oss.surftesttask_kotlinversion.data.db.entities.ResultCacheMapper
-import com.oss.surftesttask_kotlinversion.data.Interactor
 import com.oss.surftesttask_kotlinversion.retrofit.ApiService
 import com.oss.surftesttask_kotlinversion.retrofit.entities.NetworkMapper
 import dagger.Module
@@ -13,19 +13,19 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object RepositoryModule {
+object InteractorModule {
 
     @Singleton
     @Provides
-    fun provideResultCacheMapper():ResultCacheMapper = ResultCacheMapper()
+    fun provideResultCacheMapper(): ResultCacheMapper = ResultCacheMapper()
 
     @Singleton
     @Provides
-    fun provideNetworkMapper():NetworkMapper = NetworkMapper()
+    fun provideNetworkMapper(): NetworkMapper = NetworkMapper()
 
     @Singleton
     @Provides
-    fun provideRepository(
+    fun provideInteractor(
         resultDao: ResultDao,
         retrofit: ApiService,
         resultMapper: ResultCacheMapper,
